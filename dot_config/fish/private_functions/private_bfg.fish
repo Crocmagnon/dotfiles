@@ -1,3 +1,3 @@
 function bfg
-	java -jar ~/bin/bfg-1.12.16.jar $args
+	java -jar $HOME/bin/bfg.jar $args
 end
