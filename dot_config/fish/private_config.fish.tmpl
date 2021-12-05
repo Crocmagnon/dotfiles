@@ -6,7 +6,7 @@ set -gx HOMEBREW_BINTRAY_USER "crocmagnon"
 set -gx HOMEBREW_BINTRAY_KEY {{ (bitwardenFields "item" "Bintray").fish_key.value | quote }}
 set -gx GOPATH $HOME/Projects/golang
 set -gx LANG en_US.UTF-8
-set -gx KUBECONFIG $HOME/.kube/config-njj.yml:$HOME/.kube/config-kube-sso.yml
+set -gx KUBECONFIG $HOME/.kube/config-njj.yml:$HOME/.kube/config-kube-sso.yml:$HOME/.kube/config.yaml
 # Also: $HOME/.kube/config-mt.yml:$HOME/.kube/config-itsf-test.yml
 set -gx BAT_THEME "Solarized (dark)"
 set -gx SCW_SECRET_TOKEN {{ (bitwardenFields "item" "console.scaleway.com").fish_secret_token.value | quote }}
