@@ -1,4 +1,4 @@
 # Defined interactively
-function klogs
-stern $argv
+function klogs --wraps=stern
+stern --tail=50 $argv
 end
