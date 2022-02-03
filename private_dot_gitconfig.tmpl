@@ -1,0 +1,66 @@
+[user]
+    name = Gabriel Augendre
+    email = gabriel@augendre.info
+[color]
+    ui = true
+    status = auto
+    branch = auto
+    diff = auto
+    interactive = auto
+[push]
+    default = simple
+[alias]
+    ci = commit
+    cp = cherry-pick
+    co = checkout
+    cob = switch -c
+    br = branch
+    pul = pull
+    pus = push
+    fe = fetch
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    gl = log --graph --pretty=format:'%C(auto)%h %C(bold blue)<%an>%Creset%C(auto) (%G?) %d %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+    wtf = log --pretty=tformat:\"%C(auto,yellow)%h%C(auto)%d%C(auto,reset) by %C(auto,blue)%cn%C(auto,reset), %C(auto,cyan)%ar%C(auto,reset)%n %s%n\" --stat
+    s = status -sb
+    ign = ! "curl -L -s https://www.gitignore.io/api/$@"
+    syn = ! "git pull --rebase && git push"
+    gone = ! "git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D"
+    praise = blame
+    pushbranch = ! "git push -u origin $(git rev-parse --abbrev-ref HEAD)"
+    pushu = pushbranch
+    sw = switch
+    swc = switch
+    balance = blame
+    tagam = ! "f() { git tag -a $1 -m \"$1\"; }; f"
+    pushtag = push --follow-tags
+[core]
+    editor = vim
+    attributesfile = /Users/gaugendre/.gitattributes
+    autocrlf = input
+    pager = less
+[sendemail]
+    smtpserver = smtp.migadu.com
+    smtpuser = {{ (bitwarden "item" "Migadu").login.username }}
+    smtpencryption = ssl
+    smtpserverport = 465
+    smtppass = {{ (bitwarden "item" "Migadu").login.password | quote }}
+    confirm = auto
+[diff "color"]
+    textconv=pygmentize
+[diff "pandoc2md"]
+    textconv=pandoc --to=mardown
+[diff "pdfconv"]
+    textconv=pdftohtml -stdout
+[diff "exif"]
+    textconv=exiftool
+[diff "ziplist"]
+    textconv=unzip -l
+[pull]
+    rebase = false
+[init]
+    defaultBranch = master
+[advice]
+    detachedHead = false
+[includeIf "gitdir:~/Projects/itsf/**"]
+    path = ~/Projects/itsf/.gitconfig
