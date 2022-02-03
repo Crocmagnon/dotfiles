@@ -1,0 +1,85 @@
+autocmd! bufwritepost .vimrc source %
+if &shell =~# 'fish$'
+    set shell=bash
+endif
+set nocompatible              " required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+Plugin 'tmhedberg/SimpylFold'
+" Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
+"Plugin 'altercation/vim-colors-solarized'
+Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'dag/vim-fish'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'lifepillar/vim-solarized8'
+
+" add all your plugins here (note older versions of Vundle
+" used Bundle instead of Plugin)
+
+" ...
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+let python_highlight_all=1
+syntax enable
+set background=dark
+set mouse=a
+
+set tabstop=4           " 4 space tab
+set expandtab           " use spaces for tabs
+set softtabstop=4       " 4 space tab
+set shiftwidth=4
+set autoindent
+set textwidth=120
+set encoding=utf-8
+
+set number
+set relativenumber
+set showcmd
+set wildmenu
+set showmatch
+
+set ignorecase
+set hlsearch
+set incsearch
+set splitbelow
+set splitright
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+map <space>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+
+set foldmethod=indent
+set foldlevel=99
+set clipboard=unnamed  "access system clipboard
+
+let g:solarized_termtrans=1
+"let g:solarized_termcolors=256
+"let g:solarized_contrast="high"
+colorscheme solarized8_high
+
+autocmd FileType fish compiler fish
+autocmd FileType fish setlocal textwidth=79
+autocmd FileType fish setlocal foldmethod=expr
+autocmd FileType mail setlocal textwidth=80
