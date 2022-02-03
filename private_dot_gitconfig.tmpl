@@ -41,10 +41,10 @@
     pager = less
 [sendemail]
     smtpserver = smtp.migadu.com
-    smtpuser = {{ (bitwarden "item" "Migadu").login.username }}
+    smtpuser = {{ (bitwarden "item" "Migadu email").login.username }}
     smtpencryption = ssl
     smtpserverport = 465
-    smtppass = {{ (bitwarden "item" "Migadu").login.password | quote }}
+    smtppass = {{ (bitwarden "item" "Migadu email").login.password | quote }}
     confirm = auto
 [diff "color"]
     textconv=pygmentize
