@@ -29,6 +29,7 @@
     praise = blame
     pushbranch = ! "git push -u origin $(git rev-parse --abbrev-ref HEAD)"
     pushu = pushbranch
+    cobf = ! "f() { git branch -D $1 && git switch -c $1; }; f"
     sw = switch
     swc = switch
     balance = blame
