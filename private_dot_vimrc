@@ -60,6 +60,7 @@ set hlsearch
 set incsearch
 set splitbelow
 set splitright
+set backspace=indent,eol,start
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
