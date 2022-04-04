@@ -1,6 +1,6 @@
 # Defined interactively
 function kdjango --description 'Pop into the shell of django pod of the current namespace'
-    argparse -x "h,b,s,m,o,d" "h/help" "b/bash" "s/sh" "m/manage" "o/original-shell" "d/db-shell" -- $argv; or return
+    argparse -X 1 -x "h,b,s,m,o,d" "h/help" "b/bash" "s/sh" "m/manage" "o/original-shell" "d/db-shell" -- $argv; or return
     if set -q _flag_h
         echo "Exec into the django pod of the current namespace..."
         echo -e "kdjango [-b]\t ...using bash (default if no option)"
@@ -23,7 +23,11 @@ function kdjango --description 'Pop into the shell of django pod of the current 
     else if set -q _flag_d
         set command ./manage.py dbshell
     end
-    set pod (kubectl get pods -o name | grep "django" | grep -Ev "celery|migrations" | head -1)
+    if count $argv > /dev/null
+        set pod $argv[1]
+    else
+        set pod (kubectl get pods -o name | grep "django" | grep -Ev "celery|migrations" | head -1)
+    end
     echo "running $command in $pod"
     kubectl exec -it $pod -- $command
 end
