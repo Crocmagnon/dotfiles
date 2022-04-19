@@ -11,6 +11,11 @@ function kdjango --description 'Pop into the shell of django pod of the current 
         echo -e "\nRequires kubens for namespace selection"
         return
     end
+    if count $argv > /dev/null
+        set pod $argv[1]
+    else
+        set pod (kubectl get pods -o name | grep "django" | grep -Ev "celery|migrations" | head -1)
+    end
     set -l command /bin/bash
     if set -q _flag_b
         set command /bin/bash
@@ -21,12 +26,11 @@ function kdjango --description 'Pop into the shell of django pod of the current 
     else if set -q _flag_o
         set command ./manage.py shell
     else if set -q _flag_d
-        set command ./manage.py dbshell
-    end
-    if count $argv > /dev/null
-        set pod $argv[1]
-    else
-        set pod (kubectl get pods -o name | grep "django" | grep -Ev "celery|migrations" | head -1)
+        if kubectl exec -it $pod -- which pgcli &> /dev/null
+            set command 'pgcli $(./manage.py sqldsn --quiet --style=uri)'
+        else
+            set command ./manage.py dbshell
+        end
     end
     echo "running $command in $pod"
     kubectl exec -it $pod -- $command
