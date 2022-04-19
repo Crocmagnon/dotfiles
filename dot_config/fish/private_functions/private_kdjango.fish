@@ -27,7 +27,7 @@ function kdjango --description 'Pop into the shell of django pod of the current 
         set command ./manage.py shell
     else if set -q _flag_d
         if kubectl exec -it $pod -- which pgcli &> /dev/null
-            set command 'pgcli $(./manage.py sqldsn --quiet --style=uri)'
+            set command sh -c 'pgcli $(./manage.py sqldsn --quiet --style=uri)'
         else
             set command ./manage.py dbshell
         end
