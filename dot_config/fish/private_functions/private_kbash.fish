@@ -1,3 +1,3 @@
 function kbash
-kubectl $argv
+kubectl bash $argv
 end
