@@ -20,6 +20,8 @@ set -gx GITLABBER_GIT_CONCURRENCY 10
 set -gx PYPI_USERNAME __token__
 set -gx PYPI_TOKEN {{ (bitwardenFields "item" "PyPi").token.value | quote }}
 set -gx POETRY_PYPI_TOKEN_PYPI $PYPI_TOKEN
+set -gx POETRY_HTTP_BASIC_PYPI_USERNAME $PYPI_USERNAME
+set -gx POETRY_HTTP_BASIC_PYPI_PASSWORD $PYPI_TOKEN
 
 set -gx GITEA_TOKEN {{ (bitwardenFields "item" "git.augendre.info").fish_config_token.value | quote }}
 
