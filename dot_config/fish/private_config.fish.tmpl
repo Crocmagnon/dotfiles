@@ -20,6 +20,9 @@ set -gx GITLABBER_CLONE_METHOD ssh
 set -gx GITLABBER_GIT_CONCURRENCY 10
 set -gx PYPI_USERNAME __token__
 set -gx PYPI_TOKEN {{ (bitwardenFields "item" "PyPi").token.value | quote }}
+set -gx POETRY_PYPI_TOKEN_PYPI $PYPI_TOKEN
+set -gx POETRY_HTTP_BASIC_PYPI_USERNAME $PYPI_USERNAME
+set -gx POETRY_HTTP_BASIC_PYPI_PASSWORD $PYPI_TOKEN
 
 set -gx GITEA_TOKEN {{ (bitwardenFields "item" "git.augendre.info").fish_config_token.value | quote }}
 
@@ -44,7 +47,7 @@ set -gx LIBRARY_PATH $LIBRARY_PATH /usr/local/opt/openssl/lib/
 set -gx EDITOR vim
 set -gx DJANGOPROJECT_DATA_DIR $HOME/.djangoproject
 
-set -g tide_right_prompt_items status cmd_duration context jobs virtual_env rustc go kubectl
+#set -g tide_right_prompt_items status cmd_duration context jobs virtual_env rustc go kubectl
 
 direnv hook fish | source
 alias wg "sudo wg"
