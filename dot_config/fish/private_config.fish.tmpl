@@ -1,6 +1,7 @@
-fish_add_path /opt/homebrew/bin $HOME/.local/bin $HOME/.cargo/bin
+fish_add_path /opt/homebrew/bin $HOME/.local/bin $HOME/.cargo/bin $HOME/.krew/bin
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
-set -gx PYENV_ROOT ~/.pyenv
+set -gx PYENV_ROOT $HOME/.pyenv
+fish_add_path $HOME/.pyenv/bin
 set -gx PIPENV_PYTHON ~/.pyenv/shims/python
 set -gx HOMEBREW_GITHUB_API_TOKEN {{ (bitwardenFields "item" "github.com").fish_api_token.value | quote }}
 set -gx HOMEBREW_BINTRAY_USER "crocmagnon"
