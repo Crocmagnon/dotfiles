@@ -1,0 +1,73 @@
+apiVersion: v1
+clusters:
+- cluster:
+    server: https://k8s-api.prod.lan:8443
+  name: NJJ-K8S
+- cluster:
+    certificate-authority: mt-bundle.pem
+    server: https://k8sv3-api.steelhome.internal:8443
+  name: NJJ-K8SV3-PRD
+- cluster:
+    certificate-authority: mt-bundle.pem
+    server: https://k8sv3stg-api.steelhome.internal:8443
+  name: NJJ-K8SV3-STG
+contexts:
+- context:
+    cluster: NJJ-K8SV3-PRD
+    namespace: itsf-prd-mailmonitoring-netsf
+    user: prd
+  name: prd
+- context:
+    cluster: NJJ-K8SV3-STG
+    namespace: itsf-stg-netup-netsf
+    user: stg
+  name: stg
+- context:
+    cluster: NJJ-K8S
+    namespace: itsf-prd-netup-netsf
+    user: v2
+  name: v2
+current-context: v2
+kind: Config
+preferences: {}
+users:
+- name: prd
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      args:
+      - get-token
+      - --listen-address=127.0.0.1:18000
+      - --oidc-issuer-url=https://iam.steelhome.internal/auth/realms/steelhome
+      - --oidc-client-id=mtMC-K8S-prd
+      command: /usr/local/bin/kubelogin
+      env: null
+      interactiveMode: IfAvailable
+      provideClusterInfo: false
+- name: stg
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      args:
+      - get-token
+      - --listen-address=127.0.0.1:18000
+      - --oidc-issuer-url=https://iam.steelhome.internal/auth/realms/steelhome
+      - --oidc-client-id=mtMC-K8S-prd
+      command: /usr/local/bin/kubelogin
+      env: null
+      interactiveMode: IfAvailable
+      provideClusterInfo: false
+- name: v2
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      args:
+      - get-token
+      - --listen-address=127.0.0.1:18000
+      - --oidc-issuer-url=https://iam.monaco-telecom.mc/auth/realms/APP-NJJ-K8S
+      - --oidc-client-id=NJJ-K8S
+      - --oidc-client-secret=9cf88050-429d-4790-a7b6-0fce26d93b9e
+      command: /usr/local/bin/kubelogin
+      env: null
+      interactiveMode: IfAvailable
+      provideClusterInfo: false
