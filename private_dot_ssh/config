@@ -1,7 +1,44 @@
+# Home
+Host ubuntu
+    hostname 192.168.0.6
+    user gaugendre
+    ForwardAgent yes
+    port 38303
+    ControlMaster auto
+    ControlPath ~/.ssh/control-%C
+    ControlPersist 4h
+
+Host hass
+    hostname 192.168.0.9
+    user root
+    port 32690
+
+Host robospierre
+    hostname 192.168.0.97
+    user root
+
+Host raspiwifi
+    hostname 192.168.0.7
+    user pi
+    port 8121
+
+Host raspi
+    hostname 192.168.0.8
+    user pi
+    port 8121
+
+Host octopi
+    hostname 192.168.0.10
+    user pi
+
+Host hyperhdr
+    hostname hyperhdr.local
+    user pi
+
+# ITSF
 Host dbprod
     hostname vlb-itsfpgsql-p01.prod.lan
     user postgres
-
 
 Host dbstg
     hostname vlb-itsfpgsql-s01.prod.lan
@@ -9,7 +46,6 @@ Host dbstg
 
 Host perfcore
     hostname 10.195.46.19
-    #hostname 172.25.5.167
     user nadmin
 
 Host gitlab.prod.lan
@@ -21,59 +57,22 @@ Host git-it.salt.ch
 Host logssit
     Hostname 10.193.12.22
     User sp_gaugendr
-    #    RequestTTY yes
+    #RequestTTY yes
     #RemoteCommand sudo su - logreader
 
 Host logsprod
     Hostname 10.192.12.22
     User sp_gaugendr
     RequestTTY yes
-    #    RemoteCommand sudo su - logreader
-
-Host hass
-    #hostname hass.augendre.info
-    hostname 192.168.0.9
-    user root
-    port 32690
-
-Host raspi
-    hostname 192.168.0.8
-    user pi
-    port 8121
-
-Host octopi
-    hostname 192.168.0.10
-    user pi
-
-Host ubuntu
-    #hostname ubuntu.augendre.info
-    hostname 192.168.0.6
-    #hostname 2a01:e0a:2bc:26c0:b87c:36ff:fe36:a9f2
-    user gaugendre
-    port 38303
-
-Host drone-worker-1
-    hostname 192.168.0.54
-    user gaugendre
-    port 52651
-
-Host pm
-    #hostname pm.augendre.info
-    hostname 192.168.0.6
-    port 34776
-    user root
+    #RemoteCommand sudo su - logreader
 
 Host *.itsf.io
     port 4222
     user gaugendre
 
-Host robospierre
-    port 22
-    user root
-    hostname 192.168.0.97
-
 Host *
     AddKeysToAgent yes
     UseKeychain yes
+    SendEnv LANG
     port 22
-
+    XAuthLocation /opt/X11/bin/xauth
