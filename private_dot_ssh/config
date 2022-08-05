@@ -1,0 +1,79 @@
+Host dbprod
+    hostname vlb-itsfpgsql-p01.prod.lan
+    user postgres
+
+
+Host dbstg
+    hostname vlb-itsfpgsql-s01.prod.lan
+    user postgres
+
+Host perfcore
+    hostname 10.195.46.19
+    #hostname 172.25.5.167
+    user nadmin
+
+Host gitlab.prod.lan
+    Hostname 10.195.6.208
+
+Host git-it.salt.ch
+    User sp_gaugendr
+
+Host logssit
+    Hostname 10.193.12.22
+    User sp_gaugendr
+    #    RequestTTY yes
+    #RemoteCommand sudo su - logreader
+
+Host logsprod
+    Hostname 10.192.12.22
+    User sp_gaugendr
+    RequestTTY yes
+    #    RemoteCommand sudo su - logreader
+
+Host hass
+    #hostname hass.augendre.info
+    hostname 192.168.0.9
+    user root
+    port 32690
+
+Host raspi
+    hostname 192.168.0.8
+    user pi
+    port 8121
+
+Host octopi
+    hostname 192.168.0.10
+    user pi
+
+Host ubuntu
+    #hostname ubuntu.augendre.info
+    hostname 192.168.0.6
+    #hostname 2a01:e0a:2bc:26c0:b87c:36ff:fe36:a9f2
+    user gaugendre
+    port 38303
+
+Host drone-worker-1
+    hostname 192.168.0.54
+    user gaugendre
+    port 52651
+
+Host pm
+    #hostname pm.augendre.info
+    hostname 192.168.0.6
+    port 34776
+    user root
+
+Host *.itsf.io
+    port 4222
+    user gaugendre
+
+Host robospierre
+    port 22
+    user root
+    hostname 192.168.0.97
+
+Host *
+    AddKeysToAgent yes
+    UseKeychain yes
+    port 22
+
