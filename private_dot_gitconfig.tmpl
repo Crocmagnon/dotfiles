@@ -27,7 +27,7 @@
     syn = ! "git pull --rebase && git push"
     gone = ! "git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D"
     praise = blame
-    pushbranch = ! "git push -u origin $(git rev-parse --abbrev-ref HEAD)"
+    pushbranch = ! "git push -o merge_request.create -u origin $(git rev-parse --abbrev-ref HEAD)"
     pushu = pushbranch
     cobf = ! "f() { git branch -D $1 && git switch -c $1; }; f"
     sw = switch
@@ -35,6 +35,7 @@
     balance = blame
     tagam = ! "f() { git tag -a $1 -m \"$1\"; }; f"
     pushtag = push --follow-tags
+    pushnoci = push -o ci.skip
 [core]
     editor = vim
     attributesfile = {{ .chezmoi.homeDir }}/.gitattributes
