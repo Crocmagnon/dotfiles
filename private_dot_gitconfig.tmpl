@@ -40,7 +40,6 @@
     editor = vim
     attributesfile = {{ .chezmoi.homeDir }}/.gitattributes
     autocrlf = input
-    pager = delta
 [sendemail]
     smtpserver = smtp.migadu.com
     smtpuser = {{ (bitwarden "item" "Migadu email").login.username }}
@@ -60,10 +59,6 @@
     textconv=exiftool
 [diff "ziplist"]
     textconv=unzip -l
-[interactive]
-    diffFilter = delta --color-only
-[delta]
-    navigate = true
 [merge]
     conflictstyle = diff3
 [pull]
