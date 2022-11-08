@@ -68,6 +68,7 @@ Host logsprod
 
 Host *.itsf.io
     port 4222
+    PubkeyAcceptedKeyTypes +ssh-rsa
     user gaugendre
 
 Host *
