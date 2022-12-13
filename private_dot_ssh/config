@@ -66,6 +66,10 @@ Host logsprod
     RequestTTY yes
     #RemoteCommand sudo su - logreader
 
+Host proxmox-*.itsf.io
+    port 22
+    user gaugendre
+
 Host *.itsf.io
     port 4222
     PubkeyAcceptedKeyTypes +ssh-rsa
