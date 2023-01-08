@@ -17,15 +17,15 @@ Host robospierre
     hostname 192.168.0.97
     user root
 
-Host raspiwifi
+Host raspiwifi display hass-display
     hostname 192.168.0.7
     user pi
     port 8121
 
-Host raspi
-    hostname 192.168.0.8
-    user pi
-    port 8121
+#Host raspi
+#    hostname 192.168.0.8
+#    user pi
+#    port 8121
 
 Host octopi
     hostname 192.168.0.10
