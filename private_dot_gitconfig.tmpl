@@ -70,8 +70,8 @@
     defaultBranch = master
 [advice]
     detachedHead = false
-[includeIf "gitdir:~/Projects/itsf/**"]
-    path = {{ .chezmoi.homeDir }}/Projects/itsf/.gitconfig
+[includeIf "gitdir:~/Projects/gw/**"]
+    path = {{ .chezmoi.homeDir }}/Projects/gw/.gitconfig
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

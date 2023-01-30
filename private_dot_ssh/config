@@ -35,46 +35,6 @@ Host hyperhdr
     hostname hyperhdr.local
     user pi
 
-# ITSF
-Host dbprod
-    hostname vlb-itsfpgsql-p01.prod.lan
-    user postgres
-
-Host dbstg
-    hostname vlb-itsfpgsql-s01.prod.lan
-    user postgres
-
-Host perfcore
-    hostname 10.195.46.19
-    user nadmin
-
-Host gitlab.prod.lan
-    Hostname 10.195.6.208
-
-Host git-it.salt.ch
-    User sp_gaugendr
-
-Host logssit
-    Hostname 10.193.12.22
-    User sp_gaugendr
-    #RequestTTY yes
-    #RemoteCommand sudo su - logreader
-
-Host logsprod
-    Hostname 10.192.12.22
-    User sp_gaugendr
-    RequestTTY yes
-    #RemoteCommand sudo su - logreader
-
-Host proxmox-*.itsf.io
-    port 22
-    user gaugendre
-
-Host *.itsf.io
-    port 4222
-    PubkeyAcceptedKeyTypes +ssh-rsa
-    user gaugendre
-
 Host *
     AddKeysToAgent yes
     UseKeychain yes
