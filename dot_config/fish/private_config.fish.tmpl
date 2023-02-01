@@ -1,4 +1,8 @@
 fish_add_path /opt/homebrew/bin $HOME/.local/bin $HOME/.cargo/bin $HOME/.krew/bin
+{{ if eq .chezmoi.os "linux" }}
+fish_add_path /home/linuxbrew/.linuxbrew/bin
+eval "$(brew shellenv)"
+{{ end }}
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 set -gx PYENV_ROOT $HOME/.pyenv
 fish_add_path $HOME/.pyenv/bin
