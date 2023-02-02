@@ -1,6 +1,6 @@
 fish_add_path /opt/homebrew/bin $HOME/.local/bin $HOME/.cargo/bin $HOME/.krew/bin
 {{ if eq .chezmoi.os "linux" }}
-fish_add_path /home/linuxbrew/.linuxbrew/bin
+fish_add_path /home/linuxbrew/.linuxbrew/bin $HOME/.local/share/JetBrains/Toolbox/scripts
 eval "$(brew shellenv)"
 {{ end }}
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
@@ -28,8 +28,11 @@ set -gx ANSIBLE_NOCOWS 1
 
 set -gx GITEA_TOKEN {{ (bitwardenFields "item" "git.augendre.info").fish_config_token.value | quote }}
 
+{{ if eq .chezmoi.os "darwin" }}
 set -g fish_greeting "Yo ✌🏻Bien ?"
-
+{{ else }}
+set -g fish_greeting "Yo ✌  Bien ?"
+{{ end }}
 # Install python with pyenv with tcl/tk support
 # https://stackoverflow.com/a/60469203/2758732
 set -gx PYTHON_CONFIGURE_OPTS "--with-tcltk-includes='-I/usr/local/opt/tcl-tk/include' --with-tcltk-libs='-L/usr/local/opt/tcl-tk/lib -ltcl8.6 -ltk8.6'"
