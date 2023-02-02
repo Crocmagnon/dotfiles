@@ -12,6 +12,12 @@
     autoSetupRemote = true
 [help]
     autocorrect = immediate
+{{ if hasKey . "proxy" }}
+[http]
+    proxy = {{ .proxy.protocol }}://{{ .proxy.address }}:{{ .proxy.port }}
+[https]
+    proxy = {{ .proxy.protocol }}://{{ .proxy.address }}:{{ .proxy.port }}
+{{ end }}
 [alias]
     ci = commit
     cp = cherry-pick
