@@ -1,10 +1,10 @@
 README.md
 LICENSE
 Preferences.sublime-settings
-{{ if ne .chezmoi.os "darwin" }}
+{{- if ne .chezmoi.os "darwin" }}
 Library/Application Support/
-{{ end }}
-{{ if ne .chezmoi.os "linux" }}
+{{- end }}
+{{- if ne .chezmoi.os "linux" }}
 .config/sublime-text/
-{{ end }}
+{{- end }}
 

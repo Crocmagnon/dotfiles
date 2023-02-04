@@ -12,12 +12,12 @@
     autoSetupRemote = true
 [help]
     autocorrect = immediate
-{{ if hasKey . "proxy" }}
+{{- if hasKey . "proxy" }}
 [http]
     proxy = {{ .proxy.protocol }}://{{ .proxy.address }}:{{ .proxy.port }}
 [https]
     proxy = {{ .proxy.protocol }}://{{ .proxy.address }}:{{ .proxy.port }}
-{{ end }}
+{{- end }}
 [alias]
     ci = commit
     cp = cherry-pick
@@ -79,12 +79,13 @@
 [includeIf "gitdir:~/Projects/gw/**"]
     path = {{ .chezmoi.homeDir }}/Projects/gw/.gitconfig
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
 [checkout]
-	defaultRemote = origin
+    defaultRemote = origin
 
 [tag]
-	sort = version:refname
+    sort = version:refname
+
