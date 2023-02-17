@@ -38,6 +38,7 @@
     praise = blame
     pushbranch = ! "git push -o merge_request.create -u origin $(git rev-parse --abbrev-ref HEAD)"
     pushu = pushbranch
+    pushf = push -f
     cobf = ! "f() { git branch -D $1 && git switch -c $1; }; f"
     sw = switch
     swc = switch
