@@ -2,7 +2,11 @@
 // and are overridden in turn by syntax-specific settings.
 {
 	"font_face": "MonoLisa",
-	"font_size": 17,
+{{- if eq .chezmoi.os "darwin" }}
+    "font_size": 17,
+{{- else }}
+    "font_size": 14,
+{{- end }}
 	"scroll_past_end": 0.7,
 	"rulers": [88],
 	"ruler_style": "stippled",
