@@ -4,7 +4,7 @@
 display_preamble = false
 
 # Disable specific steps - same options as the command line flag
-disable = ["containers", "gem", "ruby_gems", "dotnet", "vim", "tlmgr", "mas"]
+disable = ["containers", "gem", "ruby_gems", "dotnet", "tlmgr", "mas"]
 
 # Ignore failures for these steps
 #ignore_failures = ["powershell"]
