@@ -56,5 +56,6 @@ set -gx DJANGOPROJECT_DATA_DIR $HOME/.djangoproject
 #set -g tide_right_prompt_items status cmd_duration context jobs virtual_env rustc go kubectl
 
 direnv hook fish | source
-alias wg "sudo wg"
-alias wg-quick "sudo wg-quick"
+# rtx needs to be placed *after* direnv
+rtx activate fish | source
+
