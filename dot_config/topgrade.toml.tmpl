@@ -5,20 +5,22 @@ display_preamble = false
 
 # Disable specific steps - same options as the command line flag
 disable = [
-    "containers", "gem", "ruby_gems", "dotnet", "tlmgr", "mas",
+    "mas",
     {{- if eq .chezmoi.os "darwin" }}
     "vim",
     {{- end }}
 ]
 
 # Ignore failures for these steps
-#ignore_failures = ["powershell"]
+ignore_failures = [
+    "containers",
+]
 
 # Run specific steps - same options as the command line flag
 #only = ["system", "emacs"]
 
 # Do not ask to retry failed steps (default: false)
-#no_retry = true
+no_retry = true
 
 # Run inside tmux
 #run_in_tmux = true
