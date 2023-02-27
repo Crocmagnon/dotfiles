@@ -3,6 +3,7 @@ fish_add_path /opt/homebrew/bin $HOME/.local/bin $HOME/.cargo/bin $HOME/.krew/bi
 fish_add_path /home/linuxbrew/.linuxbrew/bin $HOME/.local/share/JetBrains/Toolbox/scripts
 eval "$(brew shellenv)"
 {{- end }}
+set -gx RUSTC_WRAPPER sccache
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 set -gx PYENV_ROOT $HOME/.pyenv
 fish_add_path $HOME/.pyenv/bin
