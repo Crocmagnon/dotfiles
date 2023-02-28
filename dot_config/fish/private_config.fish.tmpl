@@ -3,28 +3,35 @@ fish_add_path /opt/homebrew/bin $HOME/.local/bin $HOME/.cargo/bin $HOME/.krew/bi
 fish_add_path /home/linuxbrew/.linuxbrew/bin $HOME/.local/share/JetBrains/Toolbox/scripts
 eval "$(brew shellenv)"
 {{- end }}
+
 set -gx RUSTC_WRAPPER sccache
+
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
-set -gx PYENV_ROOT $HOME/.pyenv
-fish_add_path $HOME/.pyenv/bin
-set -gx PIPENV_PYTHON ~/.pyenv/shims/python
+
 set -gx HOMEBREW_GITHUB_API_TOKEN {{ (bitwardenFields "item" "github.com").fish_api_token.value | quote }}
 set -gx HOMEBREW_BINTRAY_USER "crocmagnon"
 set -gx HOMEBREW_BINTRAY_KEY {{ (bitwardenFields "item" "Bintray").fish_key.value | quote }}
+
 set -gx GOPATH $HOME/Projects/golang
+
 set -gx LANG en_US.UTF-8
-#set -gx KUBECONFIG $HOME/.kube/config-njj.yml:$HOME/.kube/config-ber.yml
+
 set -gx BAT_THEME "Solarized (dark)"
+
 set -gx SCW_SECRET_TOKEN {{ (bitwardenFields "item" "console.scaleway.com").fish_secret_token.value | quote }}
 set -gx SCW_ACCESS_KEY {{ (bitwardenFields "item" "console.scaleway.com").fish_access_key.value | quote }}
+
 set -gx GITLABBER_FOLDER_NAMING path
 set -gx GITLABBER_CLONE_METHOD ssh
 set -gx GITLABBER_GIT_CONCURRENCY 10
+
 set -gx PYPI_USERNAME __token__
 set -gx PYPI_TOKEN {{ (bitwardenFields "item" "PyPi").token.value | quote }}
+
 set -gx POETRY_PYPI_TOKEN_PYPI $PYPI_TOKEN
 set -gx POETRY_HTTP_BASIC_PYPI_USERNAME $PYPI_USERNAME
 set -gx POETRY_HTTP_BASIC_PYPI_PASSWORD $PYPI_TOKEN
+
 set -gx ANSIBLE_NOCOWS 1
 
 set -gx GITEA_TOKEN {{ (bitwardenFields "item" "git.augendre.info").fish_config_token.value | quote }}
@@ -34,28 +41,19 @@ set -g fish_greeting "Yo ✌🏻Bien ?"
 {{- else }}
 set -g fish_greeting "Yo ✌  Bien ?"
 {{- end }}
+
 # Install python with pyenv with tcl/tk support
 # https://stackoverflow.com/a/60469203/2758732
 set -gx PYTHON_CONFIGURE_OPTS "--with-tcltk-includes='-I/usr/local/opt/tcl-tk/include' --with-tcltk-libs='-L/usr/local/opt/tcl-tk/lib -ltcl8.6 -ltk8.6'"
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
-status is-login; and pyenv init --path | source
-status --is-interactive; and pyenv init - | source
-status --is-interactive; and pyenv virtualenv-init - | source
 
-#eval (ssh-agent -c)
-#gpgconf --launch gpg-agent
-#set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-
-set -gx PIPX_DEFAULT_PYTHON "$HOME/.pyenv/versions/3.10.9/bin/python"
+set -gx PIPX_DEFAULT_PYTHON "/Users/gaugendre/.local/share/rtx/installs/python/3.11.1/bin/python3"
 
 set -gx LIBRARY_PATH $LIBRARY_PATH /usr/local/opt/openssl/lib/
 set -gx EDITOR vim
 set -gx DJANGOPROJECT_DATA_DIR $HOME/.djangoproject
 
-#set -g tide_right_prompt_items status cmd_duration context jobs virtual_env rustc go kubectl
-
 direnv hook fish | source
-# rtx needs to be placed *after* direnv
 rtx activate fish | source
 
