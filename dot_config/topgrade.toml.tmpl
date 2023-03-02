@@ -6,6 +6,7 @@ display_preamble = false
 # Disable specific steps - same options as the command line flag
 disable = [
     "mas",
+    "pip3",
     {{- if eq .chezmoi.os "darwin" }}
     "vim",
     {{- end }}
