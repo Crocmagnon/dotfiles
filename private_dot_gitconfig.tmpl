@@ -46,6 +46,7 @@
     tagam = ! "f() { git tag -a $1 -m \"$1\"; }; f"
     pushtag = push --follow-tags
     pushnoci = push -o ci.skip
+    diffs = diff --staged
 [core]
     editor = vim
     attributesfile = {{ .chezmoi.homeDir }}/.gitattributes
