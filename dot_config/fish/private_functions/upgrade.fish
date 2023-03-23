@@ -6,5 +6,5 @@ function upgrade --wraps=topgrade
         set -x BW_SESSION (bw unlock --raw)
     end
     sudo ls >/dev/null
-    topgrade
+    topgrade $argv
 end
