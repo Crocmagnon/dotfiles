@@ -1,3 +1,3 @@
-function kns --wraps=kubens --description 'alias kns=kubens'
-  kubens $argv; 
+function kns --wraps='kubectl ns'
+  kubectl ns $argv;
 end

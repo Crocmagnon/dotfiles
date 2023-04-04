@@ -53,4 +53,4 @@ set -gx EDITOR vim
 set -gx DJANGOPROJECT_DATA_DIR $HOME/.djangoproject
 
 direnv hook fish | source
-
+test -e {$HOME}/.config/fish/ovh.fish; and source {$HOME}/.config/fish/ovh.fish

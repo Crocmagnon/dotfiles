@@ -1,3 +1,3 @@
-function kctx --wraps=kubectx --description 'alias kctx=kubectx'
-  kubectx $argv; 
+function kctx --wraps='kubectl ctx'
+  kubectl ctx $argv;
 end
