@@ -78,8 +78,6 @@
     defaultBranch = master
 [advice]
     detachedHead = false
-[includeIf "gitdir:~/Projects/gw/**"]
-    path = {{ .chezmoi.homeDir }}/Projects/gw/.gitconfig
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
@@ -91,3 +89,5 @@
 [tag]
     sort = version:refname
 
+[include]
+    path = .ovh.gitconfig
