@@ -22,7 +22,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 "Plugin 'altercation/vim-colors-solarized'
-Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+"Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'dag/vim-fish'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'lifepillar/vim-solarized8'
