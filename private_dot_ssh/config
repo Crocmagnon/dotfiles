@@ -37,19 +37,9 @@ Host hyperhdr
     hostname hyperhdr.local
     user pi
 
-{{- if hasKey . "proxy" }}
-Host github.com
-    Hostname ssh.github.com
-    Port 443
-    User git
-    ProxyCommand nc -X connect -x {{ .proxy.address }}:{{ .proxy.port }} %h %p
-{{- end }}
-
 Host *
     AddKeysToAgent yes
-{{- if eq .chezmoi.os "darwin" }}
     UseKeychain yes
-{{- end }}
     SendEnv LANG
     port 22
     XAuthLocation /opt/X11/bin/xauth
