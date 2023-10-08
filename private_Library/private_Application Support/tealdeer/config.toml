@@ -28,7 +28,6 @@ bold = false
 italic = false
 
 [display]
-compact = true
 use_pager = false
 
 [updates]
