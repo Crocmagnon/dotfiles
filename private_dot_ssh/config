@@ -43,3 +43,4 @@ Host *
     SendEnv LANG
     port 22
     XAuthLocation /opt/X11/bin/xauth
+
