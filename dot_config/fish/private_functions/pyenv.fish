@@ -1,3 +1,3 @@
 function pyenv
-echo "Use rtx!"
+echo "Use mise!"
 end
