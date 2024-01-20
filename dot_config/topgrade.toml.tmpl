@@ -11,6 +11,9 @@ disable = [
     {{- if eq .chezmoi.os "darwin" }}
     "vim",
     {{- end }}
+    {{- if not (get . "sudo") }}
+    "npm",
+    {{- end }}
 ]
 
 # Ignore failures for these steps
