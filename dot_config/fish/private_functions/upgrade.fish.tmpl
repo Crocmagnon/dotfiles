@@ -6,8 +6,8 @@ function upgrade --wraps=topgrade
     if not bw unlock --check
         set -x BW_SESSION (bw unlock --raw)
     end
-    {{ if get . "sudo" }}
+    {{- if get . "sudo" }}
     sudo ls >/dev/null
-    {{ end }}
+    {{- end }}
     topgrade $argv
 end
