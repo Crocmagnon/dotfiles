@@ -47,6 +47,7 @@
     pushtag = push --follow-tags
     pushnoci = push -o ci.skip
     diffs = diff --staged
+    restores = restore --staged
 [core]
     editor = vim
     attributesfile = {{ .chezmoi.homeDir }}/.gitattributes
