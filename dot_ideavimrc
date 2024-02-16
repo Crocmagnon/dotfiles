@@ -1,0 +1,7 @@
+set which-key
+set hlsearch "highlight search: highlight matches - hls/nohls
+set incsearch "incremental search: search while typing - is/nois
+set ignorecase "ignore case during search - ic/noic
+
+Plug 'machakann/vim-highlightedyank'
+
