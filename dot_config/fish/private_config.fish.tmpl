@@ -1,7 +1,7 @@
 fish_add_path /opt/homebrew/opt/curl/bin /opt/homebrew/bin /opt/homebrew/sbin $HOME/.local/bin $HOME/.cargo/bin $HOME/go/bin
 {{- if not (get . "sudo") }}
 fish_add_path $HOME/.local/homebrew/bin
-eval "$(brew shellenv)"
+command -v brew > /dev/null; and eval "$(brew shellenv)"
 {{- end }}
 {{- if eq .chezmoi.os "linux" }}
 fish_add_path /home/linuxbrew/.linuxbrew/bin $HOME/.local/share/JetBrains/Toolbox/scripts
