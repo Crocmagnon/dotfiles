@@ -39,7 +39,9 @@ Host hyperhdr
 
 Host *
     AddKeysToAgent yes
+    {{- if eq .chezmoi.os "darwin" }}
     UseKeychain yes
+    {{- end }}
     SendEnv LANG
     port 22
     XAuthLocation /opt/X11/bin/xauth
