@@ -1,4 +1,5 @@
 function fetchkeys
+  set -x NODE_OPTIONS "--no-deprecation"
   bwunlock
   set key_item (bw list items --search "SSH Main" | jq ".[0]" --raw-output)
   set key_item_id (echo $key_item | jq ".id" --raw-output)
