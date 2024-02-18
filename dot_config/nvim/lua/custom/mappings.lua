@@ -64,7 +64,7 @@ M.dap_ui = {
       function()
         require("dapui").eval()
       end,
-      "Debug - eval expression"
+      "Debug - eval expression (Alt+K)"
     }
   }
 }
@@ -78,6 +78,29 @@ M.terminal = {
 M.general = {
   i = {
     ["<C-a>"] = { "<ESC>^i", "Beginning of line" },
+  }
+}
+
+M.nvterm = {
+  n = {
+    ["<leader>ti"] = {
+      function()
+        require("nvterm.terminal").toggle "float"
+      end,
+      "Toggle floating term"
+    },
+    ["<leader>tv"] = {
+      function()
+        require("nvterm.terminal").toggle "vertical"
+      end,
+      "Toggle vertical term"
+    },
+    ["<leader>th"] = {
+      function()
+        require("nvterm.terminal").toggle "horizontal"
+      end,
+      "Toggle horizontal term"
+    },
   }
 }
 
