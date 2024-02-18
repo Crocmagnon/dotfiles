@@ -1,4 +1,4 @@
-Include ovh.config
+Include work.config
 
 # Home
 Host ubuntu
