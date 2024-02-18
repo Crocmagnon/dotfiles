@@ -1,13 +1,7 @@
 function upgrade --wraps=topgrade
-    set -x NODE_OPTIONS "--no-deprecation"
-    if not bw login --check
-        set -x BW_SESSION (bw login --raw)
-    end
-    if not bw unlock --check
-        set -x BW_SESSION (bw unlock --raw)
-    end
-    {{- if get . "sudo" }}
-    sudo ls >/dev/null
-    {{- end }}
-    topgrade $argv
+  bwunlock
+  {{- if get . "sudo" }}
+  sudo ls >/dev/null
+  {{- end }}
+  topgrade $argv
 end

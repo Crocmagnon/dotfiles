@@ -1,10 +1,4 @@
 function chezmoiupdate
-    set -x NODE_OPTIONS "--no-deprecation"
-    if not bw login --check
-        set -x BW_SESSION (bw login --raw)
-    end
-    if not bw unlock --check
-        set -x BW_SESSION (bw unlock --raw)
-    end
-    chezmoi update
+  bwunlock
+  chezmoi update
 end
