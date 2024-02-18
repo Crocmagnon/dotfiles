@@ -10,6 +10,7 @@
 [push]
     default = simple
     autoSetupRemote = true
+    followtags = true
 [help]
     autocorrect = immediate
 {{- if hasKey . "proxy" }}
@@ -46,8 +47,12 @@
     pushnoci = push -o ci.skip
     diffs = diff --staged
     restores = restore --staged
+[commit]
+  verbose = true
+[rerere]
+  enabled = true
 [core]
-    editor = vim
+    editor = nvim
     attributesfile = {{ .chezmoi.homeDir }}/.gitattributes
     autocrlf = input
 [sendemail]
@@ -57,9 +62,20 @@
     smtpserverport = 465
     smtppass = {{ (bitwarden "item" "Migadu email").login.password | quote }}
     confirm = auto
+[submodule]
+  recurse = true
+[fetch]
+  prune = true
+  prunetags = true
+[log]
+  date = iso
+[status]
+  submoduleSummary = true
 [diff]
     colorMoved = default
     algorithm = histogram
+    submodule = log
+    tool = nvimdiff
 [diff "color"]
     textconv=pygmentize
 [diff "pandoc2md"]
@@ -71,11 +87,17 @@
 [diff "ziplist"]
     textconv=unzip -l
 [merge]
-    conflictstyle = diff3
+    conflictstyle = zdiff3
+    tool = nvimdiff
 [pull]
     rebase = true
+[rebase]
+  autosquash = true
+  autostash = true
 [init]
     defaultBranch = master
+[branch]
+  sort = -committerdate
 [advice]
     detachedHead = false
 [filter "lfs"]
@@ -88,6 +110,13 @@
 
 [tag]
     sort = version:refname
+
+[url "git@github.com:"]
+  insteadOf = "https://github.com/"
+  insteadOf = "gh:"
+
+[credential]
+  helper = osxkeychain
 
 [include]
     path = ovh.config
