@@ -8,11 +8,13 @@
 disable = [
     "mas",
     "pip3",
+    "gem",
+    "ruby_gems",
     {{- if eq .chezmoi.os "darwin" }}
     "vim",
     {{- end }}
     {{- if not (get . "sudo") }}
-    "npm",
+    "node",
     {{- end }}
 ]
 
