@@ -1,7 +1,7 @@
 export PATH=$PATH:~/bin
 export LC_ALL=fr_FR.UTF-8
 
-eval "$(~/bin/mise activate bash)"
+[ command -v mise &> /dev/null ] && eval "$(mise activate bash)"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin:$HOME/Projects/golang/bin"
