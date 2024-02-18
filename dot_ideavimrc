@@ -1,7 +1,14 @@
-set which-key
 set hlsearch "highlight search: highlight matches - hls/nohls
 set incsearch "incremental search: search while typing - is/nois
 set ignorecase "ignore case during search - ic/noic
 
 Plug 'machakann/vim-highlightedyank'
 
+set number
+set relativenumber
+set ideajoin "custom join with code smartness
+set idearefactormode=keep
+
+set which-key "enable which-key plugin
+let g:WhichKey_ShowVimActions = "true" "show vim actions (not shown by default)
+set notimeout "make vim not timeout waiting for the end of a command. useful because which-key will only display its popup for the timeout duration (default 1000 for 1s)
