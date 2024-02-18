@@ -21,6 +21,10 @@ bind -n M-Down select-pane -D
 
 set -g mouse on
 
+# nvim fixes
+set -sg escape-time 300
+set -g focus-events on
+
 # don't rename windows automatically
 set-option -g allow-rename off
 
@@ -45,8 +49,8 @@ bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel
 bind P paste-buffer
 
 # color support
-set -g default-terminal "xterm-256color"
-set -ga terminal-overrides ",xterm-256color:Tc"
+set -g default-terminal "tmux-256color"
+set -ga terminal-overrides ",tmux-256color:Tc"
 
 bind u capture-pane \;\
   save-buffer /tmp/tmux-buffer \;\
