@@ -55,13 +55,6 @@
     editor = nvim
     attributesfile = {{ .chezmoi.homeDir }}/.gitattributes
     autocrlf = input
-[sendemail]
-    smtpserver = smtp.migadu.com
-    smtpuser = {{ (bitwarden "item" "Migadu email").login.username }}
-    smtpencryption = ssl
-    smtpserverport = 465
-    smtppass = {{ (bitwarden "item" "Migadu email").login.password | quote }}
-    confirm = auto
 [submodule]
   recurse = true
 [fetch]
@@ -120,4 +113,6 @@
   helper = osxkeychain
 
 [include]
-    path = ovh.config
+  path = work.config
+  path = sendemail
+
