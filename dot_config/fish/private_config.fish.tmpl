@@ -12,31 +12,20 @@ set -gx RUSTC_WRAPPER sccache
 
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 
-set -gx HOMEBREW_GITHUB_API_TOKEN {{ (bitwardenFields "item" "github.com").fish_api_token.value | quote }}
-set -gx HOMEBREW_BINTRAY_USER "crocmagnon"
-set -gx HOMEBREW_BINTRAY_KEY {{ (bitwardenFields "item" "Bintray").fish_key.value | quote }}
 
 set -gx LANG en_US.UTF-8
 
 set -gx BAT_THEME "Solarized (dark)"
 
-set -gx SCW_SECRET_TOKEN {{ (bitwardenFields "item" "console.scaleway.com").fish_secret_token.value | quote }}
-set -gx SCW_ACCESS_KEY {{ (bitwardenFields "item" "console.scaleway.com").fish_access_key.value | quote }}
-
 set -gx GITLABBER_FOLDER_NAMING path
 set -gx GITLABBER_CLONE_METHOD ssh
 set -gx GITLABBER_GIT_CONCURRENCY 10
-
-set -gx PYPI_USERNAME __token__
-set -gx PYPI_TOKEN {{ (bitwardenFields "item" "PyPi").token.value | quote }}
 
 set -gx POETRY_PYPI_TOKEN_PYPI $PYPI_TOKEN
 set -gx POETRY_HTTP_BASIC_PYPI_USERNAME $PYPI_USERNAME
 set -gx POETRY_HTTP_BASIC_PYPI_PASSWORD $PYPI_TOKEN
 
 set -gx ANSIBLE_NOCOWS 1
-
-set -gx GITEA_TOKEN {{ (bitwardenFields "item" "git.augendre.info").fish_config_token.value | quote }}
 
 {{- if eq .chezmoi.os "darwin" }}
 set -g fish_greeting "Yo ✌🏻Bien ?"
@@ -58,5 +47,6 @@ set -gx DJANGOPROJECT_DATA_DIR $HOME/.djangoproject
 
 mise activate fish | source
 test -e {$HOME}/.config/fish/work.fish; and source {$HOME}/.config/fish/work.fish
+test -e {$HOME}/.config/fish/secrets.fish; and source {$HOME}/.config/fish/secrets.fish
 
 set tide_character_icon '$'
