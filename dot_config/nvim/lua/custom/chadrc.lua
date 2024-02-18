@@ -5,7 +5,7 @@ M.plugins = "custom.plugins"
 M.mappings = require "custom.mappings"
 
 M.ui = {
-  theme = "catppuccin",
+  theme = "tomorrow_night",
   statusline = {
     theme = "default",
     separator_style = "arrow",
