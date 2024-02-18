@@ -1,3 +1,3 @@
 function bwunlock
-set -g BW_SESSION (bw login --raw)
+set -g BW_SESSION (bw unlock --raw)
 end
