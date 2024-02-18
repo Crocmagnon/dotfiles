@@ -7,13 +7,34 @@ M.dap = {
       "<cmd> DapToggleBreakpoint <CR>",
       "Add breakpoint at line"
     },
+    ["<leader>dc"] = {
+      "<cmd> DapContinue <CR>",
+      "Debug - continue"
+    },
+    ["<leader>dsi"] = {
+      "<cmd> DapStepInto <CR>",
+      "Debug - step into"
+    },
+    ["<leader>dn"] = {
+      "<cmd> DapStepOver <CR>",
+      "Debug - step over (next)"
+    },
+    ["<leader>dso"] = {
+      "<cmd> DapStepOut <CR>",
+      "Debug - step out"
+    },
+    ["<leader>dt"] = {
+      "<cmd> DapTerminate <CR>",
+      "Debug - terminate"
+    },
     ["<leader>dus"] = {
       function ()
-        local widgets = require('dap.ui.widgets');
-        local sidebar = widgets.sidebar(widgets.scopes);
-        sidebar.open();
+        require("dapui").toggle();
+        -- local widgets = require('dap.ui.widgets');
+        -- local sidebar = widgets.sidebar(widgets.scopes);
+        -- sidebar.open();
       end,
-      "Open debugging sidebar"
+      "Toggle debugging interface"
     }
   }
 }
@@ -29,10 +50,22 @@ M.dap_go = {
     },
     ["<leader>dgl"] = {
       function()
-        require("dap-go").debug_last()
+        require("dap-go").debug_last_test()
       end,
       "Debug last go test"
     },
+  }
+}
+
+M.dap_ui = {
+  plugin = true,
+  n = {
+    ["È"] = { -- alt+k
+      function()
+        require("dapui").eval()
+      end,
+      "Debug - eval expression"
+    }
   }
 }
 

@@ -23,6 +23,16 @@ local plugins = {
     end,
   },
   {
+    "rcarriga/nvim-dap-ui", -- UI for the DAP debugger
+    ft = "go",
+    dependencies = "mfussenegger/nvim-dap",
+    config = function()
+      require("dapui").setup()
+      require "custom.configs.nvim-dap-ui"
+      require("core.utils").load_mappings("dap_ui")
+    end,
+  },
+  {
     "neovim/nvim-lspconfig", -- load custom lsp config
     config = function()
       require "plugins.configs.lspconfig"
@@ -45,6 +55,6 @@ local plugins = {
     build = function()
       vim.cmd [[silent! GoInstallDeps]]
     end,
-  }
+  },
 }
 return plugins
