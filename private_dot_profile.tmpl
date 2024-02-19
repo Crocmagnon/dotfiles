@@ -7,6 +7,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 {{- if eq .chezmoi.os "linux" }}
 # Set PATH, MANPATH, etc., for Homebrew.
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+[[ -s "/home/linuxbrew/.linuxbrew/bin/brew" ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{- end }}
 
