@@ -14,6 +14,11 @@ M.ui = {
     lazyload = false,
     show_numbers = true,
   },
+  hl_override = {
+    CursorLine = {
+      bg = "one_bg",
+    },
+  },
 }
 
 return M
