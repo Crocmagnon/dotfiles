@@ -1,12 +1,14 @@
-fish_add_path /opt/homebrew/opt/curl/bin /opt/homebrew/bin /opt/homebrew/sbin $HOME/.local/bin $HOME/.cargo/bin $HOME/go/bin
-{{- if not (get . "sudo") }}
-fish_add_path $HOME/.local/homebrew/bin
-command -v brew > /dev/null; and eval "$(brew shellenv)"
+{{- if (get . "brew") }}
+{{- if eq .chezmoi.os "darwin" }}
+{{- if (get . "sudo") }}
+eval (/opt/homebrew/bin/brew shellenv)
+{{- else }}
+eval ($HOME/.local/homebrew/bin/brew shellenv)
 {{- end }}
-{{- if eq .chezmoi.os "linux" }}
-fish_add_path /home/linuxbrew/.linuxbrew/bin $HOME/.local/share/JetBrains/Toolbox/scripts
-eval "$(brew shellenv)"
 {{- end }}
+{{- end }}
+
+fish_add_path $HOME/.local/bin $HOME/.cargo/bin $HOME/go/bin
 
 set -gx RUSTC_WRAPPER sccache
 
@@ -45,7 +47,7 @@ test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shel
 set -gx EDITOR nvim
 set -gx DJANGOPROJECT_DATA_DIR $HOME/.djangoproject
 
-mise activate fish | source
+type -q mise && mise activate fish | source
 test -e {$HOME}/.config/fish/work.fish; and source {$HOME}/.config/fish/work.fish
 test -e {$HOME}/.config/fish/secrets.fish; and source {$HOME}/.config/fish/secrets.fish
 

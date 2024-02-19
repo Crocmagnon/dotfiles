@@ -1,6 +1,6 @@
 [[ -s "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 
-{{- if eq .chezmoi.os "linux" }}
+{{- if and (eq .chezmoi.os "linux") (get . "brew") }}
 # Set PATH, MANPATH, etc., for Homebrew.
 [[ -s "/home/linuxbrew/.linuxbrew/bin/brew" ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{- end }}
