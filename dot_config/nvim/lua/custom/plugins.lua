@@ -1,9 +1,24 @@
 local plugins = {
   {
+    "nvim-treesitter/nvim-treesitter", -- grammars
+    opts = {
+      ensure_installed = {
+        "go",
+        "lua",
+        "python",
+      },
+      auto_install = true,
+    },
+  },
+  {
     "williamboman/mason.nvim", -- auto install tools
     opts = {
       ensure_installed = {
+        "lua-language-server",
         "gopls",
+        "gofumpt",
+        "golangci-lint",
+        "goimports",
       },
     },
   },
@@ -40,7 +55,7 @@ local plugins = {
     end,
   },
   {
-    "jose-elias-alvarez/null-ls.nvim", -- custom format on save
+    "nvimtools/none-ls.nvim", -- custom format on save
     ft = "go",
     opts = function()
       return require "custom.configs.null-ls"
