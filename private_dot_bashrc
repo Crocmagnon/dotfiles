@@ -1,10 +1,8 @@
-export PATH=$PATH:~/bin
+export PATH=$PATH:$HOME/bin:$HOME/.local/go/bin
+export EDITOR=nvim
 export LC_ALL=fr_FR.UTF-8
 
 [ command -v mise &> /dev/null ] && eval "$(mise activate bash)"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin:$HOME/Projects/golang/bin"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [[ -s "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
