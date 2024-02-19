@@ -1,11 +1,8 @@
-export PATH=$PATH:$HOME/bin:$HOME/.local/go/bin
 export EDITOR=nvim
 export LC_ALL=fr_FR.UTF-8
 
 [ command -v mise &> /dev/null ] && eval "$(mise activate bash)"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-[[ -s "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
-
 [ -f ~/.work.bash ] && source ~/.work.bash
 
