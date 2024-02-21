@@ -9,6 +9,8 @@ Host ubuntu
     ControlMaster auto
     ControlPath ~/.ssh/control-%C
     ControlPersist 4h
+    RequestTTY yes
+    RemoteCommand tmux -CC new -A -s tmssh
 
 Host hass
     hostname 192.168.0.9
