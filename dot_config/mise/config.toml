@@ -4,3 +4,4 @@ legacy_version_file = false
 
 [tools]
 usage = "latest"
+python = "3.12.3"
