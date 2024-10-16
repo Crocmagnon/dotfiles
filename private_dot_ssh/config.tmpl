@@ -2,10 +2,10 @@ Include work.config
 
 # Home
 Host ubuntu
-    hostname 192.168.0.6
-    user gaugendre
+    Hostname 192.168.0.6
+    User gaugendre
     ForwardAgent yes
-    port 38303
+    Port 38303
     ControlMaster auto
     ControlPath ~/.ssh/control-%C
     ControlPersist 4h
@@ -13,32 +13,32 @@ Host ubuntu
     RemoteCommand tmux -CC new -A -s tmssh
 
 Host hass
-    hostname 192.168.0.9
-    user hassio
-    port 32690
+    Hostname 192.168.0.9
+    User hassio
+    Port 32690
 
 Host robospierre
-    hostname 192.168.0.97
-    user root
+    Hostname 192.168.0.97
+    User root
 
 Host raspiwifi display hass-display
-    hostname 192.168.0.7
-    user pi
-    port 8121
+    Hostname 192.168.0.7
+    User pi
+    Port 8121
 
 #Host raspi
-#    hostname 192.168.0.8
-#    user pi
-#    port 8121
+#    Hostname 192.168.0.8
+#    User pi
+#    Port 8121
 
 Host octopi printer
-    hostname 192.168.0.10
-    user gaugendre
+    Hostname 192.168.0.10
+    User gaugendre
     ForwardAgent yes
 
 Host hyperhdr
-    hostname hyperhdr.local
-    user pi
+    Hostname hyperhdr.local
+    User pi
 
 Host *
     AddKeysToAgent yes
@@ -46,6 +46,6 @@ Host *
     UseKeychain yes
     {{- end }}
     SendEnv LANG
-    port 22
+    Port 22
     XAuthLocation /opt/X11/bin/xauth
 
