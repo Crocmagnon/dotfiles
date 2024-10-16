@@ -5,12 +5,20 @@ Host ubuntu
     Hostname 192.168.0.6
     User gaugendre
     ForwardAgent yes
-    Port 38303
     ControlMaster auto
     ControlPath ~/.ssh/control-%C
     ControlPersist 4h
     RequestTTY yes
     RemoteCommand tmux -CC new -A -s tmssh
+
+Host ubuntu-no-tmux
+    Hostname 192.168.0.6
+    User gaugendre
+    ForwardAgent yes
+    ControlMaster auto
+    ControlPath ~/.ssh/control-%C
+    ControlPersist 4h
+    RequestTTY yes
 
 Host hass
     Hostname 192.168.0.9
@@ -20,21 +28,6 @@ Host hass
 Host robospierre
     Hostname 192.168.0.97
     User root
-
-Host raspiwifi display hass-display
-    Hostname 192.168.0.7
-    User pi
-    Port 8121
-
-#Host raspi
-#    Hostname 192.168.0.8
-#    User pi
-#    Port 8121
-
-Host octopi printer
-    Hostname 192.168.0.10
-    User gaugendre
-    ForwardAgent yes
 
 Host hyperhdr
     Hostname hyperhdr.local
