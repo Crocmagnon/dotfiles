@@ -47,6 +47,7 @@
     pushnoci = push -o ci.skip
     diffs = diff --staged
     restores = restore --staged
+    rmtag = ! "f() { git tag --delete $1; git push --delete origin $1; }; f"
 [commit]
   verbose = true
 [rerere]
