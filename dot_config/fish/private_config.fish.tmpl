@@ -48,7 +48,7 @@ set -gx EDITOR nvim
 set -gx DJANGOPROJECT_DATA_DIR $HOME/.djangoproject
 
 type -q mise && mise activate fish | source
-test -e {$HOME}/.config/fish/work.fish; and source {$HOME}/.config/fish/work.fish
+test -e {$HOME}/.config/fish/host.fish; and source {$HOME}/.config/fish/host.fish
 test -e {$HOME}/.config/fish/secrets.fish; and source {$HOME}/.config/fish/secrets.fish
 
 set tide_character_icon '$'
