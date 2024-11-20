@@ -8,17 +8,6 @@ Host ubuntu
     ControlMaster auto
     ControlPath ~/.ssh/control-%C
     ControlPersist 4h
-    RequestTTY yes
-    RemoteCommand tmux -CC new -A -s tmssh
-
-Host ubuntu-no-tmux
-    Hostname 192.168.0.6
-    User gaugendre
-    ForwardAgent yes
-    ControlMaster auto
-    ControlPath ~/.ssh/control-%C
-    ControlPersist 4h
-    RequestTTY yes
 
 Host hass
     Hostname 192.168.0.9

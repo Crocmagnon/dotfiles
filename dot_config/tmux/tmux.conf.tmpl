@@ -86,3 +86,8 @@ setw -g window-status-bell-style 'fg=black bg=yellow bold'
 
 # messages
 set -g message-style 'fg=black bg=white bold'
+
+# https://gitlab.com/gnachman/iterm2/-/wikis/tmux-Integration-Best-Practices#i-want-to-see-tmux-window-titles-as-tabwindow-titles-in-iterm2
+set-option -g set-titles on
+set-option -g set-titles-string '#T'
+
