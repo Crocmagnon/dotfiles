@@ -30,9 +30,9 @@ set -gx POETRY_HTTP_BASIC_PYPI_PASSWORD $PYPI_TOKEN
 set -gx ANSIBLE_NOCOWS 1
 
 {{- if eq .chezmoi.os "darwin" }}
-set -g fish_greeting "Yo ✌🏻Bien ?"
+set -g fish_greeting "Wsh, bien ?"
 {{- else }}
-set -g fish_greeting "Yo ✌  Bien ?"
+set -g fish_greeting "Wsh, bien ?"
 {{- end }}
 
 # Install python with pyenv with tcl/tk support
