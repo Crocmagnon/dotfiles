@@ -49,22 +49,22 @@
     restores = restore --staged
     rmtag = ! "f() { git tag --delete $1; git push --delete origin $1; }; f"
 [commit]
-  verbose = true
+    verbose = true
 [rerere]
-  enabled = true
+    enabled = true
 [core]
     editor = nvim
     attributesfile = {{ .chezmoi.homeDir }}/.config/git/attributes
     autocrlf = input
 [submodule]
-  recurse = true
+    recurse = true
 [fetch]
-  prune = true
-  prunetags = true
+    prune = true
+    prunetags = true
 [log]
-  date = iso
+    date = iso
 [status]
-  submoduleSummary = true
+    submoduleSummary = true
 [diff]
     colorMoved = default
     algorithm = histogram
@@ -86,13 +86,13 @@
 [pull]
     rebase = true
 [rebase]
-  autosquash = true
-  autostash = true
-  updateRefs = true
+    autosquash = true
+    autostash = true
+    updateRefs = true
 [init]
     defaultBranch = master
 [branch]
-  sort = -committerdate
+    sort = -committerdate
 [advice]
     detachedHead = false
 [filter "lfs"]
@@ -107,13 +107,43 @@
     sort = version:refname
 
 [url "git@github.com:"]
-  insteadOf = "https://github.com/"
-  insteadOf = "gh:"
+    insteadOf = "https://github.com/"
+    insteadOf = "gh:"
 
 [credential]
-  helper = osxkeychain
+    helper = osxkeychain
 
 [include]
-  path = host.config
-  path = sendemail
+    path = host.config
+    path = sendemail
 
+# git-town aliases & config
+# https://www.git-town.com
+[alias]
+    append = town append
+    compress = town compress
+    contribute = town contribute
+    diff-parent = town diff-parent
+    hack = town hack
+    delete = town delete
+    observe = town observe
+    park = town park
+    prepend = town prepend
+    propose = town propose
+    rename = town rename
+    repo = town repo
+    set-parent = town set-parent
+    ship = town ship
+    sync = town sync
+
+[git-town]
+    push-hook = true
+    push-new-branches = false
+    create-prototype-branches = false
+    ship-strategy = api
+    ship-delete-tracking-branch = false
+    sync-tags = true
+    sync-upstream = true
+    perennial-branches = master
+    sync-feature-strategy = rebase
+    sync-perennial-strategy = rebase
