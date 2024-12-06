@@ -110,8 +110,10 @@
     insteadOf = "https://github.com/"
     insteadOf = "gh:"
 
+{{- if eq .chezmoi.os "darwin" }}
 [credential]
     helper = osxkeychain
+{{ end }}
 
 [include]
     path = host.config
