@@ -5,4 +5,5 @@ legacy_version_file = false
 [tools]
 usage = "latest"
 terraform = "latest"
-python = "3.12.3"
+python = "3.13.0"
+golangci-lint = "latest"
