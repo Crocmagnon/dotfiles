@@ -1,0 +1,24 @@
+# appearance
+theme = light:catppuccin-latte,dark:catppuccin-mocha
+cursor-style-blink = false
+cursor-invert-fg-bg = true
+
+# font
+font-family = MonoLisa Nerd Font
+font-size = 17
+adjust-cell-width = -10%
+
+# size
+window-height = 300
+window-width = 300
+
+# features
+copy-on-select = true
+shell-integration-features = sudo,title,no-cursor
+
+# keybinds
+keybind = global:cmd+shift+space=toggle_quick_terminal
+
+# fix "git" arrows in prompt, see https://github.com/ghostty-org/ghostty/discussions/3541
+font-codepoint-map = U+21E1-U+21E3=Menlo
+
