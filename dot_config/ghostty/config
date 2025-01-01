@@ -23,6 +23,7 @@ window-padding-balance = true
 # features
 copy-on-select = true
 shell-integration-features = sudo,title,no-cursor
+mouse-scroll-multiplier = 3
 
 # keybinds
 keybind = global:cmd+shift+space=toggle_quick_terminal
