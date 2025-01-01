@@ -32,11 +32,7 @@ set -gx ANSIBLE_NOCOWS 1
 
 set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
-{{- if eq .chezmoi.os "darwin" }}
-set -g fish_greeting "Wsh, bien ?"
-{{- else }}
-set -g fish_greeting "Wsh, bien ?"
-{{- end }}
+set -g fish_greeting ""
 
 # Install python with pyenv with tcl/tk support
 # https://stackoverflow.com/a/60469203/2758732
