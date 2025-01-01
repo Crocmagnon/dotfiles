@@ -1,7 +1,12 @@
+# https://ghostty.org/docs/config/reference
+
 # appearance
 theme = light:catppuccin-latte,dark:catppuccin-mocha
 cursor-style-blink = false
 cursor-invert-fg-bg = true
+background-opacity = 0.9
+background-blur-radius = 20
+macos-titlebar-style = tabs
 
 # font
 font-family = MonoLisa Nerd Font
@@ -11,6 +16,9 @@ adjust-cell-width = -10%
 # size
 window-height = 300
 window-width = 300
+window-padding-x = 5
+window-padding-y = 10
+window-padding-balance = true
 
 # features
 copy-on-select = true
