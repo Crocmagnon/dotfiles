@@ -52,3 +52,6 @@ test -e {$HOME}/.config/fish/host.fish; and source {$HOME}/.config/fish/host.fis
 test -e {$HOME}/.config/fish/secrets.fish; and source {$HOME}/.config/fish/secrets.fish
 
 set tide_character_icon '$'
+
+uv generate-shell-completion fish | source
+uvx --generate-shell-completion fish | source
