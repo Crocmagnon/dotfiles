@@ -5,4 +5,3 @@ legacy_version_file = false
 [tools]
 usage = "latest"
 terraform = "latest"
-golangci-lint = "latest"
