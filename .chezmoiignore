@@ -8,3 +8,4 @@ Library/Application Support/
 .config/sublime-text/
 {{- end }}
 
+com.googlecode.iterm2.plist
