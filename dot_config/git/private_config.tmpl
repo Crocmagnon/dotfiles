@@ -137,6 +137,8 @@
     set-parent = town set-parent
     ship = town ship
     sync = town sync
+	prev = checkout HEAD^
+	next = !git checkout $(git rev-list HEAD..${1:-main} --ancestry-path | tail -1 || echo HEAD)
 
 [git-town]
     push-hook = true
