@@ -139,6 +139,7 @@
     sync = town sync
 	prev = checkout HEAD^
 	next = !git checkout $(git rev-list HEAD..${1:-main} --ancestry-path | tail -1 || echo HEAD)
+	first = !git checkout $(git rev-list --max-parents=0 HEAD)
 
 [git-town]
     push-hook = true
