@@ -5,3 +5,4 @@ legacy_version_file = false
 [tools]
 usage = "latest"
 terraform = "latest"
+chezmoi = "latest"
