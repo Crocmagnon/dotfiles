@@ -23,7 +23,7 @@ window-padding-balance = true
 
 # features
 copy-on-select = true
-shell-integration-features = sudo,title,no-cursor
+shell-integration-features = title,no-cursor
 mouse-scroll-multiplier = 3
 
 # keybinds
