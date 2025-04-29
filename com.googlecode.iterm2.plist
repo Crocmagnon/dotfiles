@@ -3000,7 +3000,7 @@
 					<key>auto-rainbow style</key>
 					<integer>3</integer>
 					<key>font</key>
-					<string>MonoLisa-Regular 12</string>
+					<string>JetBrainsMono-Regular 12</string>
 					<key>remove empty components</key>
 					<true/>
 				</dict>
@@ -3024,13 +3024,13 @@
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.63590961694717407</real>
+									<real>0.25685083866119385</real>
 									<key>Color Space</key>
 									<string>P3</string>
 									<key>Green Component</key>
-									<real>0.6414334774017334</real>
+									<real>0.26314079761505127</real>
 									<key>Red Component</key>
-									<real>0.86000317335128784</real>
+									<real>0.46736389398574829</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -3040,7 +3040,7 @@
 								<key>auto-rainbow style</key>
 								<integer>3</integer>
 								<key>font</key>
-								<string>MonoLisa-Regular 12</string>
+								<string>JetBrainsMono-Regular 12</string>
 								<key>remove empty components</key>
 								<true/>
 							</dict>
@@ -3070,13 +3070,13 @@
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.65786063671112061</real>
+									<real>0.28102162480354309</real>
 									<key>Color Space</key>
 									<string>P3</string>
 									<key>Green Component</key>
-									<real>0.89695650339126587</real>
+									<real>0.49730372428894043</real>
 									<key>Red Component</key>
-									<real>0.8200916051864624</real>
+									<real>0.42674708366394043</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -3086,7 +3086,7 @@
 								<key>auto-rainbow style</key>
 								<integer>3</integer>
 								<key>font</key>
-								<string>MonoLisa-Regular 12</string>
+								<string>JetBrainsMono-Regular 12</string>
 								<key>remove empty components</key>
 								<true/>
 							</dict>
@@ -3108,13 +3108,13 @@
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.82982355356216431</real>
+									<real>0.43551152944564819</real>
 									<key>Color Space</key>
 									<string>P3</string>
 									<key>Green Component</key>
-									<real>0.89269793033599854</real>
+									<real>0.49410122632980347</real>
 									<key>Red Component</key>
-									<real>0.68831604719161987</real>
+									<real>0.31301426887512207</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -3124,7 +3124,7 @@
 								<key>auto-rainbow style</key>
 								<integer>3</integer>
 								<key>font</key>
-								<string>MonoLisa-Regular 12</string>
+								<string>JetBrainsMono-Regular 12</string>
 								<key>remove empty components</key>
 								<true/>
 							</dict>
@@ -3146,13 +3146,13 @@
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.88044255971908569</real>
+									<real>0.48409903049468994</real>
 									<key>Color Space</key>
 									<string>P3</string>
 									<key>Green Component</key>
-									<real>0.63086748123168945</real>
+									<real>0.2508234977722168</real>
 									<key>Red Component</key>
-									<real>0.65119582414627075</real>
+									<real>0.26971542835235596</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -3162,7 +3162,7 @@
 								<key>auto-rainbow style</key>
 								<integer>3</integer>
 								<key>font</key>
-								<string>MonoLisa-Regular 12</string>
+								<string>JetBrainsMono-Regular 12</string>
 								<key>remove empty components</key>
 								<true/>
 							</dict>
@@ -3188,13 +3188,13 @@
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.76881867647171021</real>
+									<real>0.379524827003479</real>
 									<key>Color Space</key>
 									<string>P3</string>
 									<key>Green Component</key>
-									<real>0.64143049716949463</real>
+									<real>0.26313775777816772</real>
 									<key>Red Component</key>
-									<real>0.86000508069992065</real>
+									<real>0.4673653244972229</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -3204,7 +3204,7 @@
 								<key>auto-rainbow style</key>
 								<integer>3</integer>
 								<key>font</key>
-								<string>MonoLisa-Regular 12</string>
+								<string>JetBrainsMono-Regular 12</string>
 								<key>remove empty components</key>
 								<true/>
 							</dict>
