@@ -1,3 +1,3 @@
 function sdev
-  ssh sdev -t 'tmux -CC new -A -s tmssh'
+  ssh sdev -t 'tmux new -A -s tmssh'
 end
