@@ -2,11 +2,17 @@ Include host.config
 
 # Home
 Host ubuntu
-    Hostname 192.168.0.6
     User gaugendre
     ForwardAgent yes
     ControlMaster auto
     ControlPath ~/.ssh/control-%C
+    ControlPersist 4h
+
+Host vps-1
+    User ubuntu
+    ForwardAgent yes
+    ControlMaster auto
+    ControlPath ~/.ssh/control-vps-1-%C
     ControlPersist 4h
 
 Host hass
