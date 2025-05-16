@@ -2,19 +2,16 @@ Include host.config
 
 # Home
 Host ubuntu
-    Hostname ubuntu.taila7a600.ts.net
     User gaugendre
+
+Host vps-1
+    User ubuntu
+
+Host vps-1 ubuntu
+    Hostname %h.taila7a600.ts.net
     ForwardAgent yes
     ControlMaster auto
     ControlPath ~/.ssh/control-%C
-    ControlPersist 4h
-
-Host vps-1
-    Hostname vps-1.taila7a600.ts.net
-    User ubuntu
-    ForwardAgent yes
-    ControlMaster auto
-    ControlPath ~/.ssh/control-vps-1-%C
     ControlPersist 4h
 
 Host hass
