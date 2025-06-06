@@ -54,3 +54,6 @@ test -e {$HOME}/.config/fish/secrets.fish; and source {$HOME}/.config/fish/secre
 
 set tide_character_icon '$'
 set tide_right_prompt_suffix " "
+
+# fix man output with bat (remove color codes)
+set -x GROFF_NO_SGR 1
