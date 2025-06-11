@@ -22,5 +22,6 @@ function scheme_for_appearance(appearance)
 end
 
 config.color_scheme = scheme_for_appearance(get_appearance())
+config.default_prog = { '/home/gaugendr/.local/bin/fish', '-l' }
 
 return config
