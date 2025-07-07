@@ -1,29 +1,14 @@
 set -gx SHELL (which fish)
-test -n "$GHOSTTY_RESOURCES_DIR"; and source $GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish
-
-{{- if (get . "brew") }}
-{{- if eq .chezmoi.os "darwin" }}
-{{- if (get . "sudo") }}
-eval (/opt/homebrew/bin/brew shellenv)
-{{- else }}
-eval ($HOME/.local/homebrew/bin/brew shellenv)
-{{- end }}
-{{- end }}
-{{- end }}
 
 fish_add_path $HOME/.local/bin $HOME/.cargo/bin $HOME/go/bin
+
+test -n "$GHOSTTY_RESOURCES_DIR"; and source $GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish
 
 set -gx RUSTC_WRAPPER sccache
 
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 
-set -gx HOMEBREW_NO_ENV_HINTS 1
-
 set -gx LANG en_US.UTF-8
-
-set -gx GITLABBER_FOLDER_NAMING path
-set -gx GITLABBER_CLONE_METHOD ssh
-set -gx GITLABBER_GIT_CONCURRENCY 10
 
 set -gx POETRY_PYPI_TOKEN_PYPI $PYPI_TOKEN
 set -gx POETRY_HTTP_BASIC_PYPI_USERNAME $PYPI_USERNAME
@@ -38,17 +23,13 @@ set -g fish_greeting ""
 # Install python with pyenv with tcl/tk support
 # https://stackoverflow.com/a/60469203/2758732
 set -gx PYTHON_CONFIGURE_OPTS "--with-tcltk-includes='-I/usr/local/opt/tcl-tk/include' --with-tcltk-libs='-L/usr/local/opt/tcl-tk/lib -ltcl8.6 -ltk8.6'"
-set -gx PIPX_DEFAULT_PYTHON "/Users/gaugendre/.local/share/mise/installs/python/latest/bin/python"
 set -gx PIP_REQUIRE_VIRTUALENV true
 set -gx MISE_PYTHON_VENV_AUTO_CREATE true
 
-set -gx ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX YES
-test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
-
 set -gx EDITOR nvim
-set -gx DJANGOPROJECT_DATA_DIR $HOME/.djangoproject
 
 type -q mise && mise activate fish | source
+
 test -e {$HOME}/.config/fish/host.fish; and source {$HOME}/.config/fish/host.fish
 test -e {$HOME}/.config/fish/secrets.fish; and source {$HOME}/.config/fish/secrets.fish
 
