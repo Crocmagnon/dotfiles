@@ -1,5 +1,6 @@
 function light --description 'Set shell theme to light mode, including neovim'
 	yes | fish_config theme save "Catppuccin Latte"
+	themefix
 	set -Ux BAT_THEME "Catppuccin Latte"
 	set -Ux FZF_DEFAULT_OPTS "\
 --color=bg+:#ccd0da,bg:#eff1f5,spinner:#dc8a78,hl:#d20f39 \
