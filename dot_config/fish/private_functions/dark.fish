@@ -1,5 +1,6 @@
 function dark --description 'Set shell theme to dark mode, including neovim'
 	yes | fish_config theme save "Catppuccin Mocha"
+	themefix
 	set -Ux BAT_THEME "Catppuccin Mocha"
 	set -Ux FZF_DEFAULT_OPTS "\
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
