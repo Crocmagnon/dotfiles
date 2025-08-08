@@ -4,10 +4,10 @@ Include host.config
 Host ubuntu
     User gaugendre
 
-Host vps-1
+Host vps-1 vps-2
     User ubuntu
 
-Host vps-1 ubuntu
+Host vps-1 vps-2 ubuntu
     ForwardAgent yes
     ControlMaster auto
     ControlPath ~/.ssh/control-%C
