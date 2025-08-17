@@ -38,3 +38,7 @@ set tide_right_prompt_suffix " "
 
 # fix man output with bat (remove color codes)
 set -x GROFF_NO_SGR 1
+
+gpgconf --launch gpg-agent
+set -e SSH_AUTH_SOCK
+set -gx SSH_AUTH_SOCK ~/.gnupg/S.gpg-agent.ssh
