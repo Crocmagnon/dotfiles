@@ -41,4 +41,4 @@ set -x GROFF_NO_SGR 1
 
 gpgconf --launch gpg-agent
 set -e SSH_AUTH_SOCK
-set -gx SSH_AUTH_SOCK ~/.gnupg/S.gpg-agent.ssh
+set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
