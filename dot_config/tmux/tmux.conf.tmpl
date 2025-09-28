@@ -1,6 +1,7 @@
-# change prefix wihout unbinding the default C-b
-#set-option -g prefix C-a
-#bind-key C-a send-prefix
+# change prefix to ctrl+space
+unbind C-b
+set -g prefix C-Space
+bind-key C-Space send-prefix
 
 # Split panes using | and -
 bind | split-window -h -c "#{pane_current_path}"
@@ -19,77 +20,59 @@ bind -n M-Right select-pane -R
 bind -n M-Up select-pane -U
 bind -n M-Down select-pane -D
 
+# Shift arrow to switch windows
+bind -n S-Left  previous-window
+bind -n S-Right next-window
+
 set -g mouse on
 
 # nvim fixes
 set -sg escape-time 300
 set -g focus-events on
 
-# don't rename windows automatically
-set-option -g allow-rename off
-
-# vim mode for copying
-setw -g mode-keys vi
-# prefix + v to enter copy mode
+# copy mode
+## prefix + v to enter copy mode
 bind v copy-mode
-# v to start a visual selection
+## vim mode for copying
+setw -g mode-keys vi
+## v to start a visual selection
 bind -T copy-mode-vi v send -X begin-selection
-{{- if eq .chezmoi.os "darwin" }}
-# y to yank
-bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
-# mouse support
-bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy"
-{{- else }}
-# y to yank
-bind -T copy-mode-vi y send -X copy-pipe-and-cancel
-# mouse support
-bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel
-{{- end }}
-# prefix + P to paste
+## ctrl+v to toggle rectangle selection
+bind -T copy-mode-vi C-v send-keys -X rectangle-toggle
+## prefix + P to paste
 bind P paste-buffer
 
 # color support
-set -g default-terminal "tmux-256color"
-set -ga terminal-overrides ",tmux-256color:Tc"
-
-bind u capture-pane \;\
-  save-buffer /tmp/tmux-buffer \;\
-  split-window -l 10 "urlview /tmp/tmux-buffer"
-
-# DESIGN
-
-# clock mode
-setw -g clock-mode-colour white
-# copy mode
-setw -g mode-style 'fg=white bg=red bold'
-
-# pane borders
-set -g pane-border-style 'fg=red'
-set -g pane-active-border-style 'fg=yellow'
-
-# statusbar
-set -g status-position bottom
-set -g status-justify left
-set -g status-style 'fg=blue'
-set -g status-left ' '
-set -g status-right '%Y-%m-%d %H:%M'
-set -g status-right-length 50
-set -g status-left-length 10
-
-setw -g window-status-current-style 'fg=default bg=blue bold'
-setw -g window-status-current-format ' #I #W #F '
-
-setw -g window-status-style 'fg=blue'
-setw -g window-status-format ' #I #W #F '
-
-setw -g window-status-bell-style 'fg=black bg=yellow bold'
-
-# messages
-set -g message-style 'fg=black bg=white bold'
+set -sa terminal-overrides ",xterm*:Tc"
 
 # https://gitlab.com/gnachman/iterm2/-/wikis/tmux-Integration-Best-Practices#i-want-to-see-tmux-window-titles-as-tabwindow-titles-in-iterm2
-set-option -g set-titles on
-set-option -g set-titles-string '#T'
+set -g set-titles on
+set -g set-titles-string '#T'
 
-set-option -g default-shell /usr/bin/fish
+set -g default-shell /usr/bin/fish
+
+# Configure the catppuccin plugin
+set -g @catppuccin_flavor "mocha"
+set -g @catppuccin_window_status_style "rounded"
+
+set -g status-right-length 100
+set -g status-left-length 100
+set -g status-left ""
+set -g status-right "#{E:@catppuccin_status_application}"
+set -agF status-right "#{E:@catppuccin_status_cpu}"
+set -ag status-right "#{E:@catppuccin_status_session}"
+set -ag status-right "#{E:@catppuccin_status_uptime}"
+set -agF status-right "#{E:@catppuccin_status_battery}"
+
+# https://github.com/tmux-plugins/tpm
+# requires install: git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# then prefix + I (capital i) to install plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'catppuccin/tmux'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-cpu'
+set -g @plugin 'tmux-plugins/tmux-battery'
+
+run '~/.tmux/plugins/tpm/tpm'
 
