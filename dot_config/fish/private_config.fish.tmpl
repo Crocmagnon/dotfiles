@@ -26,7 +26,7 @@ set -gx PYTHON_CONFIGURE_OPTS "--with-tcltk-includes='-I/usr/local/opt/tcl-tk/in
 set -gx PIP_REQUIRE_VIRTUALENV true
 set -gx MISE_PYTHON_VENV_AUTO_CREATE true
 
-set -gx EDITOR nvim
+set -gx EDITOR hx
 
 type -q mise && mise activate fish | source
 
@@ -42,3 +42,7 @@ set -x GROFF_NO_SGR 1
 gpgconf --launch gpg-agent
 set -e SSH_AUTH_SOCK
 set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+
+set -gx BAT_THEME_DARK "Catppuccin Mocha"
+set -gx BAT_THEME_LIGHT "Catppuccin Latte"
+set -gx BAT_THEME "auto"
