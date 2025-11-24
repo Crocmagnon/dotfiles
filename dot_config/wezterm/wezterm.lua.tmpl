@@ -38,6 +38,16 @@ config.keys = {
 		mods = "CTRL|SHIFT",
 		action = wezterm.action.ToggleFullScreen,
 	},
+	{
+		key = "d",
+		mods = "CTRL|ALT",
+		action = wezterm.action.SplitVertical{domain="CurrentPaneDomain"},
+	},
+	{
+		key = "d",
+		mods = "CTRL|ALT|SHIFT",
+		action = wezterm.action.SplitHorizontal{domain="CurrentPaneDomain"},
+	},
 }
 
 return config
