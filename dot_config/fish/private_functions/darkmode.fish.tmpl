@@ -1,0 +1,6 @@
+function darkmode
+    dark
+    {{ if not (get . "autolightdark") }}
+	lookandfeeltool -a org.kde.breezedark.desktop
+    {{ end }}
+end
