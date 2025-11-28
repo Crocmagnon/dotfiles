@@ -49,10 +49,12 @@ set -sa terminal-overrides ",xterm*:Tc"
 set -g set-titles on
 set -g set-titles-string '#T'
 
-set -g default-shell /usr/bin/fish
+{{ if (get . "shell_path")}}
+set -g default-shell {{ .shell_path }}
+{{ end }}
 
 # Configure the catppuccin plugin
-set -g @catppuccin_flavor "mocha"
+set -g @catppuccin_flavor "latte"
 set -g @catppuccin_window_status_style "rounded"
 
 set -g status-right-length 100
