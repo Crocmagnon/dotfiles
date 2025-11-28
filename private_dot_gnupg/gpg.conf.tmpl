@@ -1,2 +1,4 @@
 use-agent
+{{ if hasKey . "gpg_keyserver" }}
 keyserver {{ .gpg_keyserver }}
+{{ end }}
