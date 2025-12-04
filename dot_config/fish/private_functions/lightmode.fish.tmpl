@@ -1,6 +1,7 @@
 function lightmode
     light
-    {{ if not (get . "autolightdark") }}
-	lookandfeeltool -a org.kde.breeze.desktop
-    {{ end }}
+    {{- if not (get . "autolightdark") }}
+    # https://github.com/maldoinc/plasma-theme-switcher
+    plasma-theme -c /usr/share/color-schemes/BreezeLight.colors
+    {{- end }}
 end
