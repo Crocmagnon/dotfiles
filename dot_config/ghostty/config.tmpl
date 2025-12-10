@@ -26,7 +26,7 @@ window-decoration = server
 
 # features
 copy-on-select = clipboard
-shell-integration-features = title,no-cursor,ssh-env
+shell-integration-features = title,no-cursor,{{ if (get . "ghostty_ssh_env") }}ssh-env{{ else }}ssh-terminfo{{ end }}
 mouse-scroll-multiplier = 3
 
 # keybinds
