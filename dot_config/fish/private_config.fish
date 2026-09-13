@@ -37,4 +37,7 @@ if status is-interactive
     set -g fish_greeting ""
     zoxide init fish | source
     starship init fish | source
+    if test -n "$(chezmoi status 2>/dev/null)"
+        echo "dotfiles drift — run 'dotstatus'"
+    end
 end
