@@ -1,0 +1,2 @@
+
+machine {{ joinPath .chezmoi.sourceDir ".secrets/encrypted_host_artifactory" | include | trim }} login {{ joinPath .chezmoi.sourceDir ".secrets/encrypted_artifactory_login" | include | trim }} password {{ joinPath .chezmoi.sourceDir ".secrets/encrypted_artifactory_password" | include | trim }}

@@ -1,8 +1,8 @@
 [sendemail]
     smtpserver = smtp.migadu.com
-    smtpuser = {{ (bitwarden "item" "Migadu email").login.username }}
+    smtpuser = gabriel@augendre.info
     smtpencryption = ssl
     smtpserverport = 465
-    smtppass = {{ (bitwarden "item" "Migadu email").login.password | quote }}
+    smtppass = {{ joinPath .chezmoi.sourceDir ".secrets/encrypted_smtp_password" | include | trim | quote }}
     confirm = auto
 

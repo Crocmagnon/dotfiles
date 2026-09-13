@@ -1,0 +1,10 @@
+provider_installation {
+    direct {
+        exclude = ["registry.terraform.io/*/*"]
+    }
+    network_mirror {
+        url = "{{ joinPath .chezmoi.sourceDir ".secrets/encrypted_terraform_mirror_url" | include | trim }}"
+    }
+}
+
+plugin_cache_dir   = "$HOME/.terraform.d/plugin-cache"
