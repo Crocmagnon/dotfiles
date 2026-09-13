@@ -30,6 +30,7 @@
 .config/fish/functions/setup-mise.fish
 .config/fish/functions/themefix.fish
 .config/fish/functions/tideconfig.fish
+.config/fish/functions/tmssh.fish
 .config/fish/functions/ubuntu.fish
 .config/fish/functions/updategh.fish
 .config/fish/functions/update_helix_theme.fish
@@ -38,8 +39,10 @@
 .config/fish/functions/upgrade.fish
 .config/fish/functions/vim.fish
 .config/fish/secrets.fish
+.config/ghostty/config
 .config/iterm/com.googlecode.iterm2.plist
 .config/sublime-text/Packages/User/Preferences.sublime-settings
+.config/tmux/tmux.conf
 .config/wezterm/wezterm.lua
 .envrc
 .hushlogin
