@@ -1,11 +1,13 @@
 README.md
 LICENSE
-Preferences.sublime-settings
-{{- if ne .chezmoi.os "darwin" }}
-Library/Application Support/
-{{- end }}
-{{- if ne .chezmoi.os "linux" }}
-.config/sublime-text/
-{{- end }}
-
-com.googlecode.iterm2.plist
+.config/fish/completions/
+.config/fish/fish_variables
+.config/fish/themes/static/
+.config/fish/conf.d/done.fish
+.config/fish/conf.d/autopair.fish
+.config/fish/conf.d/fzf.fish
+.config/fish/functions/fisher.fish
+.config/fish/functions/fzf_configure_bindings.fish
+.config/fish/functions/_fzf_*
+.config/fish/functions/_autopair_*
+.config/fish/themes/catppuccin-*.theme

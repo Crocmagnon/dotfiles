@@ -1,3 +1,3 @@
 function kpass
-keepassxc-cli show -sa password ~/Nextcloud2/OVH/keepass.kdbx $argv
+    keepassxc cli show -sa password ~/Nextcloud/keepass.kdbx $argv
 end

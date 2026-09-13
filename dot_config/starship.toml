@@ -1,0 +1,133 @@
+"$schema" = "https://starship.rs/config-schema.json"
+format = "$all$fill$cmd_duration$time$line_break$character"
+palette = "catppuccin_latte"
+
+[golang]
+disabled = true
+# symbol = 'go '
+# format = '[$symbol($version )]($style)'
+ 
+[azure]
+symbol = "☁️ "
+ 
+[battery]
+charging_symbol = "⇡ "
+discharging_symbol = "⇣ "
+empty_symbol = "❗ "
+full_symbol = "• "
+unknown_symbol = "❓ "
+ 
+[cmd_duration]
+format = "[⏱ $duration]($style) "
+min_time = 5000
+style = "black"
+ 
+[directory]
+before_repo_root_style = "cyan"
+fish_style_pwd_dir_length = 1
+repo_root_style = "bold cyan"
+ 
+[erlang]
+symbol = "ⓔ "
+ 
+[fill]
+symbol = " "
+ 
+[git_branch]
+format = "[$branch(:$remote_branch)]($style) "
+only_attached = true
+style = "green"
+ 
+[git_commit]
+tag_disabled = false
+tag_symbol = " #"
+ 
+[git_status]
+ahead = "[⇡$count](green) "
+behind = "[⇣$count](green) "
+conflicted = "=$count "
+deleted = "✘$count "
+diverged = "[⇡$ahead_count ⇣$behind_count](green) "
+format = "[$ahead_behind$all_status]($style)"
+modified = "!$count "
+renamed = "»$count "
+staged = "+$count "
+stashed = "[*$count](green) "
+style = "yellow"
+untracked = "[?$count](blue) "
+ 
+[hostname]
+format = "[@$hostname]($style) "
+style = "dimmed yellow"
+ 
+[nodejs]
+symbol = "[⬢](bold green) "
+ 
+[palettes.catppuccin_mocha]
+base = "#1e1e2e"
+blue = "#89b4fa"
+crust = "#11111b"
+flamingo = "#f2cdcd"
+green = "#a6e3a1"
+lavender = "#b4befe"
+mantle = "#181825"
+maroon = "#eba0ac"
+mauve = "#cba6f7"
+overlay0 = "#6c7086"
+overlay1 = "#7f849c"
+overlay2 = "#9399b2"
+peach = "#fab387"
+pink = "#f5c2e7"
+red = "#f38ba8"
+rosewater = "#f5e0dc"
+sapphire = "#74c7ec"
+sky = "#89dceb"
+subtext0 = "#a6adc8"
+subtext1 = "#bac2de"
+surface0 = "#313244"
+surface1 = "#45475a"
+surface2 = "#585b70"
+teal = "#94e2d5"
+text = "#cdd6f4"
+yellow = "#f9e2af"
+
+[palettes.catppuccin_latte]
+rosewater = "#dc8a78"
+flamingo = "#dd7878"
+pink = "#ea76cb"
+mauve = "#8839ef"
+red = "#d20f39"
+maroon = "#e64553"
+peach = "#fe640b"
+yellow = "#df8e1d"
+green = "#40a02b"
+teal = "#179299"
+sky = "#04a5e5"
+sapphire = "#209fb5"
+blue = "#1e66f5"
+lavender = "#7287fd"
+text = "#4c4f69"
+subtext1 = "#5c5f77"
+subtext0 = "#6c6f85"
+overlay2 = "#7c7f93"
+overlay1 = "#8c8fa1"
+overlay0 = "#9ca0b0"
+surface2 = "#acb0be"
+surface1 = "#bcc0cc"
+surface0 = "#ccd0da"
+base = "#eff1f5"
+mantle = "#e6e9ef"
+crust = "#dce0e8"
+ 
+[pulumi]
+symbol = "🧊 "
+ 
+[time]
+disabled = false
+format = "[$time]($style) "
+style = "black"
+ 
+[username]
+format = "[$user]($style)"
+style_user = "dimmed yellow"
+

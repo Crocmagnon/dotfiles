@@ -1,3 +1,3 @@
-function kctx --wraps='kubectl ctx'
-  kubectl ctx $argv;
+function kctx --wraps=kubectx
+  kubectx $argv;
 end

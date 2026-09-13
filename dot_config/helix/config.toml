@@ -4,6 +4,7 @@ theme = "adaptive"
 line-number = "relative"
 cursorline = true
 color-modes = true
+bufferline = "always"
 
 [editor.cursor-shape]
 insert = "bar"

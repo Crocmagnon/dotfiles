@@ -13,12 +13,6 @@
     followtags = true
 [help]
     autocorrect = immediate
-{{- if hasKey . "proxy" }}
-[http]
-    proxy = {{ .proxy.protocol }}://{{ .proxy.address }}:{{ .proxy.port }}
-[https]
-    proxy = {{ .proxy.protocol }}://{{ .proxy.address }}:{{ .proxy.port }}
-{{- end }}
 [alias]
     ci = commit
     cp = cherry-pick
@@ -50,6 +44,8 @@
     diffs = diff --staged
     restores = restore --staged
     rmtag = ! "f() { git tag --delete $1; git push --delete origin $1; }; f"
+    stat = "diff --shortstat"
+    statmaster = "stat master...HEAD"
 [commit]
     verbose = true
     gpgSign = true
@@ -57,7 +53,7 @@
     enabled = true
 [core]
     editor = hx
-    attributesfile = {{ .chezmoi.homeDir }}/.config/git/attributes
+    attributesfile = /home/gaugendr/.config/git/attributes
     autocrlf = input
 [submodule]
     recurse = true
@@ -114,11 +110,11 @@
     insteadOf = "https://github.com/"
     insteadOf = "gh:"
 
-{{- if eq .chezmoi.os "darwin" }}
+{{ if eq .chezmoi.os "darwin" -}}
 [credential]
     helper = osxkeychain
-{{ end }}
 
+{{ end -}}
 [include]
     path = host.config
     path = sendemail
