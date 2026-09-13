@@ -1,0 +1,80 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(**/*.enc)",
+      "Read(**/*.key)",
+      "Read(**/*.pem)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/.terraformrc)",
+      "Read(**/credentials.json)",
+      "Read(**/id_dsa)",
+      "Read(**/id_ecdsa)",
+      "Read(**/id_ed25519)",
+      "Read(**/id_rsa)",
+      "Read(**/secrets.json)",
+      "Read(**/terraform.rc)",
+      "Read(*.tfstate)",
+      "Read(*.tfvars)",
+      "Read(./.env)",
+      "Read(**/vault.yml)",
+      "Read(**/vault.yaml)",
+      "Read(./mise.local.toml)",
+      "Read(./secrets/**)"
+    ],
+    "defaultMode": "auto"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/home/gaugendr/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash /home/gaugendr/.claude/statusline.sh",
+    "refreshInterval": 10
+  },
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true,
+    "crit@crit": false,
+    "ponytail@ponytail": true,
+    "modern-go-guidelines@goland-claude-marketplace": true,
+    "superpowers@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "crit": {
+      "source": {
+        "source": "github",
+        "repo": "tomasz-tomczyk/crit"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    },
+    "goland-claude-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "JetBrains/go-modern-guidelines"
+      }
+    }
+  },
+  "syntaxHighlightingDisabled": false,
+  "effortLevel": "medium",
+  "askUserQuestionTimeout": "never",
+  "tui": "fullscreen",
+  "autoMemoryEnabled": true,
+  "theme": "light",
+  "skipAutoPermissionPrompt": true
+}
