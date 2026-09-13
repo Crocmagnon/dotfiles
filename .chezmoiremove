@@ -43,6 +43,7 @@
 .config/iterm/com.googlecode.iterm2.plist
 .config/sublime-text/Packages/User/Preferences.sublime-settings
 .config/tmux/tmux.conf
+.config/topgrade.toml
 .config/wezterm/wezterm.lua
 .envrc
 .hushlogin
