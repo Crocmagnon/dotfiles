@@ -1,4 +1,5 @@
 use-agent
-{{ if hasKey . "gpg_keyserver" }}
-keyserver {{ .gpg_keyserver }}
-{{ end }}
+
+keyserver {{ joinPath .chezmoi.sourceDir ".secrets/encrypted_gpg_keyserver" | include | trim }}
+default-key 3A85F46E66CD7EABE5C1E5D40073D1CD7EC5A253
+

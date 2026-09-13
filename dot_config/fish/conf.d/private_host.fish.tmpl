@@ -1,0 +1,28 @@
+{{- $sdevDocker := joinPath .chezmoi.sourceDir ".secrets/encrypted_host_sdev_docker" | include | trim -}}
+{{- $stash := joinPath .chezmoi.sourceDir ".secrets/encrypted_host_stash" | include | trim -}}
+{{- $artifactory := joinPath .chezmoi.sourceDir ".secrets/encrypted_host_rt_artifactory" | include | trim -}}
+{{- $pgPassword := joinPath .chezmoi.sourceDir ".secrets/encrypted_pg_password" | include | trim -}}
+{{- $arangoPassword := joinPath .chezmoi.sourceDir ".secrets/encrypted_arango_password" | include | trim -}}
+fish_add_path -g $HOME/.krew/bin $HOME/Projects/ovh/isupport/scripts $HOME/Projects/ovh/prismcmdb/scripts
+
+set -gx LOGIN8 gaugendr
+set -gx SSH_BASTION_KEY_LOCATION $HOME/.ssh/id_ed25519
+source ~/Projects/ovh/soc/bastion-wrapper/source-me.fish
+
+set -gx GONOSUMDB "{{ $stash }}/*"
+set -gx GOPRIVATE {{ $stash }}
+
+set -gx PGURL "postgresql://postgres:{{ $pgPassword }}@{{ $sdevDocker }}:21778?sslmode=disable"
+set -gx ARANGO_URL "http://root:{{ $arangoPassword }}@{{ $sdevDocker }}:21777"
+set -gx REDIS_URL "redis://{{ $sdevDocker }}:21776"
+set -gx KAFKA_BROKERS "{{ $sdevDocker }}:21775"
+set -gx TERRAFORM_ARTIFACTORY_HOST {{ $artifactory }}
+
+set -gx TMPDIR "$HOME/.local/tmp"
+set -gx PROOT_TMP_DIR "$TMPDIR"
+
+# mise scans /etc/ssl/certs and chokes on the root-only pan_client_cert.pfx; point it at the bundle instead
+set -gx SSL_CERT_FILE /etc/ssl/certs/ca-certificates.crt
+
+set -gx RESTIC_PASSWORD_COMMAND "gpg --quiet --decrypt $HOME/.config/restic/password"
+set -gx RESTIC_REPOSITORY $HOME/Nextcloud/backup
