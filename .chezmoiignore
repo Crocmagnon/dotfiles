@@ -38,3 +38,4 @@ LICENSE
 .claude/tasks/
 .claude/telemetry/
 .claude/policy-limits.json
+docs/
