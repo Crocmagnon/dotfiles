@@ -1,5 +1,0 @@
-[".config/nvim"]
-    type = "git-repo"
-    url = "git@github.com:Crocmagnon/nvim-config.git"
-    refreshPeriod = "168h"
-
