@@ -1,3 +1,3 @@
-function lastdl
-echo "$HOME/Downloads/$(exa -1 -s modified ~/Downloads | tail -1)"
+function lastdl --description 'Print the path of the most recently modified file in ~/Downloads'
+    eza -1 -s modified --absolute=on ~/Downloads | tail -1
 end

@@ -6,3 +6,6 @@ formatter = { command = "goimports" }
 [language-server.gopls.config]
 "ui.diagnostic.staticcheck" = true
 "formatting.gofumpt" = true
+
+[language-server.rust-analyzer.config]
+"check.command" = "clippy"

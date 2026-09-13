@@ -1,31 +1,5 @@
 Include host.config
 
-# Home
-Host ubuntu
-    User gaugendre
-
-Host vps-1 vps-2
-    User ubuntu
-
-Host vps-1 vps-2 ubuntu
-    ForwardAgent yes
-    ControlMaster auto
-    ControlPath ~/.ssh/control-%C
-    ControlPersist 4h
-
-Host hass
-    Hostname 192.168.0.9
-    User hassio
-    Port 32690
-
-Host robospierre
-    Hostname 192.168.0.97
-    User root
-
-Host hyperhdr
-    Hostname hyperhdr.local
-    User pi
-
 Host *
     AddKeysToAgent yes
     {{- if eq .chezmoi.os "darwin" }}
