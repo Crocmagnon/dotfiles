@@ -1,8 +1,0 @@
-function upgrade --wraps=topgrade
-  set -x NODE_OPTIONS "--no-deprecation"
-  bwunlock
-  {{- if get . "sudo" }}
-  sudo ls >/dev/null
-  {{- end }}
-  topgrade $argv
-end
