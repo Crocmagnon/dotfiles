@@ -11,6 +11,7 @@ IFS=$'\t' read -r model dir used cost < <(jq -r '[
 
 R=$'\e[0m' DIM=$'\e[2m' REPO=$'\e[1;34m' BRANCH=$'\e[35m' PR=$'\e[36m'
 RED=$'\e[31m' YEL=$'\e[33m' GRN=$'\e[32m'
+LINK=$'\e]8;;' LINKMID=$'\e\\' LINKEND=$'\e]8;;\e\\'
 SEP="${DIM} | ${R}"
 
 # Bitbucket/Stash publishes refs/pull-requests/<id>/from; the ref whose tip is the pushed
@@ -48,7 +49,15 @@ if root=$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null); then
     [ "$behind" -gt 0 ] 2>/dev/null && loc="$loc ${YEL}↓$behind${R}"
   fi
 
-  pr=$(pr_id) && [ -n "$pr" ] && loc="$loc ${PR}#$pr${R}"
+  if pr=$(pr_id) && [ -n "$pr" ]; then
+    # ssh://git@host:7999/project/repo.git -> https://host/projects/PROJECT/repos/repo
+    url=$(git -C "$dir" remote get-url origin 2>/dev/null |
+      sed -E 's#^[a-z+]+://##; s#^[^/@]*@##; s#\.git$##; s#:[0-9]+/#/#; s#^([^/]+)/(.*)/([^/]+)$#https://\1/projects/\U\2\E/repos/\3#')
+    case "$url" in
+      https://*) loc="$loc ${LINK}${url}/pull-requests/${pr}${LINKMID}${PR}#$pr${R}${LINKEND}" ;;
+      *) loc="$loc ${PR}#$pr${R}" ;;
+    esac
+  fi
   out="$out$SEP$loc"
 else
   out="$out$SEP${REPO}$(basename "$dir")${R}"
