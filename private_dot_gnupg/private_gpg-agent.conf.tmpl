@@ -1,9 +1,17 @@
 use-standard-socket
 enable-ssh-support
+{{- if get . "headless" }}
+pinentry-program /usr/bin/pinentry-curses
+default-cache-ttl 34560000
+max-cache-ttl 34560000
+default-cache-ttl-ssh 34560000
+max-cache-ttl-ssh 34560000
+{{- else }}
 default-cache-ttl 600
 max-cache-ttl 7200
 default-cache-ttl-ssh 600
 max-cache-ttl-ssh 7200
 {{- if get . "brew" }}
 pinentry-program /opt/homebrew/bin/pinentry-mac
+{{- end }}
 {{- end }}
