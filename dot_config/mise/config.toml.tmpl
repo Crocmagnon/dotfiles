@@ -1,6 +1,9 @@
 [settings]
 experimental = true
 legacy_version_file = false
+{{- if get . "local_git_crypt" }}
+disable_tools = ["aqua:AGWA/git-crypt"]
+{{- end }}
 
 [tools]
 usage = "latest"
