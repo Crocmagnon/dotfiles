@@ -1,13 +1,14 @@
-{{- $sdevDocker := joinPath .chezmoi.sourceDir ".secrets/encrypted_host_sdev_docker" | include | trim -}}
-{{- $stash := joinPath .chezmoi.sourceDir ".secrets/encrypted_host_stash" | include | trim -}}
-{{- $artifactory := joinPath .chezmoi.sourceDir ".secrets/encrypted_host_rt_artifactory" | include | trim -}}
-{{- $pgPassword := joinPath .chezmoi.sourceDir ".secrets/encrypted_pg_password" | include | trim -}}
-{{- $arangoPassword := joinPath .chezmoi.sourceDir ".secrets/encrypted_arango_password" | include | trim -}}
+{{- $sdevDocker := include ".secrets/encrypted_host_sdev_docker" | trim -}}
+{{- $stash := include ".secrets/encrypted_host_stash" | trim -}}
+{{- $artifactory := include ".secrets/encrypted_host_rt_artifactory" | trim -}}
+{{- $pgPassword := include ".secrets/encrypted_pg_password" | trim -}}
+{{- $arangoPassword := include ".secrets/encrypted_arango_password" | trim -}}
 fish_add_path -g $HOME/.krew/bin $HOME/Projects/ovh/isupport/scripts $HOME/Projects/ovh/prismcmdb/scripts
 
 set -gx LOGIN8 gaugendr
 set -gx SSH_BASTION_KEY_LOCATION $HOME/.ssh/id_ed25519
-source ~/Projects/ovh/soc/bastion-wrapper/source-me.fish
+test -f ~/Projects/ovh/soc/bastion-wrapper/source-me.fish
+    and source ~/Projects/ovh/soc/bastion-wrapper/source-me.fish
 
 set -gx GONOSUMDB "{{ $stash }}/*"
 set -gx GOPRIVATE {{ $stash }}

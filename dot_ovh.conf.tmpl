@@ -2,6 +2,6 @@
 endpoint = ovh-eu
 
 [ovh-eu]
-application_key    = {{ joinPath .chezmoi.sourceDir ".secrets/encrypted_ovh_application_key" | include | trim }}
-application_secret = {{ joinPath .chezmoi.sourceDir ".secrets/encrypted_ovh_application_secret" | include | trim }}
-consumer_key       = {{ joinPath .chezmoi.sourceDir ".secrets/encrypted_ovh_consumer_key" | include | trim }}
+application_key    = {{ include ".secrets/encrypted_ovh_application_key" | trim }}
+application_secret = {{ include ".secrets/encrypted_ovh_application_secret" | trim }}
+consumer_key       = {{ include ".secrets/encrypted_ovh_consumer_key" | trim }}

@@ -3,6 +3,6 @@
     smtpuser = gabriel@augendre.info
     smtpencryption = ssl
     smtpserverport = 465
-    smtppass = {{ joinPath .chezmoi.sourceDir ".secrets/encrypted_smtp_password" | include | trim | quote }}
+    smtppass = {{ include ".secrets/encrypted_smtp_password" | trim | quote }}
     confirm = auto
 
