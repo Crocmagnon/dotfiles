@@ -65,7 +65,7 @@ and on top of it —
 
 ## References
 
-- **Platform team docs (CDS and others):** https://{{ joinPath .chezmoi.sourceDir ".secrets/encrypted_platform_docs_domain" | include | trim }}/llms.txt —
+- **Platform team docs (CDS and others):** https://{{ include ".secrets/encrypted_platform_docs_domain" | trim }}/llms.txt —
   unauthenticated index; follow its `llms-full.txt` links. Check it before guessing CDS workflow
   or template capabilities.
 - **CDS `library/*` templates and actions** (e.g. the `library/renovate` workflow template):
