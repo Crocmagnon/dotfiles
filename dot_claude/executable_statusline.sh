@@ -10,7 +10,11 @@ IFS=$'\t' read -r model dir used cost < <(jq -r '[
 ] | @tsv' <<<"$input")
 
 R=$'\e[0m' DIM=$'\e[2m' REPO=$'\e[1;34m' BRANCH=$'\e[35m' PR=$'\e[36m'
-RED=$'\e[31m' YEL=$'\e[33m' GRN=$'\e[32m'
+# Bar colors as backgrounds: kitty draws shade glyphs as its own dither, so the
+# bar is built from blank cells. Track is the accent at 25% over the Latte base.
+RED=$'\e[48;2;210;15;57m'  RED_T=$'\e[48;2;232;185;198m'
+YEL=$'\e[48;2;223;142;29m' YEL_T=$'\e[48;2;235;216;191m'
+GRN=$'\e[48;2;64;160;43m'  GRN_T=$'\e[48;2;195;221;195m'
 LINK=$'\e]8;;' LINKMID=$'\e\\' LINKEND=$'\e]8;;\e\\'
 SEP="${DIM} | ${R}"
 
@@ -67,15 +71,13 @@ fi
 if [ "$used" -ge 0 ] 2>/dev/null; then
   width=10
   filled=$(( (used * width + 50) / 100 ))
-  if   [ "$used" -ge 85 ]; then c=$RED
-  elif [ "$used" -ge 60 ]; then c=$YEL
-  else                         c=$GRN
+  if   [ "$used" -ge 85 ]; then c=$RED t=$RED_T
+  elif [ "$used" -ge 60 ]; then c=$YEL t=$YEL_T
+  else                         c=$GRN t=$GRN_T
   fi
-  bar=""
-  for ((i = 0; i < width; i++)); do
-    if [ "$i" -lt "$filled" ]; then bar+="█"; else bar+="░"; fi
-  done
-  out="$out$SEP${c}${bar}${R}"
+  printf -v bar '%*s' "$filled" ''
+  printf -v rest '%*s' "$((width - filled))" ''
+  out="$out$SEP${c}${bar}${t}${rest}${R}"
 fi
 
 printf '%s%s%s$%.2f%s' "$out" "$SEP" "$DIM" "$cost" "$R"
