@@ -39,6 +39,7 @@ Temporary Items
 .direnv
 .rtx.toml
 .mise.toml
+mise.local.toml
 .vscode
 
 

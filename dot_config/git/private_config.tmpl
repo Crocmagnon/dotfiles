@@ -72,7 +72,7 @@
 [diff "color"]
     textconv=pygmentize
 [diff "pandoc2md"]
-    textconv=pandoc --to=mardown
+    textconv=pandoc --to=markdown
 [diff "pdfconv"]
     textconv=pdftohtml -stdout
 [diff "exif"]
@@ -80,7 +80,7 @@
 [diff "ziplist"]
     textconv=unzip -l
 [merge]
-    conflictstyle = diff3
+    conflictstyle = zdiff3
     tool = nvimdiff
 [pull]
     rebase = true
