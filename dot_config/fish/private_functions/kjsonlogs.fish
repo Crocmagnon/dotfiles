@@ -1,3 +1,3 @@
-function kjsonlogs
-klogs $argv -o raw | jq -r -R 'fromjson? | select(type == "object") | "\(.timestamp) \(.level) \(.short_message)"'
+function kjsonlogs --wraps=stern --description 'deprecated: klogs does this now'
+    klogs $argv
 end
