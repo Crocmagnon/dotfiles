@@ -1,5 +1,8 @@
 use-agent
 
 keyserver {{ include ".secrets/encrypted_gpg_keyserver" | trim }}
+{{/* Perso : une clé par machine, seule dans son trousseau, et gpg signe par défaut avec la première clé secrète (gpg(1), --default-key). Le travail garde la sienne. */ -}}
+{{ if get . "work" -}}
 default-key 3A85F46E66CD7EABE5C1E5D40073D1CD7EC5A253
 
+{{ end -}}
