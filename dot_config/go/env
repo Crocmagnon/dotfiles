@@ -1,0 +1,2 @@
+# go env -w écrit ici. Binaires statiques par défaut (réglage perso, repris de Home Manager).
+CGO_ENABLED=0

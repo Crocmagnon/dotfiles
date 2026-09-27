@@ -1,6 +1,6 @@
 "$schema" = "https://starship.rs/config-schema.json"
 format = "$all$fill$cmd_duration$time$line_break$character"
-palette = "catppuccin_latte"
+palette = "{{ . }}"
 
 [golang]
 disabled = true

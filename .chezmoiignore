@@ -39,3 +39,39 @@ LICENSE
 .claude/telemetry/
 .claude/policy-limits.json
 docs/
+
+{{- /* Travail uniquement : hôtes, identifiants et outils de l'entreprise. */}}
+{{- if not (get . "work") }}
+.ovh.conf
+.terraformrc
+.netrc
+.config/fish/conf.d/host.fish
+.config/fish/functions/ansible-encrypt-to-clipboard.fish
+.config/fish/functions/corp.fish
+.config/fish/functions/goland-here.fish
+.config/fish/functions/interne.fish
+.config/fish/functions/k.fish
+.config/fish/functions/kctx.fish
+.config/fish/functions/kgetall.fish
+.config/fish/functions/kgpg.fish
+.config/fish/functions/kjsonlogs.fish
+.config/fish/functions/klogs.fish
+.config/fish/functions/klogs.jq
+.config/fish/functions/kpass.fish
+.config/fish/functions/sdev.fish
+.config/jira-mcp
+.config/stash-mcp
+{{- end }}
+
+{{- /* Perso uniquement. */}}
+{{- if get . "work" }}
+.face.icon
+.config/go/env
+.config/ha-mcp
+{{- end }}
+
+{{- /* Bureau uniquement (pas les serveurs). */}}
+{{- if get . "headless" }}
+.local/share/fonts
+.config/environment.d
+{{- end }}

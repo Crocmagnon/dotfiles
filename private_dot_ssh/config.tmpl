@@ -1,11 +1,24 @@
 Include host.config
+{{- if not (get . "work") }}
+
+Host ubuntu srv-1
+    User gaugendre
+    ForwardAgent yes
+    ControlMaster auto
+    ControlPath ~/.ssh/control-%C
+    ControlPersist 4h
+
+Host hass
+    HostName 192.168.0.9
+    User root
+    Port 32690
+{{- end }}
 
 Host *
     AddKeysToAgent yes
     {{- if eq .chezmoi.os "darwin" }}
     UseKeychain yes
+    XAuthLocation /opt/X11/bin/xauth
     {{- end }}
     SendEnv LANG
     Port 22
-    XAuthLocation /opt/X11/bin/xauth
-

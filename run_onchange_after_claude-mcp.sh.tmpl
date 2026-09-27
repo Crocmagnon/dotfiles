@@ -1,0 +1,20 @@
+{{- if not (get . "work") -}}
+#!/bin/sh
+# Serveur MCP Home Assistant pour Claude Code (perso). Les serveurs MCP de portée utilisateur vivent
+# dans ~/.claude.json, un fichier d'état qu'on ne peut pas versionner : on les déclare par la CLI.
+# Le token reste dans ~/.config/ha-mcp/token, jamais dans ~/.claude.json. HA n'est joignable que
+# par Tailscale. Relancé si ce script change.
+command -v claude >/dev/null || exit 0
+claude mcp remove --scope user home-assistant >/dev/null 2>&1 || true
+claude mcp add-json --scope user home-assistant '{
+  "type": "stdio",
+  "command": "sh",
+  "args": ["-c", "HOMEASSISTANT_TOKEN=$(cat ~/.config/ha-mcp/token) exec uvx ha-mcp"],
+  "env": {
+    "HOMEASSISTANT_URL": "https://hass.augendre.info",
+    "ENABLE_BETA_FEATURES": "true",
+    "HAMCP_ENABLE_FILESYSTEM_TOOLS": "true",
+    "ENABLE_YAML_CONFIG_EDITING": "true"
+  }
+}'
+{{ end -}}
