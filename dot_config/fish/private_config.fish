@@ -27,6 +27,11 @@ set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
 mise activate fish | source
 
 if status is-interactive
+    # gpg-agent sert d'agent SSH : une requête SSH ne transporte ni écran ni terminal, pinentry
+    # prend ceux enregistrés par l'agent. Sans ceci, ce sont ceux de son démarrage (souvent avant
+    # que la session graphique existe) et la demande de passphrase n'a nulle part où s'afficher.
+    set -gx GPG_TTY (tty)
+    gpg-connect-agent updatestartuptty /bye >/dev/null
     set -g fish_greeting ""
     zoxide init fish | source
     starship init fish | source
