@@ -74,5 +74,10 @@ docs/
 {{- if get . "headless" }}
 .local/share/fonts
 .config/environment.d
-.config/autostart/gpg-agent-display.desktop
+.config/autostart
+{{- end }}
+
+{{- /* Arch uniquement : le lien qui active plasma-krunner.service (sinon il reste un dossier vide). */}}
+{{- if not (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
+.config/systemd/user/plasma-workspace.target.wants
 {{- end }}
