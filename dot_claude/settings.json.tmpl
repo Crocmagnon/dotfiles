@@ -1,6 +1,11 @@
+{{- $work := get . "work" -}}
 {
   "permissions": {
     "deny": [
+{{- if not $work }}
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+{{- end }}
       "Read(**/*.enc)",
       "Read(**/*.key)",
       "Read(**/*.pem)",
@@ -25,31 +30,37 @@
     "defaultMode": "auto"
   },
   "env": {
+{{- if $work }}
     "ANTHROPIC_BASE_URL": "https://pookie.poc.internaldb.ovh.net",
+{{- end }}
     "FORCE_HYPERLINK": "1"
   },
   "hooks": {
-    "SessionStart": [{"matcher":"^(startup|resume|clear|compact|fork)$","hooks":[{"type":"command","command":"bash '/home/gaugendr/.claude/hooks/herdr-agent-state.sh' session","timeout":10}]}]
+    "SessionStart": [{"matcher":"^(startup|resume|clear|compact|fork)$","hooks":[{"type":"command","command":"bash '{{ .chezmoi.homeDir }}/.claude/hooks/herdr-agent-state.sh' session","timeout":10}]}]
   },
   "statusLine": {
     "type": "command",
-    "command": "bash /home/gaugendr/.claude/statusline.sh",
+    "command": "bash {{ .chezmoi.homeDir }}/.claude/statusline.sh",
     "refreshInterval": 10
   },
   "enabledPlugins": {
     "gopls-lsp@claude-plugins-official": true,
+{{- if $work }}
     "crit@crit": false,
+{{- end }}
     "ponytail@ponytail": true,
     "modern-go-guidelines@goland-claude-marketplace": true,
     "superpowers@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
+{{- if $work }}
     "crit": {
       "source": {
         "source": "github",
         "repo": "tomasz-tomczyk/crit"
       }
     },
+{{- end }}
     "ponytail": {
       "source": {
         "source": "github",
@@ -68,6 +79,9 @@
   "askUserQuestionTimeout": "never",
   "tui": "fullscreen",
   "autoMemoryEnabled": true,
-  "theme": "light",
+{{- if not $work }}
+  "language": "french",
+{{- end }}
+  "theme": "auto",
   "skipAutoPermissionPrompt": true
 }

@@ -9,3 +9,12 @@ formatter = { command = "goimports" }
 
 [language-server.rust-analyzer.config]
 "check.command" = "clippy"
+
+[[language]]
+name = "lua"
+auto-format = true
+formatter = { command = "stylua", args = ["-"] }
+
+[language-server.lua-language-server.config.Lua]
+runtime.version = "LuaJIT"
+diagnostics.globals = ["vim"]

@@ -1,0 +1,28 @@
+# Réglages Plasma réellement modifiés (repris de nixos-config, plasma-manager), appliqués par
+# run_onchange_after_plasma.sh.tmpl avec kwriteconfig. Seulement les clés changées, jamais des
+# fichiers rc complets. groups : du plus externe au plus interne. hosts : restreint à ces
+# machines. « ~ » dans value est remplacé par le home.
+plasma:
+  # Thème clair/sombre automatique (ce qui fait basculer kitty, et donc fish, starship…).
+  - {file: kdeglobals, groups: [KDE], key: AutomaticLookAndFeel, value: "true", type: bool}
+  - {file: kdeglobals, groups: [KDE], key: AutomaticLookAndFeelOnIdle, value: "false", type: bool}
+  # kitty comme terminal par défaut : Plasma 6 lit TerminalService, Plasma 5 TerminalApplication.
+  - {file: kdeglobals, groups: [General], key: TerminalApplication, value: kitty}
+  - {file: kdeglobals, groups: [General], key: TerminalService, value: kitty.desktop}
+  # Alt+Tab : fenêtres de l'application courante, en grandes icônes.
+  - {file: kwinrc, groups: [TabBox], key: ApplicationsMode, value: "1"}
+  - {file: kwinrc, groups: [TabBox], key: HighlightWindows, value: "false", type: bool}
+  - {file: kwinrc, groups: [TabBox], key: LayoutName, value: big_icons}
+  # Raccourcis : Meta seul ouvrait le lanceur par accident (Alt+F1 le fait toujours).
+  - {file: kglobalshortcutsrc, groups: [plasmashell], key: activate application launcher, value: "Alt+F1,,"}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Walk Through Windows, value: "Meta+Tab,,"}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Walk Through Windows (Reverse), value: "Meta+Shift+Tab,,"}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Walk Through Windows of Current Application Alternative, value: "Alt+Tab,,"}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Walk Through Windows of Current Application Alternative (Reverse), value: "Alt+Shift+Tab,,"}
+  # Baloo indexait le montage FUSE pCloud (1,6 To), et bloquait la mise en veille.
+  - {file: baloofilerc, groups: [General], key: exclude folders, value: "~/pCloudDrive/"}
+  # Laptop, derrière le KVM : capot fermé sur secteur, ne rien faire ; veille puis hibernation.
+  - {file: powerdevilrc, groups: [AC, SuspendAndShutdown], key: LidAction, value: "0", hosts: [framework-gab-amd, framework-gab]}
+  - {file: powerdevilrc, groups: [AC, SuspendAndShutdown], key: SleepMode, value: "3", hosts: [framework-gab-amd, framework-gab]}
+  - {file: powerdevilrc, groups: [Battery, SuspendAndShutdown], key: SleepMode, value: "3", hosts: [framework-gab-amd, framework-gab]}
+  - {file: powerdevilrc, groups: [LowBattery, SuspendAndShutdown], key: SleepMode, value: "3", hosts: [framework-gab-amd, framework-gab]}

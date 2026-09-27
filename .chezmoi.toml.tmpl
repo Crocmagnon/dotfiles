@@ -1,0 +1,21 @@
+{{- /*
+  Régénère ~/.config/chezmoi/chezmoi.toml à chaque `chezmoi init`. Les réponses et les clés déjà
+  présentes sont reprises : work et headless ne sont demandés qu'une fois (promptBoolOnce), et
+  sourceDir, shell_path, brew et local_git_crypt sont recopiés s'ils existent.
+*/ -}}
+{{- $work := promptBoolOnce . "work" "Machine du travail" -}}
+{{- $headless := promptBoolOnce . "headless" "Machine sans bureau (serveur)" -}}
+# git-crypt chiffre les fichiers encrypted_* ; chezmoi garde l'attribut sans rien (dé)chiffrer.
+encryption = "transparent"
+{{- if ne .chezmoi.sourceDir (joinPath .chezmoi.homeDir ".local/share/chezmoi") }}
+sourceDir = {{ .chezmoi.sourceDir | quote }}
+{{- end }}
+
+[data]
+work = {{ $work }}
+headless = {{ $headless }}
+{{- range $key := list "shell_path" "brew" "local_git_crypt" }}
+{{- if hasKey $ $key }}
+{{ $key }} = {{ get $ $key | toJson }}
+{{- end }}
+{{- end }}

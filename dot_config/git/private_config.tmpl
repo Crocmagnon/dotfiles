@@ -1,3 +1,4 @@
+{{- $branch := ternary "master" "main" (get . "work" | not | not) -}}
 [user]
     name = Gabriel Augendre
     email = gabriel@augendre.info
@@ -45,7 +46,7 @@
     restores = restore --staged
     rmtag = ! "f() { git tag --delete $1; git push --delete origin $1; }; f"
     stat = "diff --shortstat"
-    statmaster = "stat master...HEAD"
+    stat{{ $branch }} = "stat {{ $branch }}...HEAD"
 [commit]
     verbose = true
     gpgSign = true
@@ -68,7 +69,6 @@
     colorMoved = default
     algorithm = histogram
     submodule = log
-    tool = nvimdiff
 [diff "color"]
     textconv=pygmentize
 [diff "pandoc2md"]
@@ -81,7 +81,6 @@
     textconv=unzip -l
 [merge]
     conflictstyle = zdiff3
-    tool = nvimdiff
 [pull]
     rebase = true
 [rebase]
@@ -89,7 +88,7 @@
     autostash = true
     updateRefs = true
 [init]
-    defaultBranch = master
+    defaultBranch = {{ $branch }}
 [branch]
     sort = -committerdate
 [advice]
@@ -119,6 +118,14 @@
     path = host.config
     path = sendemail
 
+[alias]
+    prev = checkout HEAD^
+    next = !git checkout $(git rev-list HEAD..${1:-{{ $branch }}} --ancestry-path | tail -1 || echo HEAD)
+    first = !git checkout $(git rev-list --max-parents=0 HEAD)
+
+
+{{- if get . "work" }}
+
 # git-town aliases & config
 # https://www.git-town.com
 [alias]
@@ -137,9 +144,6 @@
     set-parent = town set-parent
     ship = town ship
     sync = town sync
-	prev = checkout HEAD^
-	next = !git checkout $(git rev-list HEAD..${1:-main} --ancestry-path | tail -1 || echo HEAD)
-	first = !git checkout $(git rev-list --max-parents=0 HEAD)
 
 [git-town]
     push-hook = true
@@ -152,3 +156,4 @@
     sync-perennial-strategy = rebase
     new-branch-type = feature
     share-new-branches = no
+{{- end }}

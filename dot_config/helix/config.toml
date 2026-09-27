@@ -1,4 +1,6 @@
-theme = "adaptive"
+# Nom constant : conf.d/theme-auto.fish réécrit themes/catppuccin.toml (inherits latte ou
+# mocha) et envoie SIGUSR1, ce qui fait relire la config à helix.
+theme = "catppuccin"
 
 [editor]
 line-number = "relative"

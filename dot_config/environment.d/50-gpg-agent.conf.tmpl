@@ -1,0 +1,7 @@
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") -}}
+# Session graphique (systemd --user) sur Arch. gpg-agent sert d'agent SSH, mais contrairement à
+# Debian/Ubuntu, le gpg-agent-ssh.socket d'Arch ne publie pas SSH_AUTH_SOCK.
+SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh
+# Sous KDE, pinentry n'utilise le gestionnaire de secrets (KWallet) que si cette variable existe.
+PINENTRY_KDE_USE_WALLET=1
+{{ end -}}

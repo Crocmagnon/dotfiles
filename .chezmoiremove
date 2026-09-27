@@ -56,3 +56,4 @@
 .config/fish/functions/bwunlock.fish
 .config/fish/functions/chezmoiapply.fish
 .config/fish/functions/chezmoiupdate.fish
+.config/fish/conf.d/fish_frozen_theme.fish

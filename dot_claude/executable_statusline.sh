@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 # Claude Code statusline: model | repo[worktree]:branch*ahead/behind | ctx bar | cost
+# Avec LC_NUMERIC=fr_FR, printf '%.2f' rejette « 1.2345 » et affiche 0 : le coût sortait à $0,00.
+# C stabilise aussi la sortie de git.
+export LC_ALL=C
+
 input=$(cat)
 
 IFS=$'\t' read -r model dir used cost < <(jq -r '[
