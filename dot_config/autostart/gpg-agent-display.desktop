@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=gpg-agent : écran de la session
+Comment=gpg-agent démarre avant la session graphique : lui donner son écran, pour que pinentry puisse s'afficher lors d'une requête SSH.
+Exec=gpg-connect-agent updatestartuptty /bye
+NoDisplay=true
+X-KDE-autostart-phase=2

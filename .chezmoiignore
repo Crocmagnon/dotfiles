@@ -74,4 +74,5 @@ docs/
 {{- if get . "headless" }}
 .local/share/fonts
 .config/environment.d
+.config/autostart/gpg-agent-display.desktop
 {{- end }}
