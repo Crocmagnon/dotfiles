@@ -1,13 +1,20 @@
 {{- if not (get . "headless") -}}
 #!/bin/sh
 # Réglages Plasma de .chezmoidata/plasma.yaml. chezmoi ne relance ce script que si son rendu
-# change. --notify recharge à chaud les applications qui surveillent leur config ; les raccourcis
-# (kglobalaccel) ne sont relus qu'à la prochaine session : appliquer avant de se connecter.
-kw=$(command -v kwriteconfig6 || command -v kwriteconfig5) || exit 0
+# change. Plasma 6 : --notify recharge à chaud les applications qui surveillent leur config.
+# Plasma 5 (kwriteconfig5) ne connaît pas --notify : les réglages prennent effet à la prochaine
+# session. Dans les deux cas, les raccourcis (kglobalaccel) ne sont relus qu'à la connexion.
+if command -v kwriteconfig6 >/dev/null; then
+    kw="kwriteconfig6 --notify"
+elif command -v kwriteconfig5 >/dev/null; then
+    kw=kwriteconfig5
+else
+    exit 0
+fi
 {{ range .plasma -}}
 {{ $hosts := get . "hosts" -}}
 {{ if or (not $hosts) (has $.chezmoi.hostname $hosts) -}}
-"$kw" --notify --file {{ .file | quote }}{{ range .groups }} --group {{ . | quote }}{{ end }} --key {{ .key | quote }}{{ with get . "type" }} --type {{ . }}{{ end }} {{ .value | replace "~" $.chezmoi.homeDir | quote }}
+$kw --file {{ .file | quote }}{{ range .groups }} --group {{ . | quote }}{{ end }} --key {{ .key | quote }}{{ with get . "type" }} --type {{ . }}{{ end }} {{ .value | replace "~" $.chezmoi.homeDir | quote }}
 {{ end -}}
 {{ end -}}
 {{ end -}}
