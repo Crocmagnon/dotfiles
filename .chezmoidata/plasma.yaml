@@ -26,3 +26,6 @@ plasma:
   - {file: powerdevilrc, groups: [AC, SuspendAndShutdown], key: SleepMode, value: "3", hosts: [framework-gab-amd, framework-gab]}
   - {file: powerdevilrc, groups: [Battery, SuspendAndShutdown], key: SleepMode, value: "3", hosts: [framework-gab-amd, framework-gab]}
   - {file: powerdevilrc, groups: [LowBattery, SuspendAndShutdown], key: SleepMode, value: "3", hosts: [framework-gab-amd, framework-gab]}
+  # Défilement naturel sur le pavé tactile. Groupe propre au périphérique (identifiants USB et nom) :
+  # le relever dans kcminputrc après l'avoir coché une fois dans l'interface.
+  - {file: kcminputrc, groups: [Libinput, "2362", "628", "PIXA3854:00 093A:0274 Touchpad"], key: NaturalScroll, value: "true", type: bool, hosts: [framework-gab-amd]}
