@@ -1,5 +1,11 @@
 {{- $work := get . "work" -}}
 {
+  "env": {
+{{- if $work }}
+    "ANTHROPIC_BASE_URL": "https://pookie.poc.internaldb.ovh.net",
+{{- end }}
+    "FORCE_HYPERLINK": "1"
+  },
   "permissions": {
     "deny": [
 {{- if not $work }}
@@ -29,14 +35,19 @@
     ],
     "defaultMode": "auto"
   },
-  "env": {
-{{- if $work }}
-    "ANTHROPIC_BASE_URL": "https://pookie.poc.internaldb.ovh.net",
-{{- end }}
-    "FORCE_HYPERLINK": "1"
-  },
   "hooks": {
-    "SessionStart": [{"matcher":"^(startup|resume|clear|compact|fork)$","hooks":[{"type":"command","command":"bash '{{ .chezmoi.homeDir }}/.claude/hooks/herdr-agent-state.sh' session","timeout":10}]}]
+    "SessionStart": [
+      {
+        "matcher": "^(startup|resume|clear|compact|fork)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '{{ .chezmoi.homeDir }}/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
   },
   "statusLine": {
     "type": "command",
@@ -74,14 +85,14 @@
       }
     }
   },
+{{- if not $work }}
+  "language": "french",
+{{- end }}
   "syntaxHighlightingDisabled": false,
   "effortLevel": "medium",
   "askUserQuestionTimeout": "never",
   "tui": "fullscreen",
   "autoMemoryEnabled": true,
-{{- if not $work }}
-  "language": "french",
-{{- end }}
   "theme": "auto",
   "skipAutoPermissionPrompt": true
 }
