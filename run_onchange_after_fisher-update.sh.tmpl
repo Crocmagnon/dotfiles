@@ -1,0 +1,8 @@
+#!/bin/sh
+# Installe et retire les plugins fish quand fish_plugins change (fisher update aligne les
+# plugins installés sur ce fichier).
+# Hash du fichier rendu : {{ includeTemplate "dot_config/fish/fish_plugins.tmpl" . | sha256sum }}
+# Sans fish ou sans fisher (pas encore installé), rien à faire.
+command -v fish >/dev/null || exit 0
+fish -c 'type -q fisher' || exit 0
+exec fish -c 'fisher update'
