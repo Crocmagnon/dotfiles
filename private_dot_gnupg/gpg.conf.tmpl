@@ -1,8 +1,9 @@
 use-agent
 
-keyserver {{ include ".secrets/encrypted_gpg_keyserver" | trim }}
-{{/* Perso : une clé par machine, seule dans son trousseau, et gpg signe par défaut avec la première clé secrète (gpg(1), --default-key). Le travail garde la sienne. */ -}}
+{{/* Clé de signature par défaut choisie par le nom, sur toutes les machines : sinon gpg (≥ 2.3) prend
+celle de la carte à puce présente, la YubiKey du bureau branchée derrière le KVM. Chaque machine
+n'a qu'une clé secrète à ce nom. Le serveur de clés est celui de l'entreprise : travail seulement. */ -}}
 {{ if get . "work" -}}
-default-key 3A85F46E66CD7EABE5C1E5D40073D1CD7EC5A253
-
+keyserver {{ include ".secrets/encrypted_gpg_keyserver" | trim }}
 {{ end -}}
+default-key Gabriel Augendre
