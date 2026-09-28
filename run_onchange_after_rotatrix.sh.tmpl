@@ -1,0 +1,27 @@
+{{- if and (not (get . "work")) (not (get . "headless")) -}}
+#!/bin/sh
+# Rotatrix {{ .rotatrix.version }} : AppImage propriétaire, téléchargeable seulement avec la clé de
+# licence (secret git-crypt). Relancé quand la version change (.chezmoidata/rotatrix.yaml).
+# Installe ~/Applications/Rotatrix.AppImage, son entrée de menu et ses icônes. L'autostart est un
+# lien géré par chezmoi (dot_config/autostart). Laisser l'option « démarrer à la connexion » de
+# l'appli désactivée : elle écrirait une seconde entrée.
+set -eu
+key={{ joinPath .chezmoi.sourceDir ".secrets/encrypted_rotatrix_key" | quote }}
+dest="$HOME/Applications/Rotatrix.AppImage"
+[ -r "$key" ] || { echo "rotatrix : clé absente ($key), dotfiles pas déverrouillé ?" >&2; exit 1; }
+
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+cd "$tmp"
+# URL par --config sur l'entrée standard : la clé n'apparaît jamais dans ps (printf est intégré au shell).
+printf 'url = "https://download.rotatrix.com/download?path=rotatrix%%2FRotatrix-{{ .rotatrix.version }}-linux-x86_64.AppImage&key=%s&name=Rotatrix-linux-x86_64.AppImage"\n' \
+    "$(cat "$key")" | curl -fsSL --retry 3 -o Rotatrix.AppImage --config -
+chmod +x Rotatrix.AppImage
+./Rotatrix.AppImage --appimage-extract >/dev/null
+
+mkdir -p "$HOME/Applications" "$HOME/.local/share/applications" "$HOME/.local/share/icons"
+cp -r squashfs-root/usr/share/icons/. "$HOME/.local/share/icons/"
+# Le .desktop livré lance « rotatrix », qui n'existe pas hors de l'AppImage.
+sed "s|^Exec=rotatrix|Exec=$dest|" squashfs-root/RotatrixApp.desktop > "$HOME/.local/share/applications/rotatrix.desktop"
+mv Rotatrix.AppImage "$dest"
+{{ end -}}
