@@ -3,13 +3,10 @@ LICENSE
 .config/fish/completions/
 .config/fish/fish_variables
 .config/fish/themes/static/
-.config/fish/conf.d/done.fish
-.config/fish/conf.d/autopair.fish
 .config/fish/conf.d/fzf.fish
 .config/fish/functions/fisher.fish
 .config/fish/functions/fzf_configure_bindings.fish
 .config/fish/functions/_fzf_*
-.config/fish/functions/_autopair_*
 .config/fish/themes/catppuccin-*.theme
 .claude/.credentials.json
 .claude/agents/
@@ -68,6 +65,7 @@ docs/
 .face.icon
 .config/go/env
 .config/ha-mcp
+.config/autostart/rotatrix.desktop
 {{- end }}
 
 {{- /* Bureau uniquement (pas les serveurs). */}}
