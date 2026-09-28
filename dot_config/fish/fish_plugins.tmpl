@@ -1,0 +1,7 @@
+{{/* Arch : fisher vient de pacman (decman), qui le met à jour ; seul fzf.fish reste. */ -}}
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") -}}
+PatrickF1/fzf.fish
+{{ else -}}
+jorgebucaran/fisher
+PatrickF1/fzf.fish
+{{ end -}}
