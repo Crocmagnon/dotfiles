@@ -17,6 +17,13 @@ number plus a few words), and update it as tasks change: find the tab with `herd
 `herdr tab rename <TAB_ID> "phase 4 - impactanalysis service"`. The user watches several parallel
 workspaces and reads the titles to see what each agent is doing.
 
+The user drives several Herdr workspaces over the same clones, and checks out colleagues' branches
+there to review them. So run `git branch --show-current` in the same tool call as `git switch -c`,
+never rely on an earlier check. If a new branch ended up carrying someone else's commit, fix it with
+`git rebase --onto origin/<target> <their-commit> <my-branch>` and `--force-with-lease` on your own
+branch only. Likewise, remote commits the session didn't push may be the user's: state what is
+known ("the remote already had X"), don't blame a subagent.
+
 ## Subagent-driven workflow
 
 When the user asks for a "subagent-driven workflow": use `superpowers:subagent-driven-development`,

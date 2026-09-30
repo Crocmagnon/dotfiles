@@ -29,7 +29,7 @@ CLAUDE.md
 .claude/sessions/
 .claude/shell-snapshots/
 .claude/rules/sia-core/
-.claude/skills/
+.claude/skills/*
 .claude/stats-cache.json
 .claude/statusline.sh-bkp
 .claude/settings.json.bak
@@ -60,6 +60,12 @@ docs/
 .config/jira-mcp
 .config/stash-mcp
 .claude/rules/personal/gabriel-workflow-work.md
+.claude/skills
+{{- end }}
+
+{{- /* Travail : seul le skill tempo-timesheet est géré dans .claude/skills (les sia-* viennent d'un autre installeur). */}}
+{{- if get . "work" }}
+!.claude/skills/tempo-timesheet
 {{- end }}
 
 {{- /* Perso uniquement. */}}
