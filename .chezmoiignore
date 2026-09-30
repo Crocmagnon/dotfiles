@@ -59,6 +59,7 @@ docs/
 .config/fish/functions/sdev.fish
 .config/jira-mcp
 .config/stash-mcp
+.claude/rules/personal/gabriel-workflow-work.md
 {{- end }}
 
 {{- /* Perso uniquement. */}}
