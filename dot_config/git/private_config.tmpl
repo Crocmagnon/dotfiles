@@ -69,16 +69,6 @@
     colorMoved = default
     algorithm = histogram
     submodule = log
-[diff "color"]
-    textconv=pygmentize
-[diff "pandoc2md"]
-    textconv=pandoc --to=markdown
-[diff "pdfconv"]
-    textconv=pdftohtml -stdout
-[diff "exif"]
-    textconv=exiftool
-[diff "ziplist"]
-    textconv=unzip -l
 [merge]
     conflictstyle = zdiff3
 [pull]
