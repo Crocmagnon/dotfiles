@@ -24,6 +24,26 @@ never rely on an earlier check. If a new branch ended up carrying someone else's
 branch only. Likewise, remote commits the session didn't push may be the user's: state what is
 known ("the remote already had X"), don't blame a subagent.
 
+## Saving knowledge
+
+Before writing anything to auto-memory (`~/.claude/projects/*/memory/`), put it at the highest
+level that fits, as a change rather than a memory:
+
+1. One repo → that repo's `CLAUDE.md`, `AGENTS.md` or `docs/technical-documentation.md`, via a PR.
+{{- if get . "work" }}
+2. Useful to the team → sia-skills: the team rule, a skill or the README, via a PR.
+3. About the user, at work → `dot_claude/rules/personal/encrypted_gabriel-workflow-work.md` in the
+   chezmoi source.
+{{- end }}
+{{ if get . "work" }}4{{ else }}2{{ end }}. About the user, anywhere → `dot_claude/rules/personal/gabriel-workflow.md.tmpl` in the chezmoi
+   source.
+
+Chezmoi edits stay uncommitted for the user to review. Make them effective at once with
+`chezmoi apply <target>` for the edited file only, and only if `chezmoi diff <target>` shows
+exactly the expected change; otherwise don't apply, and say the rule won't take effect until the
+next apply. Auto-memory is the last resort, for knowledge that matters in one repo and must not be
+shared; a hook asks the user to confirm each such write.
+
 ## Subagent-driven workflow
 
 When the user asks for a "subagent-driven workflow": use `superpowers:subagent-driven-development`,
