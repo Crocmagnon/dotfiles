@@ -19,8 +19,11 @@ set -gx EDITOR hx
 set -gx GROFF_NO_SGR 1
 
 gpgconf --launch gpg-agent
-set -e SSH_AUTH_SOCK
-set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+# Connecté par `ssh -A` : garder l'agent transféré.
+if not set -q SSH_CONNECTION; or not test -S "$SSH_AUTH_SOCK"
+    set -e SSH_AUTH_SOCK
+    set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+end
 
 # Thème de bat, couleurs de fzf : conf.d/theme-auto.fish (clair/sombre selon le terminal).
 
