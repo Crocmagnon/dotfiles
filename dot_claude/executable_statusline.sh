@@ -14,6 +14,7 @@ IFS=$'\t' read -r model dir used cost < <(jq -r '[
 ] | @tsv' <<<"$input")
 
 R=$'\e[0m' DIM=$'\e[2m' REPO=$'\e[1;34m' BRANCH=$'\e[35m' PR=$'\e[36m'
+RED_FG=$'\e[31m' YEL_FG=$'\e[33m'
 # Bar colors as backgrounds: kitty draws shade glyphs as its own dither, so the
 # bar is built from blank cells. Track is the accent at 25% over the Latte base.
 RED=$'\e[48;2;210;15;57m'  RED_T=$'\e[48;2;232;185;198m'
@@ -49,12 +50,12 @@ if root=$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null); then
 
   branch=$(git -C "$dir" rev-parse --abbrev-ref HEAD 2>/dev/null)
   [ -n "$branch" ] && loc="$loc${DIM}:${R}${BRANCH}${branch}${R}"
-  [ -n "$(git -C "$dir" status --porcelain --untracked-files=no 2>/dev/null | head -1)" ] && loc="$loc${RED}*${R}"
+  [ -n "$(git -C "$dir" status --porcelain --untracked-files=no 2>/dev/null | head -1)" ] && loc="$loc${RED_FG}*${R}"
 
   if counts=$(git -C "$dir" rev-list --count --left-right '@{upstream}...HEAD' 2>/dev/null); then
     behind=${counts%%[[:space:]]*} ahead=${counts##*[[:space:]]}
-    [ "$ahead" -gt 0 ] 2>/dev/null && loc="$loc ${YEL}↑$ahead${R}"
-    [ "$behind" -gt 0 ] 2>/dev/null && loc="$loc ${YEL}↓$behind${R}"
+    [ "$ahead" -gt 0 ] 2>/dev/null && loc="$loc ${YEL_FG}↑$ahead${R}"
+    [ "$behind" -gt 0 ] 2>/dev/null && loc="$loc ${YEL_FG}↓$behind${R}"
   fi
 
   if pr=$(pr_id) && [ -n "$pr" ]; then
