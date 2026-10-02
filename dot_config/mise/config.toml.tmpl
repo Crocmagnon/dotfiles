@@ -1,7 +1,10 @@
 [settings]
 experimental = true
 legacy_version_file = false
-{{- if get . "local_git_crypt" }}
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") }}
+# Arch : pacman fournit chezmoi et git-crypt (arch-config), nécessaires au bootstrap avant mise.
+disable_tools = ["chezmoi", "aqua:AGWA/git-crypt"]
+{{- else if get . "local_git_crypt" }}
 disable_tools = ["aqua:AGWA/git-crypt"]
 {{- end }}
 
