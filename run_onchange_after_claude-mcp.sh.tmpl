@@ -4,6 +4,7 @@
 # dans ~/.claude.json, un fichier d'état qu'on ne peut pas versionner : on les déclare par la CLI.
 # Le token reste dans ~/.config/ha-mcp/token, jamais dans ~/.claude.json. HA n'est joignable que
 # par Tailscale. Relancé si ce script change.
+# Chemin de claude, pour que le script repasse dès qu'il est installé : {{ lookPath "claude" }}
 command -v claude >/dev/null || exit 0
 claude mcp remove --scope user home-assistant >/dev/null 2>&1 || true
 claude mcp add-json --scope user home-assistant '{

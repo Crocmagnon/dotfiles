@@ -2,7 +2,9 @@
 # Installe et retire les plugins fish quand fish_plugins change (fisher update aligne les
 # plugins installés sur ce fichier).
 # Hash du fichier rendu : {{ includeTemplate "dot_config/fish/fish_plugins.tmpl" . | sha256sum }}
-# Sans fish ou sans fisher (pas encore installé), rien à faire.
+# Sans fish ou sans fisher (pas encore installé), rien à faire. Leur présence entre dans le hash,
+# pour que le script repasse dès qu'ils sont installés : {{ lookPath "fish" }}
+# {{- if or (stat "/usr/share/fish/vendor_functions.d/fisher.fish") (stat (joinPath .chezmoi.homeDir ".config/fish/functions/fisher.fish")) }} fisher{{ end }}
 command -v fish >/dev/null || exit 0
 fish -c 'type -q fisher' || exit 0
 exec fish -c 'fisher update'
