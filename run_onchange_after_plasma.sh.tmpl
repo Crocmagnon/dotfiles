@@ -13,9 +13,11 @@ elif command -v kwriteconfig5 >/dev/null; then
 else
     exit 0
 fi
+{{- /* Laptop sous Arch : arch-config y a mis le swapfile d'hibernation (hostnamectl chassis). */}}
+{{ $archLaptop := and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") (stat "/run/systemd/system") (eq (output "hostnamectl" "chassis" | trim) "laptop") -}}
 {{ range .plasma -}}
 {{ $hosts := get . "hosts" -}}
-{{ if or (not $hosts) (has $.chezmoi.hostname $hosts) -}}
+{{ if and (or (not $hosts) (has $.chezmoi.hostname $hosts)) (or (not (get . "arch_laptop")) $archLaptop) -}}
 $kw --file {{ .file | quote }}{{ range .groups }} --group {{ . | quote }}{{ end }} --key {{ .key | quote }}{{ with get . "type" }} --type {{ . }}{{ end }} {{ .value | replace "~" $.chezmoi.homeDir | quote }}
 {{ end -}}
 {{ end -}}

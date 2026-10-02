@@ -37,7 +37,7 @@ Work renders must stay byte-identical when adding personal-only content: use `{{
 
 - **`{{-` also eats the newline before the tag, gluing headings together.** Put tags on their own line with `-}}` only.
 - **chezmoi skips only truly empty renders:** a lone `\n` still creates the file.
-- **Never template a file that already contains `{{`** (kitty.conf has 23 in its comments). Include a small templated file instead (`shell.conf`).
+- **Never template a file that already contains `{{`** (kitty.conf has some in its comments). Include a small templated file instead (`shell.conf`).
 - **Test renders without touching `$HOME`:** `chezmoi --config <tmp.toml> --source . --destination <tmp> execute-template` or `managed`. `--promptBool` matches the prompt *text*, not the key.
 
 ## Secrets and encryption
