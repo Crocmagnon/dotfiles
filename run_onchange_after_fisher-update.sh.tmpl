@@ -7,4 +7,5 @@
 # {{- if or (stat "/usr/share/fish/vendor_functions.d/fisher.fish") (stat (joinPath .chezmoi.homeDir ".config/fish/functions/fisher.fish")) }} fisher{{ end }}
 command -v fish >/dev/null || exit 0
 fish -c 'type -q fisher' || exit 0
-exec fish -c 'fisher update'
+# Sans terminal, fisher update lit sa liste de plugins sur l'entrée standard et attendrait.
+exec fish -c 'fisher update' </dev/null
