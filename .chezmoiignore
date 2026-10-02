@@ -52,7 +52,6 @@ docs/
 .config/fish/functions/kctx.fish
 .config/fish/functions/kgetall.fish
 .config/fish/functions/kgpg.fish
-.config/fish/functions/kjsonlogs.fish
 .config/fish/functions/klogs.fish
 .config/fish/functions/klogs.jq
 .config/fish/functions/kpass.fish

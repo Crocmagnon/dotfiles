@@ -1,7 +1,8 @@
 # Réglages Plasma réellement modifiés (repris de nixos-config, plasma-manager), appliqués par
 # run_onchange_after_plasma.sh.tmpl avec kwriteconfig. Seulement les clés changées, jamais des
 # fichiers rc complets. groups : du plus externe au plus interne. hosts : restreint à ces
-# machines. « ~ » dans value est remplacé par le home.
+# machines. arch_laptop : restreint aux laptops sous Arch (hostnamectl chassis), où arch-config pose
+# le swapfile d'hibernation. « ~ » dans value est remplacé par le home.
 plasma:
   # Thème clair/sombre automatique (ce qui fait basculer kitty, et donc fish, starship…).
   - {file: kdeglobals, groups: [KDE], key: AutomaticLookAndFeel, value: "true", type: bool}
@@ -22,10 +23,10 @@ plasma:
   # Baloo indexait le montage FUSE pCloud (1,6 To), et bloquait la mise en veille.
   - {file: baloofilerc, groups: [General], key: exclude folders, value: "~/pCloudDrive/"}
   # Laptop, derrière le KVM : capot fermé sur secteur, ne rien faire ; veille puis hibernation.
-  - {file: powerdevilrc, groups: [AC, SuspendAndShutdown], key: LidAction, value: "0", hosts: [framework-gab-amd, framework-gab]}
-  - {file: powerdevilrc, groups: [AC, SuspendAndShutdown], key: SleepMode, value: "3", hosts: [framework-gab-amd, framework-gab]}
-  - {file: powerdevilrc, groups: [Battery, SuspendAndShutdown], key: SleepMode, value: "3", hosts: [framework-gab-amd, framework-gab]}
-  - {file: powerdevilrc, groups: [LowBattery, SuspendAndShutdown], key: SleepMode, value: "3", hosts: [framework-gab-amd, framework-gab]}
+  - {file: powerdevilrc, groups: [AC, SuspendAndShutdown], key: LidAction, value: "0", arch_laptop: true}
+  - {file: powerdevilrc, groups: [AC, SuspendAndShutdown], key: SleepMode, value: "3", arch_laptop: true}
+  - {file: powerdevilrc, groups: [Battery, SuspendAndShutdown], key: SleepMode, value: "3", arch_laptop: true}
+  - {file: powerdevilrc, groups: [LowBattery, SuspendAndShutdown], key: SleepMode, value: "3", arch_laptop: true}
   # Défilement naturel sur le pavé tactile. Groupe propre au périphérique (identifiants USB et nom) :
   # le relever dans kcminputrc après l'avoir coché une fois dans l'interface.
   - {file: kcminputrc, groups: [Libinput, "2362", "628", "PIXA3854:00 093A:0274 Touchpad"], key: NaturalScroll, value: "true", type: bool, hosts: [framework-gab-amd]}

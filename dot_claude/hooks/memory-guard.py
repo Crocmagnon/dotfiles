@@ -13,7 +13,7 @@ if fnmatch.fnmatch(os.path.abspath(os.path.expanduser(path)), pattern):
     json.dump({"hookSpecificOutput": {
         "hookEventName": "PreToolUse",
         "permissionDecision": "ask",
-        "permissionDecisionReason": "Auto-memory is the last resort: repo docs, then sia-skills, "
+        "permissionDecisionReason": "Auto-memory is the last resort: repo docs, then sia-skills on work machines, "
         "then the chezmoi rules come first (rule \"Saving knowledge\"). Approve only for "
         "repo-only, unshareable knowledge.",
     }}, sys.stdout)
