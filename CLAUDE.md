@@ -50,7 +50,7 @@ Work renders must stay byte-identical when adding personal-only content: use `{{
 
 ## Layout notes
 
-- `run_onchange_after_*.sh.tmpl`: post-apply hooks, re-run when their rendered content changes. To re-trigger on another file's change, embed its hash in a comment (`{{ include "..." | sha256sum }}`, see `bat-cache` and `fisher-update`). Scripts guard with `command -v … || exit 0` because tools may not be installed yet (mise installs most of them). A script whose whole body is inside `{{ if }}` renders empty and is skipped on other machines.
+- `run_onchange_after_*.sh.tmpl`: post-apply hooks, re-run when their rendered content changes. To re-trigger on another file's change, embed its hash in a comment (`{{ include "..." | sha256sum }}`, see `fisher-update`). Scripts guard with `command -v … || exit 0` because tools may not be installed yet (mise installs most of them). A script whose whole body is inside `{{ if }}` renders empty and is skipped on other machines.
 - `.chezmoidata/*.yaml`: data driving scripts — Plasma `kwriteconfig` keys (only changed keys, optionally `hosts:`-restricted), pinned Rotatrix version.
 - `.chezmoitemplates/starship.toml`: shared starship config, rendered twice with a palette (`starship.toml.tmpl` light, `starship-mocha.toml.tmpl` dark); `conf.d/theme-auto.fish` switches between them.
 - `.chezmoiremove` (absent when empty): targets to delete from `$HOME` on apply. When removing a file from the repo, add its target here so it disappears from machines too, then drop the entry once every machine has applied: a stale entry deletes any file later recreated at that path.
