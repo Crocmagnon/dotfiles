@@ -4,6 +4,8 @@
 # change. Plasma 6 : --notify recharge à chaud les applications qui surveillent leur config.
 # Plasma 5 (kwriteconfig5) ne connaît pas --notify : les réglages prennent effet à la prochaine
 # session. Dans les deux cas, les raccourcis (kglobalaccel) ne sont relus qu'à la connexion.
+# Chemins de kwriteconfig, pour que le script repasse dès qu'il est installé :
+# {{ lookPath "kwriteconfig6" }} {{ lookPath "kwriteconfig5" }}
 if command -v kwriteconfig6 >/dev/null; then
     kw="kwriteconfig6 --notify"
 elif command -v kwriteconfig5 >/dev/null; then
