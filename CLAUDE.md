@@ -58,6 +58,12 @@ Work renders must stay byte-identical when adding personal-only content: use `{{
 - Tools come from mise (`dot_config/mise/config.toml.tmpl`), split into common/work/personal. On Arch, some come from pacman instead (fisher, luarocks), declared in the `arch-config` repo (decman), which owns everything outside `$HOME` on the Arch desktops.
 - `docs/` is git-ignored and chezmoi-ignored: scratch space.
 
+## gpg-agent and SSH
+
+- **gpg-agent is the SSH agent, and GnuPG stays in `~/.gnupg`.** Arch does not export `SSH_AUTH_SOCK` for it: `environment.d/50-gpg-agent.conf.tmpl` sets it for the Arch graphical session, `config.fish` for every fish, except over `ssh -A`, where the forwarded agent is kept.
+- **gpg-agent starts about 1 s before the Plasma session, without a display.** SSH requests carry no display, so pinentry needs `updatestartuptty`, run by `autostart/gpg-agent-display.desktop` and by every interactive fish. Never run `updatestartuptty` from a display-less ssh command (VM tests): it wipes the display.
+- **On the Arch desktops, pinentry-qt keeps passphrases in KWallet** (`PINENTRY_KDE_USE_WALLET`), which PAM unlocks at autologin. The PAM side and how to check the wallet live in arch-config.
+
 ## Conventions
 
 - Comments inside the files are written in French; commit messages in English, one short line.
