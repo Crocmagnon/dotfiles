@@ -24,9 +24,10 @@ set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
 
 # Thème de bat, couleurs de fzf : conf.d/theme-auto.fish (clair/sombre selon le terminal).
 
-mise activate fish | source
-
 if status is-interactive
+    # Pas dans les shells non interactifs : nroff (groff) lance "$SHELL -c" dans le sandbox
+    # seccomp de man-db, où mise activate panique (socket Unix refusé) à chaque `man`.
+    mise activate fish | source
     # gpg-agent sert d'agent SSH : une requête SSH ne transporte ni écran ni terminal, pinentry
     # prend ceux enregistrés par l'agent. Sans ceci, ce sont ceux de son démarrage (souvent avant
     # que la session graphique existe) et la demande de passphrase n'a nulle part où s'afficher.
