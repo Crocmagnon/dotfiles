@@ -3,7 +3,6 @@ Include host.config
 
 Host srv-1
     User gaugendre
-    ForwardAgent yes
     ControlMaster auto
     ControlPath ~/.ssh/control-%C
     ControlPersist 4h
@@ -16,5 +15,10 @@ Host hass
 
 Host *
     AddKeysToAgent yes
+    {{- if not (get . "work") }}
+    # Ne propose que la clé de la machine : l'agent (gpg-agent) expose aussi celle de la YubiKey
+    # du bureau, branchée derrière le KVM. Avec un agent, le .pub suffit.
+    IdentityFile ~/.ssh/id_ed25519.pub
+    IdentitiesOnly yes
+    {{- end }}
     SendEnv LANG
-    Port 22
