@@ -1,10 +1,20 @@
 {{- /*
   Régénère ~/.config/chezmoi/chezmoi.toml à chaque `chezmoi init`. Les réponses et les clés déjà
-  présentes sont reprises : work et headless ne sont demandés qu'une fois (promptBoolOnce), et
-  sourceDir et local_git_crypt sont recopiés s'ils existent.
+  présentes sont reprises : work n'est demandé qu'une fois (promptBoolOnce), et sourceDir et
+  local_git_crypt sont recopiés s'ils existent.
+  headless se déduit du type de machine (hostnamectl chassis : vm, server, container), au premier
+  init seulement : la valeur enregistrée prime ensuite, et se corrige à la main dans chezmoi.toml.
+  Sans systemd, il est demandé.
 */ -}}
 {{- $work := promptBoolOnce . "work" "Machine du travail" -}}
-{{- $headless := promptBoolOnce . "headless" "Machine sans bureau (serveur)" -}}
+{{- $headless := false -}}
+{{- if hasKey . "headless" -}}
+{{-   $headless = .headless -}}
+{{- else if and (lookPath "hostnamectl") (stat "/run/systemd/system") -}}
+{{-   $headless = has (output "hostnamectl" "chassis" | trim) (list "vm" "server" "container") -}}
+{{- else -}}
+{{-   $headless = promptBool "Machine sans bureau (serveur)" -}}
+{{- end -}}
 # git-crypt chiffre les fichiers encrypted_* ; chezmoi garde l'attribut sans rien (dé)chiffrer.
 encryption = "transparent"
 {{- if ne .chezmoi.sourceDir (joinPath .chezmoi.homeDir ".local/share/chezmoi") }}

@@ -11,7 +11,7 @@ chezmoi source directory for Gabriel's dotfiles. One repo, four machines:
 | Personal laptop (Framework) | Arch | false | false |
 | Personal desktop | Arch | false | false |
 
-`work` and `headless` are asked once by `.chezmoi.toml.tmpl` (`promptBoolOnce`) and stored in `~/.config/chezmoi/chezmoi.toml`. Arch-specific bits test `.chezmoi.osRelease.id "arch"`; per-host bits (Plasma) test `.chezmoi.hostname`.
+`.chezmoi.toml.tmpl` stores both in `~/.config/chezmoi/chezmoi.toml`: `work` is asked once (`promptBoolOnce`); `headless` is derived from `hostnamectl chassis` (`vm`, `server`, `container`) on the first init, asked only without systemd, and a stored value wins, so fix a wrong guess there. Arch-specific bits test `.chezmoi.osRelease.id "arch"`; per-host bits (Plasma) test `.chezmoi.hostname`.
 
 ## Commands
 
