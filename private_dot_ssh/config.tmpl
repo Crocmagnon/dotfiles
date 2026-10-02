@@ -16,9 +16,5 @@ Host hass
 
 Host *
     AddKeysToAgent yes
-    {{- if eq .chezmoi.os "darwin" }}
-    UseKeychain yes
-    XAuthLocation /opt/X11/bin/xauth
-    {{- end }}
     SendEnv LANG
     Port 22
