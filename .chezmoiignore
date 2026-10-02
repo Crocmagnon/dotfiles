@@ -1,6 +1,7 @@
 README.md
 LICENSE
 CLAUDE.md
+AGENTS.md
 .config/fish/completions/
 .config/fish/fish_variables
 .config/fish/themes/static/
