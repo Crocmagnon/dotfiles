@@ -1,0 +1,9 @@
+#!/bin/sh
+# Pose ~/.claude/hooks/herdr-agent-state.sh, que settings.json appelle. settings.json (géré ici)
+# déclare déjà le hook avec la commande exacte de herdr : l'installeur le laisse intact. Un garde
+# dans cette commande lui ferait ajouter un second hook.
+{{- $herdr := joinPath .chezmoi.homeDir ".local/share/mise/installs/herdr/latest/herdr" }}
+# Présence de herdr, pour que le script repasse dès que mise l'installe :{{ if stat $herdr }} installé{{ end }}
+herdr={{ $herdr | quote }}
+[ -x "$herdr" ] || exit 0
+exec "$herdr" integration install claude
