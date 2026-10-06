@@ -85,7 +85,8 @@ docs/
 .config/autostart
 {{- end }}
 
-{{- /* Arch uniquement : le lien qui active plasma-krunner.service (sinon il reste un dossier vide). */}}
+{{- /* Arch uniquement : le lien qui active plasma-krunner.service (sinon il reste un dossier vide), et decman-update. */}}
 {{- if not (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
 .config/systemd/user/plasma-workspace.target.wants
+.config/fish/functions/decman-update.fish
 {{- end }}
