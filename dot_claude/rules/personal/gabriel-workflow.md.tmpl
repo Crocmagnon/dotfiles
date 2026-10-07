@@ -73,3 +73,17 @@ and on top of it —
 - If `mise run lint` (or `make lint` on unmigrated repos) and the tests have just run green for
   the exact working tree being committed, commit with `git commit --no-verify` — the pre-commit
   hooks re-run a verification that just passed. If anything changed since, let the hooks run.
+
+## Personal repositories
+
+- Repositories on GitHub and Codeberg use `main` as the default branch, never
+  `master`: name the branch, the CI triggers and any `go run …@<branch>` install line after it.
+
+## Shell commands
+
+- The Bash tool runs the user's shell, zsh on the work machines, which does not word-split an
+  unquoted variable: `set -- $pair` or `cmd $flags` passes one argument. Run loops that rely on
+  word splitting under `bash -c '…'`, or use arrays.
+- Scripts that chain API calls (pagination, retries, abort-on-401) are written in Python, not
+  bash: in bash, `exit` inside `$(…)` or a pipeline only ends the subshell, and `set -e` skips
+  `&&` lists, which turned a 401 guard into an endless request loop.
