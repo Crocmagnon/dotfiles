@@ -73,6 +73,7 @@ docs/
 {{- /* Perso uniquement. */}}
 {{- if get . "work" }}
 .face.icon
+.config/fish/functions/agenix.fish
 .config/go/env
 .config/ha-mcp
 .config/autostart/rotatrix.desktop
