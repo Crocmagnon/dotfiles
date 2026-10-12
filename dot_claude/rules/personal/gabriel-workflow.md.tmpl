@@ -87,3 +87,10 @@ and on top of it —
 - Scripts that chain API calls (pagination, retries, abort-on-401) are written in Python, not
   bash: in bash, `exit` inside `$(…)` or a pipeline only ends the subshell, and `set -e` skips
   `&&` lists, which turned a 401 guard into an endless request loop.
+
+## Stating the state of things
+
+- Before saying a PR is open, unmerged, waiting for review, or a change is not applied or not
+  deployed, check it now (`mcp__stash__get_pull_request`, `git fetch` + log, the CDS history,
+  the running version in the logs). The user merges and deploys in parallel; an earlier
+  observation in the conversation is not the current state.
