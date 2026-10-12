@@ -1,7 +1,7 @@
 # Bascule Catppuccin latte/mocha selon la couleur de fond du terminal (repris de nixos-config,
 # modules/home/shared/theme-auto.nix). fish >= 4.3 interroge le terminal (OSC 11), pose
 # fish_terminal_color_theme et applique la bonne section de themes/catppuccin.theme. bat et kitty
-# détectent le fond eux-mêmes ; starship, eza, helix et fzf suivent grâce au hook ci-dessous.
+# détectent le fond eux-mêmes ; starship, eza, helix, btop et fzf suivent grâce au hook ci-dessous.
 # Avec un fish plus ancien, rien de tout ça : thème et couleurs par défaut.
 status is-interactive; or return
 string match -qr '^(4\.([3-9]|\d\d)|[5-9])' -- $version; or return
@@ -35,6 +35,9 @@ function __theme_auto --on-variable fish_terminal_color_theme
             --color=marker:#7287fd,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39 \
             --color=selected-bg:#bcc0cc
     end
+
+    # btop lit color_theme = "catppuccin" (voir btop/modify_btop.conf) : on fait pointer le lien.
+    ln -sfn catppuccin_$flavor.theme ~/.config/btop/themes/catppuccin.theme 2>/dev/null
 
     # helix garde un nom de thème constant (catppuccin) : on change ce qu'il hérite, et SIGUSR1
     # lui fait relire sa config. N'écrire et ne signaler que si ça change. -x : sinon pkill
