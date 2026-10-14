@@ -56,6 +56,7 @@ Work renders must stay byte-identical when adding personal-only content: use `{{
 - `.chezmoiremove` (absent when empty): targets to delete from `$HOME` on apply. When removing a file from the repo, add its target here so it disappears from machines too, then drop the entry once every machine has applied: a stale entry deletes any file later recreated at that path.
 - `dot_claude/`: Claude Code settings and personal rules, templated per work/personal (work: company API proxy, Stash rules; personal: French, curl/wget denied). Runtime state under `~/.claude` is listed in `.chezmoiignore`. User-scope MCP servers can't live in `~/.claude.json`, so they're registered by `run_onchange_after_claude-mcp.sh.tmpl`.
 - Tools come from mise (`dot_config/mise/config.toml.tmpl`), split into common/work/personal. On Arch, some come from pacman instead, declared in the `arch-config` repo (decman), which owns everything outside `$HOME` on the Arch desktops; its `CLAUDE.md` lists which and why. On the work machines, tools not listed here come from apt (laptop) or a local mise config (server).
+- `ranger-impressions-3d` (`dot_local/bin`, user `.path`/`.service`, enabled by its `run_onchange` script; personal Arch desktops only): sorts `~/pCloudSync/Projets/Impressions 3D/_Inbox` by asking `claude -p` for a JSON plan. Every machine runs it on the same pCloud folder, so it takes a per-host lock file in the inbox; the inbox must always end empty, or the `.path` unit retriggers in a loop.
 - `docs/` is git-ignored and chezmoi-ignored: scratch space.
 
 ## gpg-agent and SSH

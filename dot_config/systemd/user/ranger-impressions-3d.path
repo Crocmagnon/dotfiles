@@ -1,0 +1,10 @@
+# Lance ranger-impressions-3d dès qu'un fichier arrive dans l'inbox (déposé ici ou synchronisé par pCloud).
+[Unit]
+Description=Surveille l'inbox d'Impressions 3D
+
+[Path]
+DirectoryNotEmpty=%h/pCloudSync/Projets/Impressions 3D/_Inbox
+MakeDirectory=yes
+
+[Install]
+WantedBy=default.target

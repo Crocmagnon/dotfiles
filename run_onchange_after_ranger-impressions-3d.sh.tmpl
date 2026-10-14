@@ -1,0 +1,10 @@
+{{- if and (not (get . "work")) (not (get . "headless")) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") -}}
+#!/bin/sh
+# Active le tri automatique de l'inbox d'Impressions 3D (pCloud). Relancé quand une unité change :
+# path {{ include "dot_config/systemd/user/ranger-impressions-3d.path" | sha256sum }}
+# service {{ include "dot_config/systemd/user/ranger-impressions-3d.service" | sha256sum }}
+set -eu
+command -v systemctl >/dev/null || exit 0
+systemctl --user daemon-reload
+systemctl --user enable --now ranger-impressions-3d.path
+{{ end -}}
