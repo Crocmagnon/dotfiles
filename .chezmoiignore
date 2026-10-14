@@ -38,6 +38,7 @@ AGENTS.md
 .claude/telemetry/
 .claude/policy-limits.json
 docs/
+**/__pycache__
 
 {{- /* Travail uniquement : hôtes, identifiants et outils de l'entreprise. */}}
 {{- if not (get . "work") }}
@@ -84,6 +85,13 @@ docs/
 .local/share/fonts
 .config/environment.d
 .config/autostart
+{{- end }}
+
+{{- /* Desktops perso Arch uniquement : tri automatique de l'inbox pCloud d'Impressions 3D. */}}
+{{- if not (and (not (get . "work")) (not (get . "headless")) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
+.local/bin/ranger-impressions-3d
+.config/systemd/user/ranger-impressions-3d.path
+.config/systemd/user/ranger-impressions-3d.service
 {{- end }}
 
 {{- /* Arch uniquement : le lien qui active plasma-krunner.service (sinon il reste un dossier vide), et decman-update. */}}

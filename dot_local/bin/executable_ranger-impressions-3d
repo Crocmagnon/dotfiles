@@ -1,0 +1,336 @@
+#!/usr/bin/env python3
+"""Trie le contenu de _Inbox/ dans l'arborescence d'Impressions 3D en demandant à Claude où ranger chaque élément.
+
+Claude n'a aucun outil : il renvoie seulement un plan JSON. Ce script valide le plan et fait les déplacements.
+Tout ce qui ne peut pas être rangé part dans « À identifier/ », pour que l'inbox finisse toujours vide :
+ranger-impressions-3d.path relance ce script tant qu'elle ne l'est pas.
+
+Le dossier est synchronisé par pCloud entre plusieurs machines qui font toutes tourner ce script. Chacune pose
+un verrou .tri-<hôte> dans l'inbox et attend sa synchronisation ; si deux verrous se croisent, le plus petit
+nom d'hôte trie et l'autre attend que l'inbox se vide.
+
+Usage: ranger-impressions-3d [--dry-run]
+"""
+import json
+import os
+import shutil
+import socket
+import subprocess
+import sys
+import tempfile
+import time
+import unicodedata
+import zipfile
+from pathlib import Path
+
+ROOT = Path.home() / "pCloudSync/Projets/Impressions 3D"
+INBOX = ROOT / "_Inbox"
+HOST = socket.gethostname()
+LOCK_PREFIX = ".tri-"
+LOCK_SYNC_SECONDS = 20  # le temps que pCloud propage le verrou aux autres machines
+LOCK_STALE_SECONDS = 900  # un verrou plus vieux vient d'une machine éteinte en plein tri
+TRASH = "_à supprimer"
+UNKNOWN = "À identifier"
+CATEGORIES = {
+    "Accessoires perso": "objets portés ou transportés : portefeuille, attelle, baguier…",
+    "Atelier & rangement": "outillage, Gridfinity, openGrid, Underware, Alexandre Chappel, visserie, crochets, équerres, câbles, clés",
+    "Électronique & domotique": "boîtiers électroniques, Raspberry Pi, capteurs, AirTag, téléphone, drone",
+    "Imprimante": "accessoires et pièces de la Prusa Core One INDX, filament, calibration et tests",
+    "Jardin": "étiquettes de plantes, pots",
+    "Jeux & JDR": "jeux de société, inserts, D&D, puzzles et casse-têtes, tokens",
+    "Jouets, déco & cadeaux": "jouets articulés (flexi), fidgets, déco, Noël, Pâques, emporte-pièces, cadeaux",
+    "Maison": "meubles, pieds, salle de bain, bureau, lampes, vélo, petites réparations",
+}
+SETTLE_SECONDS = 15
+SETTLE_TIMEOUT = 600
+IGNORED_SUFFIXES = (".part", ".crdownload", ".tmp", ".download")
+
+PLAN_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "moves": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "source": {"type": "string", "description": "nom exact de l'élément dans l'inbox"},
+                    "destination": {"type": "string", "description": "dossier cible relatif à la racine"},
+                    "new_name": {"type": "string", "description": "nom final, extension comprise"},
+                    "reason": {"type": "string"},
+                },
+                "required": ["source", "destination", "new_name", "reason"],
+            },
+        }
+    },
+    "required": ["moves"],
+}
+
+
+def nfc(s):
+    return unicodedata.normalize("NFC", s)
+
+
+def log(msg):
+    print(msg, flush=True)
+
+
+def notify(summary, body):
+    try:
+        subprocess.run(["notify-send", "-a", "Impressions 3D", summary, body], timeout=5, check=False)
+    except (OSError, subprocess.TimeoutExpired):
+        pass
+
+
+def inbox_items():
+    return sorted(p for p in INBOX.iterdir() if not p.name.startswith(LOCK_PREFIX))
+
+
+def foreign_locks():
+    """Verrous récents posés par d'autres machines ; les verrous périmés sont supprimés."""
+    locks = []
+    for p in INBOX.glob(LOCK_PREFIX + "*"):
+        host = p.name[len(LOCK_PREFIX):]
+        if host == HOST:
+            continue
+        try:
+            age = time.time() - p.stat().st_mtime
+        except FileNotFoundError:
+            continue
+        if age > LOCK_STALE_SECONDS:
+            log(f"Verrou périmé de {host} supprimé.")
+            p.unlink(missing_ok=True)
+        else:
+            locks.append(host)
+    return locks
+
+
+def wait_while_other_host_sorts():
+    """Attend que les autres machines aient fini. Garde le service actif pendant ce temps :
+    s'il s'arrêtait alors que l'inbox contient un verrou étranger, la .path le relancerait en boucle."""
+    while foreign_locks():
+        time.sleep(LOCK_SYNC_SECONDS)
+
+
+def acquire_lock():
+    """Pose le verrou de cette machine. Renvoie False si une autre machine est prioritaire."""
+    lock = INBOX / f"{LOCK_PREFIX}{HOST}"
+    lock.write_text(f"{HOST} {time.strftime('%Y-%m-%dT%H:%M:%S')}\n")
+    time.sleep(LOCK_SYNC_SECONDS)
+    others = foreign_locks()
+    if others and min(others) < HOST:
+        lock.unlink(missing_ok=True)
+        log(f"{min(others)} trie déjà l'inbox, on lui laisse la main.")
+        return False
+    return True
+
+
+def release_lock():
+    (INBOX / f"{LOCK_PREFIX}{HOST}").unlink(missing_ok=True)
+
+
+def snapshot(items):
+    snap = {}
+    for p in items:
+        files = [p] if p.is_file() else [f for f in p.rglob("*") if f.is_file()]
+        snap[p.name] = sorted((str(f), f.stat().st_size, f.stat().st_mtime) for f in files)
+    return snap
+
+
+def wait_until_settled():
+    """Attend que pCloud ait fini d'écrire : plus de fichiers temporaires, tailles stables."""
+    deadline = time.monotonic() + SETTLE_TIMEOUT
+    previous = None
+    while time.monotonic() < deadline:
+        items = inbox_items()
+        busy = any(p.name.endswith(IGNORED_SUFFIXES) for p in items)
+        current = snapshot(items)
+        if items and not busy and current == previous:
+            return items
+        previous = current
+        time.sleep(SETTLE_SECONDS)
+    return None
+
+
+def describe(p):
+    """Infos utiles au tri, sans envoyer le contenu des modèles."""
+    if p.is_dir():
+        files = [str(f.relative_to(p)) for f in sorted(p.rglob("*")) if f.is_file()]
+        return {"name": p.name, "type": "dossier", "files": files[:60], "file_count": len(files)}
+    info = {"name": p.name, "type": "fichier", "size_kb": p.stat().st_size // 1024}
+    low = p.name.lower()
+    if low.endswith((".gcode", ".bgcode")):
+        with open(p, "rb") as fh:
+            head = fh.read(300_000)
+        info["printer_model"] = "COREONE" if b"printer_model=COREONE" in head else "autre ou inconnue"
+    elif low.endswith(".zip"):
+        try:
+            with zipfile.ZipFile(p) as z:
+                names = z.namelist()
+            info["zip_entries"] = names[:60]
+        except zipfile.BadZipFile:
+            info["zip_entries"] = "zip illisible"
+    return info
+
+
+def current_tree():
+    """Dossiers jusqu'à 3 niveaux et fichiers jusqu'à 2 niveaux sous chaque catégorie."""
+    lines = []
+    for cat in sorted(CATEGORIES):
+        base = ROOT / cat
+        if not base.is_dir():
+            continue
+        for d, dirs, files in os.walk(base):
+            dirs[:] = sorted(x for x in dirs if not x.startswith("."))
+            rel = Path(d).relative_to(ROOT)
+            depth = len(rel.parts)
+            if depth > 3:
+                dirs[:] = []
+                continue
+            lines.append(f"{nfc(str(rel))}/")
+            if depth <= 2:
+                lines += [f"{nfc(str(rel / f))}" for f in sorted(files) if not f.startswith(".")]
+    return "\n".join(lines)
+
+
+def build_prompt(items):
+    cats = "\n".join(f"- {k} : {v}" for k, v in CATEGORIES.items())
+    return f"""Tu ranges des fichiers d'impression 3D (STL, 3MF, STEP, SCAD, F3D, FCStd, G-code, zips de modèles téléchargés).
+L'utilisateur possède une seule imprimante : une Prusa Core One INDX.
+
+Catégories (premier niveau) :
+{cats}
+Plus deux dossiers spéciaux : « {TRASH} » (à jeter) et « {UNKNOWN} » (impossible à classer avec certitude).
+
+Règles :
+1. Si un sous-dossier existant correspond à l'objet, range dedans. Si plusieurs éléments de l'inbox forment un même objet, mets-les ensemble dans un nouveau sous-dossier de la catégorie, nommé d'après l'objet. Un élément isolé va directement dans la catégorie.
+2. Donne des noms lisibles : remplace + et %20 par des espaces, retire les suffixes de téléchargement (model_files, horodatages, hashes, identifiants numériques, « (1) »). Garde l'extension. Garde le nom d'origine s'il est déjà propre.
+3. G-code et bgcode dont printer_model n'est pas COREONE → « {TRASH} ».
+4. Un STL dont le 3MF de même nom existe déjà (dans l'inbox ou à destination) → « {TRASH} ».
+5. Un zip dont le contenu est déjà présent extrait (dans l'inbox ou dans l'arborescence) → « {TRASH} ».
+6. Dans le doute, « {UNKNOWN} ». Ne devine pas au hasard.
+7. Chaque élément de l'inbox apparaît exactement une fois dans « moves », avec son nom exact dans « source ».
+8. « destination » est un chemin de dossier relatif à la racine, qui commence par une catégorie ou un dossier spécial. Pas de « .. ».
+
+Arborescence actuelle :
+{current_tree()}
+
+Éléments de l'inbox :
+{json.dumps([describe(p) for p in items], ensure_ascii=False, indent=1)}
+"""
+
+
+def ask_claude(prompt):
+    with tempfile.TemporaryDirectory() as cwd:  # hors du projet, pour ne charger aucun CLAUDE.md
+        res = subprocess.run(
+            ["claude", "-p", "--model", "sonnet", "--tools", "", "--output-format", "json",
+             "--json-schema", json.dumps(PLAN_SCHEMA), "--no-session-persistence", "--max-budget-usd", "1"],
+            input=prompt, capture_output=True, text=True, cwd=cwd, timeout=600,
+        )
+    if res.returncode != 0:
+        raise RuntimeError(f"claude a échoué ({res.returncode}): {res.stderr.strip() or res.stdout.strip()}")
+    out = json.loads(res.stdout)
+    plan = out.get("structured_output")
+    if plan is None:
+        text = out.get("result", "")
+        plan = json.loads(text[text.index("{"): text.rindex("}") + 1])
+    return plan["moves"]
+
+
+def safe_destination(dest):
+    """Renvoie le dossier cible s'il reste dans la racine et commence par un dossier autorisé, sinon None."""
+    parts = Path(nfc(dest.strip().strip("/"))).parts
+    allowed = set(CATEGORIES) | {TRASH, UNKNOWN}
+    if not parts or parts[0] not in allowed or any(x in ("..", ".") or x.startswith(".") for x in parts):
+        return None
+    return ROOT.joinpath(*parts)
+
+
+def resolve_existing(path):
+    """Réutilise un dossier existant même si son nom est encodé autrement sur disque (NFD vs NFC)."""
+    cur = ROOT
+    for part in path.relative_to(ROOT).parts:
+        match = next((c for c in cur.iterdir() if nfc(c.name) == part), None) if cur.is_dir() else None
+        cur = match if match else cur / part
+    return cur
+
+
+def free_name(folder, name):
+    target = folder / name
+    stem, suffix = Path(name).stem, Path(name).suffix
+    n = 2
+    while target.exists():
+        target = folder / f"{stem} ({n}){suffix}"
+        n += 1
+    return target
+
+
+def move(src, folder, name, dry_run):
+    folder = resolve_existing(folder)
+    target = free_name(folder, name)
+    log(f"  {src.name}  →  {target.relative_to(ROOT)}")
+    if not dry_run:
+        folder.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(src), str(target))
+    return target
+
+
+def main():
+    dry_run = "--dry-run" in sys.argv
+    INBOX.mkdir(exist_ok=True)
+    while True:
+        wait_while_other_host_sorts()
+        if not inbox_items():
+            return
+        if dry_run or acquire_lock():
+            break
+    try:
+        sort_inbox(dry_run)
+    finally:
+        if not dry_run:
+            release_lock()
+
+
+def sort_inbox(dry_run):
+    items = wait_until_settled()
+    if not items:
+        log("Inbox vide ou toujours en cours d'écriture, rien à faire.")
+        return
+
+    done = []
+    hidden = [p for p in items if p.name.startswith(".")]  # .DS_Store et compagnie, inutile de demander
+    for p in hidden:
+        done.append((move(p, ROOT / TRASH, p.name, dry_run), "fichier caché"))
+    items = [p for p in items if p not in hidden]
+    if not items:
+        return
+
+    log(f"{len(items)} élément(s) à ranger : {', '.join(p.name for p in items)}")
+    by_name = {nfc(p.name): p for p in items}
+    try:
+        moves = ask_claude(build_prompt(items))
+    except Exception as e:  # réseau, quota, JSON invalide : on ne bloque pas l'inbox
+        log(f"Erreur : {e}")
+        moves = []
+
+    for m in moves:
+        src = by_name.pop(nfc(m["source"]), None)
+        folder = safe_destination(m["destination"])
+        name = Path(nfc(m["new_name"])).name or (src.name if src else "")
+        if src is None:
+            log(f"  ignoré, source inconnue : {m['source']}")
+            continue
+        if folder is None or not name or name.startswith("."):
+            log(f"  destination refusée pour {src.name} : {m['destination']}/{m['new_name']}")
+            folder, name = ROOT / UNKNOWN, src.name
+        done.append((move(src, folder, name, dry_run), m.get("reason", "")))
+
+    for src in by_name.values():  # oublié par Claude ou erreur
+        done.append((move(src, ROOT / UNKNOWN, src.name, dry_run), "non classé"))
+
+    unknown = sum(1 for t, _ in done if t.relative_to(ROOT).parts[0] == UNKNOWN)
+    body = "\n".join(str(t.relative_to(ROOT)) for t, _ in done)
+    notify(f"{len(done)} fichier(s) rangé(s)" + (f", {unknown} à identifier" if unknown else ""), body)
+
+
+if __name__ == "__main__":
+    main()

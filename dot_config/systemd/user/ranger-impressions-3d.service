@@ -1,0 +1,7 @@
+# Range l'inbox d'Impressions 3D avec Claude ; voir ~/.local/bin/ranger-impressions-3d.
+[Unit]
+Description=Range l'inbox d'Impressions 3D avec Claude
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/ranger-impressions-3d
