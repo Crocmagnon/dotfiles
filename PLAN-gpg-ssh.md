@@ -233,9 +233,25 @@ pour remettre les passphrases en cache.
 
 ### 11. Ménage (quelques semaines après)
 
-Retirer l'ancienne `id_ed25519` commune (fichiers et `sshcontrol` des deux machines, Stash, forges)
-et la clé RSA `gaugendre@bw` (`sshcontrol` et `private-keys-v1.d` du laptop, là où elle est déclarée) ; rappel calendrier dans
-~22 mois pour prolonger l'expiration :
+Retirer l'ancienne `id_ed25519` commune et la clé RSA `gaugendre@bw`. Déjà fait le 2026-10-15 :
+Stash, People, forges, `sshcontrol` des deux machines. Restent les fichiers, `.old` compris.
+
+Laptop et sdev (ne plus utiliser `ssh -i ~/.ssh/id_ed25519.old` : `AddKeysToAgent` la remet dans
+`sshcontrol`) :
+```sh
+rm ~/.ssh/id_ed25519.old ~/.ssh/id_ed25519.old.pub
+gpg-connect-agent "DELETE_KEY --force 6FB375970F84B569A02C5545A3741A5252B3FEDB" /bye
+```
+Laptop seul (`gaugendre@bw`) :
+```sh
+gpg-connect-agent "DELETE_KEY --force 7BEAE97E22E1C0A8E216316CAC65E344821B3C14" /bye
+```
+Vérifier : `ssh-add -l` ne liste que la YubiKey (laptop) ou `gaugendr@sdev` (sdev). Puis supprimer ce
+plan et sa ligne dans `.chezmoiignore`.
+
+Prolongation de l'expiration (rappel calendrier vers 2028-08, expiration le 2028-10-13). Si la clé
+maîtresse est encore sur le laptop, les deux `--quick-set-expire` y suffisent ; sinon, depuis
+KeePassXC :
 ```sh
 export GNUPGHOME=$(mktemp -d -p $XDG_RUNTIME_DIR)
 gpg --import boulot-2ans.asc       # depuis KeePassXC
