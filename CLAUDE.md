@@ -46,6 +46,7 @@ Work renders must stay byte-identical when adding personal-only content: use `{{
 - Once unlocked, never print a rendered template that includes a secret: use `chezmoi apply` without `-v`, and `chezmoi status` for names only.
 - Secret values live one per file in `.secrets/encrypted_*` (ignored by chezmoi as a dot-dir) and are pulled into templates with `{{ include ".secrets/encrypted_<name>" | trim }}`. Scripts needing a secret at runtime reference the source path (`joinPath .chezmoi.sourceDir ".secrets/..."`) rather than inlining it.
 - Work material — company hostnames, URLs, credentials, keyservers — goes in `.secrets/` or an `encrypted_` file, never in plaintext templates. Whole binary files (fonts, credential JSONs) are encrypted in place with the `encrypted_` prefix.
+- The agenix identity of the personal desktops (`~/.config/agenix/identity.txt`, see the nixos-config `CLAUDE.md`) is `dot_config/private_agenix/encrypted_private_identity.txt`, ignored on work machines.
 - Per-host overrides (`host.config` included by `git/config` and `ssh/config`) are local per machine and not in this repo.
 
 ## Layout notes
