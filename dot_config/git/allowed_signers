@@ -1,2 +1,4 @@
 # Clés SSH qui signent les commits perso, pour `git log --show-signature` : une ligne par machine.
 gabriel@augendre.info ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ9s8FZjX6TgAqhpG5v/Q9tR+c8HyhDVQnd37riCP0aD gaugendre@framework-gab
+gabriel@augendre.info ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINFUVsoUSaXzGxv3BwlLelDHvhITUHfi/7NEDz5Khey4 gaugendr@laptop-boulot-yubikey
+gabriel@augendre.info ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINYdzckhZZrlh7rn3y33jDxL4bJakJEKalivParVTMXO gaugendr@serveur-boulot
