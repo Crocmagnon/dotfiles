@@ -13,7 +13,7 @@ vérifier le résultat en lecture avant de passer à la suivante.
 **Boulot** — une seule clé GPG (même fingerprint qu'aujourd'hui, on ajoute des sous-clés) :
 
 ```
-pub  rsa4096 [C]   clé maîtresse : hors ligne, dans le KeePassXC du bureau ; expire à 2 ans
+pub  rsa4096 [SC]  clé maîtresse : logicielle sur le laptop (hors ligne plus tard), copie KeePassXC ; 2 ans
 sub  rsa4096 [E]   chiffrement : YubiKey (sauvegardée avant keytocard)
 sub  rsa4096 [S]   signature laptop : YubiKey
 sub  rsa4096 [S]   signature serveur : logicielle, sur le serveur uniquement
@@ -22,7 +22,7 @@ sub  ed25519 [A]   SSH du laptop : YubiKey
 
 - Le serveur signe seul (agents actifs laptop déconnecté) : d'où sa sous-clé logicielle, protégée
   par une passphrase propre au serveur, saisie après chaque reboot (cache gpg-agent de 400 jours
-  en headless). Le serveur garde sa propre clé SSH ed25519, logicielle.
+  en headless). Le serveur a sa propre clé SSH ed25519, logicielle (nouvelle : l'actuelle est partagée avec le laptop).
 - YubiKey sans toucher (touch policy `off` sur sig/dec/aut), PIN demandé une fois par
   branchement (`forcesig` désactivé).
 - Chaque machine choisit sa sous-clé par `user.signingkey = <FPR>!` dans `~/.config/git/host.config`.
@@ -44,7 +44,45 @@ comme clés de signature sur GitHub et Codeberg, et listées dans `dot_config/gi
       `.secrets/encrypted_work_email`).
 - [x] framework-gab : clé dans `allowed_signers`, déclarée sur GitHub et Codeberg (auth + signature).
 - [ ] Desktop perso : clé à ajouter dans `allowed_signers` et sur les forges.
-- [ ] Étapes 0 à 11 ci-dessous.
+- [x] Étape 0 (2026-10-14), constats ci-dessous.
+- [x] Étape 1 (2026-10-14) : export et certificat de révocation dans KeePassXC.
+- [x] Étape 2 (2026-10-15) : sous-clés créées, tout expire le 2028-10-13.
+- [x] Étape 3 (2026-10-15) : `boulot-2ans.asc` (5 clés secrètes) dans KeePassXC.
+- [x] Étape 4 (2026-10-15) : serveur en `sec#`/`ssb#`, seule S_SRV en clair, passphrase propre.
+- [x] Étape 5 (2026-10-15) : carte en rsa4096/rsa4096/ed25519 (S_LAPTOP, E, A), `forcesig` coupé,
+      touch `off` partout ; trousseau du laptop en `ssb>` sauf S_SRV.
+- [x] Étape 6 (2026-10-15) : S_SRV retirée du laptop ; la clé maîtresse y reste (décision).
+- [x] Étape 8, laptop (2026-10-15) : `signingkey = S_LAPTOP!`, `email` retiré. Les remotes
+      `ssh://git@github.com/…` et `ssh://git@codeberg.org/…` n'activaient pas `perso.config` :
+      motifs `includeIf` ajoutés.
+- [ ] Étape 7, étape 8 serveur, étapes 9 à 11.
+
+Fingerprints (publics) :
+```
+KEY       3A85F46E66CD7EABE5C1E5D40073D1CD7EC5A253
+E         154D0C067EF550DDEF34873CE981A1B9D0437B7D
+S_LAPTOP  A8841A0F83B116FECDB60ED672854AFCBB02E2E5
+S_SRV     60D393872490131F2E84A746265B650812E3DCD6
+A         EE55D23569386653257BECA21B836F73966153BC
+```
+
+## Constats de l'inventaire
+
+- Clé boulot : RSA 4096 `[SC]` + sous-clé RSA 4096 `[E]`, toutes deux jusqu'au 2027-04-02. Pas de
+  certificat de révocation (`openpgp-revocs.d` absent) : à générer à l'étape 1.
+- YubiKey 5 NFC, firmware 5.4.3 (ed25519 OK). **Le slot OTP déverrouille le disque du laptop**
+  (`yubikey-luks`, challenge-response HMAC-SHA1 dans `crypttab`) : ne jamais lancer `ykman otp …`,
+  ne pas désactiver l'interface OTP (`ykman config usb`), pas de reset global. OpenPGP, PIV et FIDO2
+  sont des applets séparés, sans effet sur l'OTP.
+- Applet OpenPGP déjà rempli : 3 clés nistp384 de 2021, titulaire « Daniel Goncalves », absentes du
+  trousseau, à écraser. PIN et Admin PIN inconnus : `ykman openpgp reset` à l'étape 5. `forcesig` actif (à couper à l'étape 5).
+- Le serveur a la clé boulot **complète** (maîtresse et E en clair), plus une clé ed25519 créée le
+  2026-10-02 (`[SC]`, `[A]`, `[E]`), reste d'un test : à supprimer à l'étape 4. Pas de logind ni de systemd utilisateur (sshd utilisateur,
+  gpg-agent lancé en démon jusqu'au reboot) : `Linger` ne s'applique pas. Pas de `/run/user` :
+  passer les fichiers secrets par `/dev/shm`.
+- SSH : **le laptop et le serveur partagent la même `~/.ssh/id_ed25519`** (avec passphrase), copiée
+  dans le gpg-agent des deux machines par `AddKeysToAgent`. Le gpg-agent du laptop sert aussi une
+  clé RSA 4096 `gaugendre@bw`. Le `sshcontrol` du serveur garde une entrée sans clé derrière.
 
 ## Étapes
 
@@ -68,9 +106,7 @@ ls ~/.ssh/; cat ~/.config/git/host.config ~/.ssh/host.config
 loginctl show-user $USER -p Linger
 ```
 À vérifier : firmware YubiKey ≥ 5.2.3 (ed25519 sur la carte) ; slots de la carte vides ou
-contenant quoi (keytocard les écrase) ; capacités et expiration de la clé actuelle ; `Linger=yes`
-sur le serveur (sinon `loginctl enable-linger`, à lancer par Gabriel : sans lui, gpg-agent et son
-cache meurent à la dernière déconnexion).
+contenant quoi (keytocard les écrase) ; capacités et expiration de la clé actuelle.
 
 ### 1. Sauvegarde de l'existant (laptop)
 
@@ -102,11 +138,13 @@ Même export qu'à l'étape 1 (`boulot-2ans.asc`), qui remplace l'ancien dans Ke
 Laptop :
 ```sh
 gpg --armor --export-secret-subkeys "$S_SRV!" > $d/srv.asc
-scp $d/srv.asc <serveur>:/run/user/<uid>/ && shred -u $d/srv.asc
+scp $d/srv.asc <serveur>:/dev/shm/ && shred -u $d/srv.asc
 ```
 Serveur (interactif : pinentry-curses) :
 ```sh
-gpg --import /run/user/$(id -u)/srv.asc && shred -u /run/user/$(id -u)/srv.asc
+gpg --delete-secret-keys $KEY                  # retire la clé complète actuelle (la publique reste)
+gpg --delete-secret-and-public-keys 51E3B3D5D5A398B6F2090D295A2CFC5C90EDA4A0   # clé de test
+gpg --import /dev/shm/srv.asc && shred -u /dev/shm/srv.asc
 gpg --passwd $KEY                              # passphrase propre au serveur
 echo "$KEY:6:" | gpg --import-ownertrust
 gpg -K                                          # attendu : sec# (absente), ssb seulement pour S_SRV
@@ -115,8 +153,10 @@ gpg -K                                          # attendu : sec# (absente), ssb 
 ### 5. YubiKey (laptop)
 
 ```sh
+ykman openpgp reset  # applet OpenPGP seul (l'OTP du LUKS n'est pas touché) ; PIN 123456 / 12345678
 gpg --card-edit      # admin → passwd : changer PIN (123456) et Admin PIN (12345678)
                      # admin → key-attr : RSA 4096 (sig), RSA 4096 (enc), ECC Curve 25519 (auth)
+                     # admin → forcesig (passe à « not forced »)
 ykman openpgp keys set-touch sig off; ykman openpgp keys set-touch dec off
 ykman openpgp keys set-touch aut off
 gpg --edit-key $KEY  # key N (S_LAPTOP) → keytocard → 1 ; key N (désélection)
@@ -124,13 +164,15 @@ gpg --edit-key $KEY  # key N (S_LAPTOP) → keytocard → 1 ; key N (désélecti
                      # key P (A) → keytocard → 3 ; save
 ```
 
-### 6. Retirer la clé maîtresse et S_SRV du laptop
+### 6. Retirer S_SRV du laptop
 
 ```sh
-gpg -K --with-keygrip                                   # keygrips de la maîtresse et de S_SRV
-gpg-connect-agent "DELETE_KEY --force <keygrip>" /bye   # une fois par keygrip
-gpg -K                                                  # attendu : sec#, ssb> (carte), ssb# (S_SRV)
+gpg -K --with-keygrip                                   # keygrip de S_SRV
+gpg-connect-agent "DELETE_KEY --force <keygrip>" /bye
+gpg -K                                                  # attendu : sec, ssb> (carte), ssb# (S_SRV)
 ```
+La clé maîtresse reste sur le laptop pour l'instant. Pour la passer hors ligne plus tard : même
+`DELETE_KEY` sur son keygrip, et le renouvellement de l'étape 11 se fait depuis KeePassXC.
 
 ### 7. Publier la clé publique
 
@@ -154,7 +196,8 @@ pour remettre les passphrases en cache.
   et sur GitHub/Codeberg (auth + signature). gpg-agent la sert d'office (clé de carte). Rendre
   `perso.config` template pour pointer `user.signingkey` sur `~/.ssh/id_yubikey.pub` sur le laptop
   boulot (`work` et pas `headless`).
-- Serveur : sa clé ed25519 actuelle, à déclarer sur GitHub/Codeberg comme clé de signature.
+- Serveur : nouvelle clé ed25519 propre (`ssh-keygen -t ed25519`, avec passphrase), à déclarer sur
+  Stash et sur GitHub/Codeberg (auth + signature) ; `sshcontrol` : retirer l'entrée orpheline.
 - Ajouter les deux dans `dot_config/git/allowed_signers`.
 
 ### 10. Tests
@@ -167,7 +210,8 @@ pour remettre les passphrases en cache.
 
 ### 11. Ménage (quelques semaines après)
 
-Retirer l'ancienne clé SSH logicielle du laptop de Stash et des forges ; rappel calendrier dans
+Retirer l'ancienne `id_ed25519` commune (fichiers et `sshcontrol` des deux machines, Stash, forges)
+et la clé RSA `gaugendre@bw` (`sshcontrol` et `private-keys-v1.d` du laptop, là où elle est déclarée) ; rappel calendrier dans
 ~22 mois pour prolonger l'expiration :
 ```sh
 export GNUPGHOME=$(mktemp -d -p $XDG_RUNTIME_DIR)
