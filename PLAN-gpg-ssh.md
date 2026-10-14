@@ -217,7 +217,7 @@ pour remettre les passphrases en cache.
   jusqu'à l'étape 11 ; sa copie dans gpg-agent assure la transition) :
   ```sh
   mv ~/.ssh/id_ed25519 ~/.ssh/id_ed25519.old; mv ~/.ssh/id_ed25519.pub ~/.ssh/id_ed25519.old.pub
-  ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -C gaugendr@serveur-boulot   # avec passphrase
+  ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -C gaugendr@sdev          # avec passphrase
   ```
   À déclarer sur People, Stash et GitHub/Codeberg (auth + signature) ; `sshcontrol` : retirer
   l'entrée orpheline.
