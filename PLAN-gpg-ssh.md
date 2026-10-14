@@ -43,7 +43,7 @@ comme clés de signature sur GitHub et Codeberg, et listées dans `dot_config/gi
 - [x] Config git versionnée (`perso.config`, `allowed_signers`, `includeIf`, email boulot dans
       `.secrets/encrypted_work_email`).
 - [x] framework-gab : clé dans `allowed_signers`, déclarée sur GitHub et Codeberg (auth + signature).
-- [ ] Desktop perso : clé à ajouter dans `allowed_signers` et sur les forges.
+- [x] desktop-gab : clé dans `allowed_signers`, déclarée sur GitHub et Codeberg (auth + signature).
 - [x] Étape 0 (2026-10-14), constats ci-dessous.
 - [x] Étape 1 (2026-10-14) : export et certificat de révocation dans KeePassXC.
 - [x] Étape 2 (2026-10-15) : sous-clés créées, tout expire le 2028-10-13.
