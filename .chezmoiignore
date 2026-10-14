@@ -2,6 +2,7 @@ README.md
 LICENSE
 CLAUDE.md
 AGENTS.md
+PLAN-gpg-ssh.md
 .config/fish/completions/
 .config/fish/fish_variables
 .config/fish/themes/static/

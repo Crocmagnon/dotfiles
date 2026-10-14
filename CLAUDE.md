@@ -16,7 +16,7 @@ chezmoi source directory for Gabriel's dotfiles. One repo, four machines:
 ## Commands
 
 - `chezmoi diff` / `chezmoi status` (fish alias `dotstatus`): what `apply` would change here. Fish prints "dotfiles drift" at startup when status is non-empty.
-- `chezmoi apply [target]`: deploy. Ask before running it — it writes to `$HOME` and runs the `run_onchange_*` scripts.
+- `chezmoi apply [target]`: deploy. Don't run it: it writes to `$HOME` and runs the `run_onchange_*` scripts. Edit versioned files and run read-only commands freely, but anything outside the repo (`chezmoi apply`, `host.config`, keys, YubiKey) is the user's to run: give them the command.
 - `chezmoi cat ~/path/to/target`: render one file for this machine.
 - Render for another profile: `chezmoi --override-data '{"work":false,"headless":false}' cat ~/.config/mise/config.toml`. This only overrides `work`/`headless`; Arch/hostname branches still follow the current machine.
 - `chezmoi execute-template < file.tmpl`: render an arbitrary template snippet.
@@ -65,6 +65,7 @@ Work renders must stay byte-identical when adding personal-only content: use `{{
 - **gpg-agent is the SSH agent, and GnuPG stays in `~/.gnupg`.** Arch does not export `SSH_AUTH_SOCK` for it: `environment.d/50-gpg-agent.conf.tmpl` sets it for the Arch graphical session, `config.fish` for every fish, except over `ssh -A`, where the forwarded agent is kept.
 - **gpg-agent starts about 1 s before the Plasma session, without a display.** SSH requests carry no display, so pinentry needs `updatestartuptty`, run by `autostart/gpg-agent-display.desktop` and by every interactive fish. Never run `updatestartuptty` from a display-less ssh command (VM tests): it wipes the display.
 - **On the Arch desktops, pinentry-qt keeps passphrases in KWallet** (`PINENTRY_KDE_USE_WALLET`), which PAM unlocks at autologin. The PAM side and how to check the wallet live in arch-config.
+- **Two git identities.** Work (default on work machines) signs with GPG, a per-machine subkey of the one RSA key set as `user.signingkey` (with `!`) in `host.config`. Personal (`git/perso.config`: everywhere on personal machines, GitHub/Codeberg remotes on work machines via `includeIf hasconfig:remote.*.url`) signs with the machine's SSH key. A new machine's SSH key goes in `git/allowed_signers` and as a signing key on GitHub and Codeberg.
 
 ## Conventions
 

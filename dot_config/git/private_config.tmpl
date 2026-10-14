@@ -1,7 +1,10 @@
 {{- $branch := ternary "master" "main" (get . "work" | not | not) -}}
 [user]
     name = Gabriel Augendre
-    email = gabriel@augendre.info
+{{- if get . "work" }}
+    # Identité du bureau par défaut, signée GPG : la sous-clé de la machine est dans host.config.
+    email = {{ include ".secrets/encrypted_work_email" | trim }}
+{{- end }}
 [color]
     ui = true
     status = auto
@@ -141,4 +144,20 @@
     sync-perennial-strategy = rebase
     new-branch-type = feature
     share-new-branches = no
+{{- end }}
+
+# Identité perso (signature SSH) : partout sur les machines perso, seulement pour les dépôts GitHub
+# et Codeberg sur celles du bureau. En dernier, pour l'emporter sur host.config.
+{{- if get . "work" }}
+[includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
+    path = perso.config
+[includeIf "hasconfig:remote.*.url:https://github.com/**"]
+    path = perso.config
+[includeIf "hasconfig:remote.*.url:git@codeberg.org:*/**"]
+    path = perso.config
+[includeIf "hasconfig:remote.*.url:https://codeberg.org/**"]
+    path = perso.config
+{{- else }}
+[include]
+    path = perso.config
 {{- end }}
