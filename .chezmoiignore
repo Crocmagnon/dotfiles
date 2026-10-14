@@ -75,6 +75,7 @@ docs/
 {{- if get . "work" }}
 .face.icon
 .config/fish/functions/agenix.fish
+.config/agenix
 .config/go/env
 .config/ha-mcp
 .config/autostart/rotatrix.desktop
