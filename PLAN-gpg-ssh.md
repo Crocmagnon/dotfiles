@@ -64,13 +64,14 @@ comme clés de signature sur GitHub et Codeberg, et listées dans `dot_config/gi
       `id_ed25519` (dans son gpg-agent, déclarée partout), l'ancienne en `.old`.
 - [x] PIN redemandé à chaque signature : scdaemon passait par l'applet PIV ; `disable-application piv`
       dans `scdaemon.conf`, versionné pour le laptop du bureau.
-- [ ] PIN utilisateur OpenPGP encore à 123456 : `gpg --change-pin` (option 1 ; option 3 pour l'Admin PIN
-      s'il est aussi resté par défaut).
+- [x] PIN et Admin PIN OpenPGP changés (2026-10-15).
 - [x] Étape 8 serveur (2026-10-15) : `signingkey = S_SRV!`, dotfiles à jour (`chezmoi update`).
 - [x] Étape 10 (2026-10-15) : signatures (laptop : S_LAPTOP et YubiKey perso ; serveur : S_SRV et
       clé SSH perso), chiffrement, SSH, « Verified » Codeberg, pipeline CDS depuis les deux
       machines, agent seul sur le serveur, reboot du serveur : tout OK.
-- [ ] Étape 11.
+- [~] Étape 11 : ancienne clé commune retirée de Stash, People, GitHub, Codeberg et du `sshcontrol`
+      du laptop (2026-10-15). Restent : clé YubiKey à autoriser sur sdev (`authorized_keys`), puis
+      `sshcontrol` du serveur ; fichiers `.old` et `gaugendre@bw` plus tard.
 
 Fingerprints (publics) :
 ```
