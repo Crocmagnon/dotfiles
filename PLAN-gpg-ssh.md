@@ -70,8 +70,8 @@ comme clés de signature sur GitHub et Codeberg, et listées dans `dot_config/gi
       clé SSH perso), chiffrement, SSH, « Verified » Codeberg, pipeline CDS depuis les deux
       machines, agent seul sur le serveur, reboot du serveur : tout OK.
 - [~] Étape 11 : ancienne clé commune retirée de Stash, People, GitHub, Codeberg et du `sshcontrol`
-      du laptop (2026-10-15). Restent : clé YubiKey à autoriser sur sdev (`authorized_keys`), puis
-      `sshcontrol` du serveur ; fichiers `.old` et `gaugendre@bw` plus tard.
+      et du serveur (2026-10-15) ; clé YubiKey dans l'`authorized_keys` de sdev. Restent : fichiers
+      `id_ed25519.old*` et clé dans `private-keys-v1.d` (deux machines), clé RSA `gaugendre@bw`.
 
 Fingerprints (publics) :
 ```
