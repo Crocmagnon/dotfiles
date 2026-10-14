@@ -55,7 +55,18 @@ comme clés de signature sur GitHub et Codeberg, et listées dans `dot_config/gi
 - [x] Étape 8, laptop (2026-10-15) : `signingkey = S_LAPTOP!`, `email` retiré. Les remotes
       `ssh://git@github.com/…` et `ssh://git@codeberg.org/…` n'activaient pas `perso.config` :
       motifs `includeIf` ajoutés.
-- [ ] Étape 7, étape 8 serveur, étapes 9 à 11.
+- [~] Étape 7 (2026-10-15) : CDS à jour (5 sous-clés), Stash et People (sans A) importés, trousseau
+      public du serveur à jour. Keyserver du bureau encore sur l'ancienne version (E seule, 2027).
+- [x] Étape 9 (2026-10-15) : clé A (`id_yubikey.pub`) déclarée sur People, Stash, GitHub et
+      Codeberg ; clé dans `allowed_signers`. Laptop : ancienne clé en
+      `id_ed25519.old`, `id_ed25519.pub` = clé A (`perso.config` inchangé). `ForwardAgent` retiré de
+      `~/.ssh/host.config` (sdev, bastion) : le serveur n'utilise que sa propre clé. Serveur : nouvelle
+      `id_ed25519` (dans son gpg-agent, déclarée partout), l'ancienne en `.old`.
+- [x] PIN redemandé à chaque signature : scdaemon passait par l'applet PIV ; `disable-application piv`
+      dans `scdaemon.conf`, versionné pour le laptop du bureau.
+- [ ] PIN utilisateur OpenPGP encore à 123456 : `gpg --change-pin` (option 1 ; option 3 pour l'Admin PIN
+      s'il est aussi resté par défaut).
+- [ ] Étape 8 serveur, étapes 10 et 11.
 
 Fingerprints (publics) :
 ```
@@ -178,6 +189,8 @@ La clé maîtresse reste sur le laptop pour l'instant. Pour la passer hors ligne
 
 `gpg --send-keys $KEY` (keyserver du bureau, dans `gpg.conf`), puis remplacer la clé publique
 (`gpg --armor --export $KEY`) dans le profil CDS et dans Stash.
+People (partage des clés entre collègues) refuse les clés ed25519 : lui donner un export sans la
+sous-clé A, inutile aux autres (`gpg --armor --export-filter drop-subkey='usage =~ a' --export $KEY`).
 
 ### 8. host.config (chaque machine boulot)
 
@@ -192,12 +205,17 @@ pour remettre les passphrases en cache.
 
 ### 9. SSH
 
-- Laptop : `gpg --export-ssh-key "$A!" > ~/.ssh/id_yubikey.pub` ; déclarer cette clé sur Stash,
-  et sur GitHub/Codeberg (auth + signature). gpg-agent la sert d'office (clé de carte). Rendre
-  `perso.config` template pour pointer `user.signingkey` sur `~/.ssh/id_yubikey.pub` sur le laptop
-  boulot (`work` et pas `headless`).
-- Serveur : nouvelle clé ed25519 propre (`ssh-keygen -t ed25519`, avec passphrase), à déclarer sur
-  Stash et sur GitHub/Codeberg (auth + signature) ; `sshcontrol` : retirer l'entrée orpheline.
+- Laptop : ancienne clé renommée en `id_ed25519.old`, puis `gpg --export-ssh-key "$A!" >
+  ~/.ssh/id_ed25519.pub` (même nom partout : `perso.config` reste commun) ; déclarer cette clé sur
+  People, Stash, GitHub/Codeberg (auth + signature). gpg-agent la sert d'office (clé de carte).
+- Serveur : nouvelle clé ed25519 propre, à la place de l'`id_ed25519` commune (gardée en `.old`
+  jusqu'à l'étape 11 ; sa copie dans gpg-agent assure la transition) :
+  ```sh
+  mv ~/.ssh/id_ed25519 ~/.ssh/id_ed25519.old; mv ~/.ssh/id_ed25519.pub ~/.ssh/id_ed25519.old.pub
+  ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -C gaugendr@serveur-boulot   # avec passphrase
+  ```
+  À déclarer sur People, Stash et GitHub/Codeberg (auth + signature) ; `sshcontrol` : retirer
+  l'entrée orpheline.
 - Ajouter les deux dans `dot_config/git/allowed_signers`.
 
 ### 10. Tests

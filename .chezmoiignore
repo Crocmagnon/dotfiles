@@ -89,6 +89,11 @@ docs/
 .config/autostart
 {{- end }}
 
+{{- /* Laptop du bureau uniquement : la YubiKey. */}}
+{{- if not (and (get . "work") (not (get . "headless"))) }}
+.gnupg/scdaemon.conf
+{{- end }}
+
 {{- /* Desktops perso Arch uniquement : tri automatique de l'inbox pCloud d'Impressions 3D. */}}
 {{- if not (and (not (get . "work")) (not (get . "headless")) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
 .local/bin/ranger-impressions-3d
