@@ -55,8 +55,8 @@ comme clés de signature sur GitHub et Codeberg, et listées dans `dot_config/gi
 - [x] Étape 8, laptop (2026-10-15) : `signingkey = S_LAPTOP!`, `email` retiré. Les remotes
       `ssh://git@github.com/…` et `ssh://git@codeberg.org/…` n'activaient pas `perso.config` :
       motifs `includeIf` ajoutés.
-- [~] Étape 7 (2026-10-15) : CDS à jour (5 sous-clés), Stash et People (sans A) importés, trousseau
-      public du serveur à jour. Keyserver du bureau encore sur l'ancienne version (E seule, 2027).
+- [x] Étape 7 (2026-10-15) : CDS à jour (5 sous-clés), Stash et People (sans A) importés, trousseau
+      public du serveur à jour. Le keyserver du bureau reprend People, avec du retard.
 - [x] Étape 9 (2026-10-15) : clé A (`id_yubikey.pub`) déclarée sur People, Stash, GitHub et
       Codeberg ; clé dans `allowed_signers`. Laptop : ancienne clé en
       `id_ed25519.old`, `id_ed25519.pub` = clé A (`perso.config` inchangé). `ForwardAgent` retiré de
@@ -66,7 +66,11 @@ comme clés de signature sur GitHub et Codeberg, et listées dans `dot_config/gi
       dans `scdaemon.conf`, versionné pour le laptop du bureau.
 - [ ] PIN utilisateur OpenPGP encore à 123456 : `gpg --change-pin` (option 1 ; option 3 pour l'Admin PIN
       s'il est aussi resté par défaut).
-- [ ] Étape 8 serveur, étapes 10 et 11.
+- [x] Étape 8 serveur (2026-10-15) : `signingkey = S_SRV!`, dotfiles à jour (`chezmoi update`).
+- [x] Étape 10 (2026-10-15) : signatures (laptop : S_LAPTOP et YubiKey perso ; serveur : S_SRV et
+      clé SSH perso), chiffrement, SSH, « Verified » Codeberg, pipeline CDS depuis les deux
+      machines, agent seul sur le serveur, reboot du serveur : tout OK.
+- [ ] Étape 11.
 
 Fingerprints (publics) :
 ```
