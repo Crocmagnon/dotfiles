@@ -1,0 +1,7 @@
+# Masque le notifier de Discover (/etc/xdg/autostart) : les mises à jour passent par decman sur
+# Arch et par d'autres moyens au bureau, Discover n'annoncerait que des doublons ou des fausses
+# alertes.
+[Desktop Entry]
+Type=Application
+Name=Discover
+Hidden=true
