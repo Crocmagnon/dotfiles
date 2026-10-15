@@ -69,6 +69,9 @@ comme clés de signature sur GitHub et Codeberg, et listées dans `dot_config/gi
 - [x] Étape 10 (2026-10-15) : signatures (laptop : S_LAPTOP et YubiKey perso ; serveur : S_SRV et
       clé SSH perso), chiffrement, SSH, « Verified » Codeberg, pipeline CDS depuis les deux
       machines, agent seul sur le serveur, reboot du serveur : tout OK.
+- [x] Étape 12 (2026-10-15) : CDS ne reconnaît que l'ID de la clé maîtresse (ovh/cds#7891) : les
+      deux machines signent avec la clé maîtresse, copiée sur le serveur ; analyses CDS OK depuis les
+      deux. S_LAPTOP et S_SRV restent en place pour rebasculer.
 - [~] Étape 11 : ancienne clé commune retirée de Stash, People, GitHub, Codeberg et du `sshcontrol`
       et du serveur (2026-10-15) ; clé YubiKey dans l'`authorized_keys` de sdev. Restent : fichiers
       `id_ed25519.old*` et clé dans `private-keys-v1.d` (deux machines), clé RSA `gaugendre@bw`.
@@ -230,6 +233,29 @@ pour remettre les passphrases en cache.
 - Serveur : laptop déconnecté, un agent committe et pousse ; puis reboot + procédure de l'étape 8.
 - Dépôt perso depuis chaque machine : `%G?` = `G`, « Verified » sur GitHub et Codeberg.
 - Chiffrement : `echo ok | gpg -e -r $KEY | gpg -d` sur le laptop.
+
+### 12. Signature par la clé maîtresse (contournement CDS)
+
+CDS n'enregistre que l'ID de la clé maîtresse et ignore les commits signés par une sous-clé
+(ovh/cds#7891). Les PR passent quand même (le run prend le propriétaire du workflow de `master`),
+mais pas les workflows déclenchés sur `push`. S_LAPTOP et S_SRV restent en place : quand CDS
+saura vérifier une sous-clé, il suffira de remettre `signingkey` (étape 8) et de retirer la clé
+maîtresse du serveur (`DELETE_KEY` sur son keygrip).
+
+Laptop, export de la clé maîtresse seule :
+```sh
+gpg --armor --export-secret-keys --export-filter drop-subkey='usage =~ s || usage =~ e || usage =~ a' \
+    "$KEY!" > $d/master.asc
+scp $d/master.asc <serveur>:/dev/shm/ && shred -u $d/master.asc
+```
+Serveur :
+```sh
+gpg --import /dev/shm/master.asc && shred -u /dev/shm/master.asc
+gpg --passwd $KEY        # passphrase propre au serveur, pour la clé maîtresse aussi
+gpg -K                   # attendu : sec (sans #), ssb pour S_SRV, ssb# pour les autres
+```
+Les deux machines, `~/.config/git/host.config` : `signingkey = <KEY>!`. Vérifier avec un commit
+(`git log -1 --format='%G? %GK'` → `G 0073D1CD7EC5A253`) et un push sur `devtools`.
 
 ### 11. Ménage (quelques semaines après)
 
