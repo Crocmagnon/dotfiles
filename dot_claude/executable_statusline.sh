@@ -14,7 +14,7 @@ IFS=$'\t' read -r model dir used cost < <(jq -r '[
 ] | @tsv' <<<"$input")
 
 R=$'\e[0m' DIM=$'\e[2m' REPO=$'\e[1;34m' BRANCH=$'\e[35m' PR=$'\e[36m'
-RED_FG=$'\e[31m' YEL_FG=$'\e[33m'
+RED_FG=$'\e[31m' YEL_FG=$'\e[33m' GRN_FG=$'\e[32m'
 # Bar colors as backgrounds: kitty draws shade glyphs as its own dither, so the
 # bar is built from blank cells. Track is the accent at 25% over the Latte base.
 RED=$'\e[48;2;210;15;57m'  RED_T=$'\e[48;2;232;185;198m'
@@ -83,6 +83,17 @@ if [ "$used" -ge 0 ] 2>/dev/null; then
   printf -v bar '%*s' "$filled" ''
   printf -v rest '%*s' "$((width - filled))" ''
   out="$out$SEP${c}${bar}${t}${rest}${R}"
+fi
+
+# Mode ponytail : le plugin écrit le niveau dans ce fichier, absent quand il est désactivé.
+flag="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.ponytail-active"
+if [ -f "$flag" ]; then
+  mode=$(head -n1 "$flag" | tr -d '[:space:]')
+  case "$mode" in
+    ""|full) out="$out$SEP${GRN_FG}ponytail${R}" ;;
+    ultra) out="$out$SEP${YEL_FG}ponytail:ultra${R}" ;;
+    *) out="$out$SEP${GRN_FG}ponytail:$mode${R}" ;;
+  esac
 fi
 
 printf '%s%s%s$%.2f%s' "$out" "$SEP" "$DIM" "$cost" "$R"
