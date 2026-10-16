@@ -96,3 +96,5 @@ and on top of it —
   deployed, check it now (`mcp__stash__get_pull_request`, `git fetch` + log, the CDS history,
   the running version in the logs). The user merges and deploys in parallel; an earlier
   observation in the conversation is not the current state.
+- Times given to the user are always in Europe/Paris. Tools often return UTC (Home Assistant
+  traces, Supervisor logs, APIs): convert before writing, never quote the raw UTC value.
