@@ -35,6 +35,18 @@
     ],
     "defaultMode": "auto"
   },
+  "model": "opus",
+  "skillOverrides": {
+    "anthropic-skills:docs": "off",
+    "anthropic-skills:docx": "off",
+    "anthropic-skills:google-workspace": "off",
+    "anthropic-skills:morning": "off",
+    "anthropic-skills:openlegi": "off",
+    "anthropic-skills:pdf": "off",
+    "anthropic-skills:pptx": "off",
+    "anthropic-skills:xlsx": "off",
+    "auto-mode-setup": "off"
+  },
   "hooks": {
     "SessionStart": [
       {
@@ -73,7 +85,8 @@
 {{- end }}
     "ponytail@ponytail": true,
     "modern-go-guidelines@goland-claude-marketplace": true,
-    "superpowers@claude-plugins-official": true
+    "superpowers@claude-plugins-official": true,
+    "cc-plugin-you-should-know@builtin": true
   },
   "extraKnownMarketplaces": {
 {{- if $work }}
@@ -106,16 +119,5 @@
   "tui": "fullscreen",
   "autoMemoryEnabled": true,
   "theme": "auto",
-  "skipAutoPermissionPrompt": true,
-  "skillOverrides": {
-    "anthropic-skills:docs": "off",
-    "anthropic-skills:docx": "off",
-    "anthropic-skills:google-workspace": "off",
-    "anthropic-skills:morning": "off",
-    "anthropic-skills:openlegi": "off",
-    "anthropic-skills:pdf": "off",
-    "anthropic-skills:pptx": "off",
-    "anthropic-skills:xlsx": "off",
-    "auto-mode-setup": "off"
-  }
+  "skipAutoPermissionPrompt": true
 }
