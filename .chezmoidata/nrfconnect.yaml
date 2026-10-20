@@ -1,4 +1,0 @@
-# nRF Connect for Desktop (mesure de consommation avec le PPK2) : version installée par
-# run_onchange_after_nrfconnect.sh.tmpl.
-nrfconnect:
-  version: 5.4.0
