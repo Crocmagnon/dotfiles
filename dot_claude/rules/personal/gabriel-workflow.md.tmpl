@@ -11,11 +11,12 @@ if the user asks for it themselves.
 
 ## Herdr
 
-When running inside Herdr, keep the tab title set to the task currently being worked on (phase
-number plus a few words), and update it as tasks change: find the tab with `herdr tab list` (or
-`herdr workspace list`, matching the worktree `checkout_path` to the working directory), then
-`herdr tab rename <TAB_ID> "phase 4 - impactanalysis service"`. The user watches several parallel
-workspaces and reads the titles to see what each agent is doing.
+When running inside Herdr, keep your own pane's title set to the task currently being worked on
+(phase number plus a few words), and update it as tasks change: find your pane with
+`herdr pane current` (or `herdr pane list`, matching your `agent_session` id), then
+`herdr pane rename <PANE_ID> "phase 4 - impactanalysis service"`. Never rename the tab: it holds
+several panes, the other agents' among them. The user watches several parallel workspaces and
+reads the titles to see what each agent is doing.
 
 The user drives several Herdr workspaces over the same clones, and checks out colleagues' branches
 there to review them. So run `git branch --show-current` in the same tool call as `git switch -c`,
