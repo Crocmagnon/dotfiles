@@ -2,7 +2,8 @@
 {
   "env": {
 {{- if $work }}
-    "ANTHROPIC_BASE_URL": "https://pookie.poc.internaldb.ovh.net",
+    "ANTHROPIC_BASE_URL": "{{ include ".secrets/encrypted_anthropic_base_url" | trim }}",
+    "ANTHROPIC_CUSTOM_HEADERS": "x-bf-lh-userid: {{ include ".secrets/encrypted_corp_email" | trim }}",
 {{- end }}
     "FORCE_HYPERLINK": "1"
   },
