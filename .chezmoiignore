@@ -101,6 +101,11 @@ docs/
 .config/systemd/user/ranger-impressions-3d.service
 {{- end }}
 
+{{- /* Desktops perso Arch uniquement : relance de KRunner quand il démarre avant l'affichage. */}}
+{{- if not (and (not (get . "work")) (not (get . "headless")) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
+.config/systemd/user/plasma-krunner.service.d
+{{- end }}
+
 {{- /* Arch uniquement : le lien qui active plasma-krunner.service (sinon il reste un dossier vide), et decman-update. */}}
 {{- if not (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
 .config/systemd/user/plasma-workspace.target.wants
