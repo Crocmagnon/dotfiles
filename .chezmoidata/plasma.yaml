@@ -30,3 +30,9 @@ plasma:
   # Défilement naturel sur le pavé tactile. Groupe propre au périphérique (identifiants USB et nom) :
   # le relever dans kcminputrc après l'avoir coché une fois dans l'interface.
   - {file: kcminputrc, groups: [Libinput, "2362", "628", "PIXA3854:00 093A:0274 Touchpad"], key: NaturalScroll, value: "true", type: bool, hosts: [framework-gab-amd]}
+  # Pas de son au branchement de périphériques (USB, écrans derrière le KVM) : popup seule.
+  - {file: plasma_workspace.notifyrc, groups: [Event/deviceAdded], key: Action, value: Popup}
+  - {file: plasma_workspace.notifyrc, groups: [Event/deviceRemoved], key: Action, value: Popup}
+  # Ni son ni notification au passage secteur/batterie ; lowbattery et criticalbattery gardent les leurs.
+  - {file: powerdevil.notifyrc, groups: [Event/pluggedin], key: Action, value: ""}
+  - {file: powerdevil.notifyrc, groups: [Event/unplugged], key: Action, value: ""}
