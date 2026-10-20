@@ -5,3 +5,6 @@ Description=Range l'inbox d'Impressions 3D avec Claude
 [Service]
 Type=oneshot
 ExecStart=%h/.local/bin/ranger-impressions-3d
+# claude vient de l'installeur natif (~/.local/bin) : ne pas dépendre du PATH importé par la
+# session Plasma.
+Environment=PATH=%h/.local/bin:/usr/bin

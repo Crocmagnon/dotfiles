@@ -1,0 +1,23 @@
+{{- if and (not (get . "work")) (not (get . "headless")) -}}
+#!/bin/sh
+# nRF Connect for Desktop {{ .nrfconnect.version }} : AppImage de Nordic. Relancé quand la version
+# change (.chezmoidata/nrfconnect.yaml). Installe ~/Applications/nRFConnect.AppImage, son entrée de
+# menu et ses icônes. Les règles udev des cartes Nordic viennent d'arch-config (apps.py). Pas de
+# J-Link : il ne sert qu'à flasher.
+set -eu
+dest="$HOME/Applications/nRFConnect.AppImage"
+
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+cd "$tmp"
+curl -fsSL --retry 3 -o nRFConnect.AppImage \
+    "https://github.com/NordicSemiconductor/pc-nrfconnect-launcher/releases/download/v{{ .nrfconnect.version }}/nrfconnect-{{ .nrfconnect.version }}-x86_64.AppImage"
+chmod +x nRFConnect.AppImage
+./nRFConnect.AppImage --appimage-extract >/dev/null
+
+mkdir -p "$HOME/Applications" "$HOME/.local/share/applications" "$HOME/.local/share/icons"
+cp -r squashfs-root/usr/share/icons/. "$HOME/.local/share/icons/"
+# Le .desktop livré lance « AppRun », qui n'existe pas hors de l'AppImage.
+sed "s|^Exec=AppRun|Exec=$dest|" squashfs-root/nrfconnect.desktop > "$HOME/.local/share/applications/nrfconnect.desktop"
+mv nRFConnect.AppImage "$dest"
+{{ end -}}
