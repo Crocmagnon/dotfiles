@@ -1,0 +1,15 @@
+{{- if and (not (get . "work")) (not (get . "headless")) -}}
+#!/bin/sh
+# SolidCraft (CAO 3D) en AppImage dans ~/Applications, téléchargée une seule fois : l'appli se met
+# ensuite à jour seule (bouton dans la barre de titre, versions stables uniquement), en remplaçant
+# ce fichier. Pas d'AUR : une version stable par jour environ. Au premier lancement, son AppRun
+# installe l'entrée de menu, les icônes et (après la 0.22) ~/.local/bin/solidcraft-cli.
+set -eu
+dest="$HOME/Applications/solidcraft.AppImage"
+[ -e "$dest" ] && exit 0
+mkdir -p "$HOME/Applications"
+curl -fsSL --retry 3 -o "$dest.tmp" \
+    https://github.com/tangency-labs/solidcraft/releases/latest/download/solidcraft-linux-x86_64.AppImage
+chmod +x "$dest.tmp"
+mv "$dest.tmp" "$dest"
+{{ end -}}

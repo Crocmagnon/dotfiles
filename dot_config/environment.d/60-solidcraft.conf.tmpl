@@ -1,0 +1,6 @@
+{{- if not (get . "work") -}}
+# SolidCraft s'ajoute à Claude Code à chaque lancement, avec le chemin du CLI qu'il trouve. Depuis
+# l'AppImage, c'est celui du montage temporaire (/tmp/.mount_…), qui disparaît à la fermeture.
+# Cette variable lui fait écrire le wrapper stable que l'AppImage met dans ~/.local/bin.
+SOLIDCRAFT_CLI=${HOME}/.local/bin/solidcraft-cli
+{{ end -}}
