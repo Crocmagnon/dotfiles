@@ -29,6 +29,12 @@ never rely on an earlier check. If a new branch ended up carrying someone else's
 branch only. Likewise, remote commits the session didn't push may be the user's: state what is
 known ("the remote already had X"), don't blame a subagent.
 
+To work on a branch without taking over the user's clone, add a worktree with `git wt-add <path>
+[<git worktree add options>…]` rather than `git worktree add`: in a git-crypt repository, git-crypt
+reads its key from the new worktree's own git dir, so a plain `worktree add` aborts and leaves git
+unusable there. `git wt-add` links the main clone's key in before the checkout; in any other repo
+it is plain `git worktree add`. Remove the worktree with `git worktree remove` when done.
+
 ## Saving knowledge
 
 Before writing anything to auto-memory (`~/.claude/projects/*/memory/`), put it at the highest

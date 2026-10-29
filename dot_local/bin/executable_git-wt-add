@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# git wt-add <path> [<git worktree add options>…] — `git worktree add` that also works in a
+# git-crypt repository.
+#
+# git-crypt 0.8 reads its key from the linked worktree's own git dir instead of the common one
+# (AGWA/git-crypt#105, unfixed in a release), so a plain `git worktree add` aborts on the smudge
+# filter and leaves every later git command failing in that worktree. This creates the worktree
+# without checking out, points its git-crypt dir at the main clone's, then checks out. In a repo
+# without git-crypt it is plain `git worktree add`.
+set -euo pipefail
+
+if [ $# -lt 1 ]; then
+	echo "usage: git wt-add <path> [<git worktree add options and commit-ish>…]" >&2
+	exit 2
+fi
+
+common_dir=$(git rev-parse --path-format=absolute --git-common-dir)
+
+if [ ! -d "$common_dir/git-crypt" ]; then
+	exec git worktree add "$@"
+fi
+
+path=$1
+shift
+
+git worktree add --no-checkout "$path" "$@"
+
+worktree_git_dir=$(git -C "$path" rev-parse --path-format=absolute --git-dir)
+ln -sfn "$common_dir/git-crypt" "$worktree_git_dir/git-crypt"
+
+git -C "$path" checkout
