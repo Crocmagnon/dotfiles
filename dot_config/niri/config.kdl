@@ -624,6 +624,9 @@ binds {
     // This bind corresponds to normal window maximizing,
     // e.g. by double-clicking on the titlebar.
     Mod+M { maximize-window-to-edges; }
+    // Miroir (projecteur) : niri ne duplique pas un écran. wl-mirror recopie l'écran actif dans une
+    // fenêtre, à envoyer sur l'autre écran (Mod+Ctrl+P) puis en plein écran (Mod+Shift+X).
+    Mod+Shift+M { spawn-sh "wl-mirror \"$(niri msg --json focused-output | jq -r .name)\""; }
 
     // Expand the focused column to space not taken up by other fully visible columns.
     // Makes the column "fill the rest of the space".
