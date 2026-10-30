@@ -106,8 +106,9 @@ docs/
 .config/systemd/user/plasma-krunner.service.d
 {{- end }}
 
-{{- /* Arch uniquement : le lien qui active plasma-krunner.service (sinon il reste un dossier vide), et decman-update. */}}
+{{- /* Arch uniquement : le lien qui active plasma-krunner.service (sinon il reste un dossier vide), decman-update, et la config niri (essai, voir arch-config). */}}
 {{- if not (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
 .config/systemd/user/plasma-workspace.target.wants
 .config/fish/functions/decman-update.fish
+.config/niri
 {{- end }}
