@@ -423,7 +423,7 @@ binds {
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
-    Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
+    // Super+Alt+S (lecteur d'écran Orca, non installé) : c'est Mod+Alt+S, colonne plus étroite.
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -570,24 +570,26 @@ binds {
     //
     // For example, with 2 workspaces + 1 empty, indices 3, 4, 5 and so on
     // will all refer to the 3rd workspace.
-    Mod+1 { focus-workspace 1; }
-    Mod+2 { focus-workspace 2; }
-    Mod+3 { focus-workspace 3; }
-    Mod+4 { focus-workspace 4; }
-    Mod+5 { focus-workspace 5; }
-    Mod+6 { focus-workspace 6; }
-    Mod+7 { focus-workspace 7; }
-    Mod+8 { focus-workspace 8; }
-    Mod+9 { focus-workspace 9; }
-    Mod+Ctrl+1 { move-column-to-workspace 1; }
-    Mod+Ctrl+2 { move-column-to-workspace 2; }
-    Mod+Ctrl+3 { move-column-to-workspace 3; }
-    Mod+Ctrl+4 { move-column-to-workspace 4; }
-    Mod+Ctrl+5 { move-column-to-workspace 5; }
-    Mod+Ctrl+6 { move-column-to-workspace 6; }
-    Mod+Ctrl+7 { move-column-to-workspace 7; }
-    Mod+Ctrl+8 { move-column-to-workspace 8; }
-    Mod+Ctrl+9 { move-column-to-workspace 9; }
+    // Chiffres de la couche nav du Quacken : Shift + la touche AZERTY (& é " ' ( - è _ ç), que niri
+    // lit avant Shift. Mod+Ctrl déplace, comme partout.
+    Mod+Shift+ampersand { focus-workspace 1; }
+    Mod+Shift+eacute { focus-workspace 2; }
+    Mod+Shift+quotedbl { focus-workspace 3; }
+    Mod+Shift+apostrophe { focus-workspace 4; }
+    Mod+Shift+parenleft { focus-workspace 5; }
+    Mod+Shift+minus { focus-workspace 6; }
+    Mod+Shift+egrave { focus-workspace 7; }
+    Mod+Shift+underscore { focus-workspace 8; }
+    Mod+Shift+ccedilla { focus-workspace 9; }
+    Mod+Ctrl+Shift+ampersand { move-column-to-workspace 1; }
+    Mod+Ctrl+Shift+eacute { move-column-to-workspace 2; }
+    Mod+Ctrl+Shift+quotedbl { move-column-to-workspace 3; }
+    Mod+Ctrl+Shift+apostrophe { move-column-to-workspace 4; }
+    Mod+Ctrl+Shift+parenleft { move-column-to-workspace 5; }
+    Mod+Ctrl+Shift+minus { move-column-to-workspace 6; }
+    Mod+Ctrl+Shift+egrave { move-column-to-workspace 7; }
+    Mod+Ctrl+Shift+underscore { move-column-to-workspace 8; }
+    Mod+Ctrl+Shift+ccedilla { move-column-to-workspace 9; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
@@ -643,8 +645,12 @@ binds {
     Mod+Equal { set-column-width "+10%"; }
 
     // Finer height adjustments when in column with other windows.
-    Mod+Shift+Minus { set-window-height "-10%"; }
-    Mod+Shift+Equal { set-window-height "+10%"; }
+    // Mod+Shift+Minus est le 6 de la couche nav (bureau 6), et « = » n'est que sur la couche
+    // symbole : la taille passe sur Alt (R, à droite) + O S E N, les positions des flèches.
+    Mod+Alt+S { set-column-width "-10%"; }
+    Mod+Alt+N { set-column-width "+10%"; }
+    Mod+Alt+O { set-window-height "+10%"; }
+    Mod+Alt+E { set-window-height "-10%"; }
 
     // Move the focused window between the floating and the tiling layout.
     Mod+V       { toggle-window-floating; }
