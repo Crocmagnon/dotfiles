@@ -3,6 +3,10 @@
        réécrit tout le fichier. Dux Shell ne relit pas le fichier : dms restart après un apply.
        Verrou par l'empreinte (laptop ; ignoré sans fprintd) ou la YubiKey (Ctrl+Q puis le doigt, PAM
        dans arch-config), verrou avant la veille,
-       et délais sur secteur calqués sur Plasma : verrou 5 min, écran 10 min, veille 15 min. */ -}}
-{{- $want := dict "enableFprint" true "enableU2f" true "u2fMode" "or" "lockScreenSecurityKeyShortcutEnabled" true "lockBeforeSuspend" true "loginctlLockIntegration" true "acLockTimeout" 300 "acMonitorTimeout" 600 "acSuspendTimeout" 900 -}}
+       et délais calqués sur Plasma : secteur verrou 5 min, écran 10 min, veille 15 min ; batterie
+       verrou 5 min, écran 5 min, veille 10 min. Veille puis hibernation sur le laptop
+       (SuspendBehavior 2), comme SleepMode=3 de powerdevil. */ -}}
+{{- $want := dict "enableFprint" true "enableU2f" true "u2fMode" "or" "lockScreenSecurityKeyShortcutEnabled" true "lockBeforeSuspend" true "loginctlLockIntegration" true "acLockTimeout" 300 "acMonitorTimeout" 600 "acSuspendTimeout" 900 "batteryLockTimeout" 300 "batteryMonitorTimeout" 300 "batterySuspendTimeout" 600 -}}
+{{- /* Hibernation : laptop seulement (swapfile d'arch-config) ; ailleurs, veille simple (0). */ -}}
+{{- if hasPrefix "framework-gab" .chezmoi.hostname }}{{ $want = merge (dict "acSuspendBehavior" 2 "batterySuspendBehavior" 2) $want }}{{ end -}}
 {{- includeTemplate "dms-merge.json" (dict "stdin" .chezmoi.stdin "want" $want) -}}
