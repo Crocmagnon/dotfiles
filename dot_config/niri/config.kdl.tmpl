@@ -298,7 +298,16 @@ hotkey-overlay {
 // Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
 // This option will also fix border/focus ring drawing behind some semitransparent windows.
 // After enabling or disabling this, you need to restart the apps for this to take effect.
-// prefer-no-csd
+// Sans barres de titre dessinées par les applis (GTK : Firefox, satty) : niri dessine le cadre.
+prefer-no-csd
+
+// Curseur Breeze, comme sous Plasma. Dux Shell l'écrit dans dms/cursor.kdl et ajoute un include à
+// la fin de ce fichier quand on touche ce réglage dans son interface : chezmoi le retirerait, d'où
+// le réglage ici. Si l'include revient, reporter la valeur ici et le supprimer.
+cursor {
+    xcursor-theme "breeze_cursors"
+    xcursor-size 24
+}
 
 // You can change the path where screenshots are saved.
 // A ~ at the front will be expanded to the home directory.
