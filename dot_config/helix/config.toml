@@ -19,3 +19,13 @@ render = true
 
 [keys.normal]
 Z = { Z = ":wq" }
+pageup = "half_page_up"
+pagedown = "half_page_down"
+
+[keys.select]
+pageup = "half_page_up"
+pagedown = "half_page_down"
+
+[keys.insert]
+pageup = "half_page_up"
+pagedown = "half_page_down"
