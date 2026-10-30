@@ -5,4 +5,9 @@
 # Sous Plasma, ce sont ses propres valeurs : il pose XDG_MENU_PREFIX et charge ce thème Qt.
 QT_QPA_PLATFORMTHEME=kde
 XDG_MENU_PREFIX=plasma-
+# Applis GTK (Firefox, satty…) : boîtes d'ouverture, d'enregistrement et d'impression par les
+# portails, donc celles de KDE, sous niri comme sous Plasma. GTK 3, puis GTK 4. Sans effet sur les
+# applis qui dessinent leur propre boîte (PrusaSlicer, wxWidgets).
+GTK_USE_PORTAL=1
+GDK_DEBUG=portals
 {{ end -}}
