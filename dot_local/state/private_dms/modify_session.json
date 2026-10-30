@@ -1,0 +1,6 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* État de Dux Shell (niri, Arch) : seulement la bascule clair/sombre au lever et au coucher du
+       soleil, position par GeoClue (arch-config). Le reste de ce fichier est l'état courant de
+       Dux Shell. dms restart après un apply. */ -}}
+{{- $want := dict "themeModeAutoEnabled" true "themeModeAutoMode" "location" "nightModeUseIPLocation" true -}}
+{{- includeTemplate "dms-merge.json" (dict "stdin" .chezmoi.stdin "want" $want) -}}

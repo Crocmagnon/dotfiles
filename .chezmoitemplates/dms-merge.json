@@ -1,0 +1,8 @@
+{{- /* Fusionne .want dans le JSON .stdin de Dux Shell (modify_ templates). Si ces clés ont déjà la
+       bonne valeur, rend le fichier tel quel : sinon chezmoi retrierait ses clés, faux écart à
+       chaque réécriture par Dux Shell. */ -}}
+{{- $s := dict -}}
+{{- if .stdin }}{{ $s = fromJson .stdin }}{{ end -}}
+{{- $ok := true -}}
+{{- range $k, $v := .want }}{{ if ne (toJson (get $s $k)) (toJson $v) }}{{ $ok = false }}{{ end }}{{ end -}}
+{{- if $ok }}{{ .stdin }}{{ else }}{{ toPrettyJson (merge .want $s) }}{{ end -}}
