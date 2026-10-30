@@ -1,4 +1,4 @@
 # Rotatrix (trackball 3D pour la CAO) : version installée par run_onchange_after_rotatrix.sh.tmpl.
 # Pour mettre à jour : changer la version, puis chezmoi apply.
 rotatrix:
-  version: "1.5.1"
+  version: "1.6.0"
