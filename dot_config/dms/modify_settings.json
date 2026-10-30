@@ -1,7 +1,8 @@
 {{- /* chezmoi:modify-template */ -}}
 {{- /* Réglages de Dux Shell (niri, Arch) : seulement ces clés, le reste reste à son interface, qui
        réécrit tout le fichier. Dux Shell ne relit pas le fichier : dms restart après un apply.
-       Verrou par la YubiKey (Ctrl+Q puis le doigt, PAM dans arch-config), verrou avant la veille,
+       Verrou par l'empreinte (laptop ; ignoré sans fprintd) ou la YubiKey (Ctrl+Q puis le doigt, PAM
+       dans arch-config), verrou avant la veille,
        et délais sur secteur calqués sur Plasma : verrou 5 min, écran 10 min, veille 15 min. */ -}}
-{{- $want := dict "enableU2f" true "u2fMode" "or" "lockScreenSecurityKeyShortcutEnabled" true "lockBeforeSuspend" true "loginctlLockIntegration" true "acLockTimeout" 300 "acMonitorTimeout" 600 "acSuspendTimeout" 900 -}}
+{{- $want := dict "enableFprint" true "enableU2f" true "u2fMode" "or" "lockScreenSecurityKeyShortcutEnabled" true "lockBeforeSuspend" true "loginctlLockIntegration" true "acLockTimeout" 300 "acMonitorTimeout" 600 "acSuspendTimeout" 900 -}}
 {{- includeTemplate "dms-merge.json" (dict "stdin" .chezmoi.stdin "want" $want) -}}
