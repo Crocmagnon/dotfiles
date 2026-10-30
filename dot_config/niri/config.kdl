@@ -278,6 +278,11 @@ layout {
 // Lancé par niri et non par une unité systemd, pour hériter du bloc environment ci-dessous.
 spawn-at-startup "dms" "run"
 
+// Portefeuille KDE (Secret Service) : Plasma lance ksecretd par plasma-kwallet-pam.service, et
+// l'autostart équivalent est ignoré hors Plasma (X-systemd-skip). Sans lui, pinentry ne retrouve
+// ni n'enregistre la passphrase SSH/GPG.
+spawn-at-startup "ksecretd"
+
 // Applis KDE hors Plasma : thème KDE, et menu « Ouvrir avec » de Dolphin rempli. Seulement dans
 // cette session : environment.d servirait aussi à Plasma.
 environment {
