@@ -112,4 +112,7 @@ docs/
 .config/fish/functions/decman-update.fish
 .config/niri
 .config/dms
+.config/systemd/user/niri.service.wants
+.config/systemd/user/kde-follow-color-scheme.service
+.local/bin/kde-follow-color-scheme
 {{- end }}

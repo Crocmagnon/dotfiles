@@ -1,0 +1,17 @@
+#!/bin/sh
+# Sous niri, Dux Shell bascule clair/sombre en changeant la préférence GNOME color-scheme, que
+# suivent kitty, Firefox et GTK ; les applis KDE lisent leur jeu de couleurs dans kdeglobals.
+# Recopie l'un dans l'autre. kdeglobals est partagé avec Plasma, qui réapplique le sien
+# (AutomaticLookAndFeel) à chaque connexion.
+apply() {
+    case "$1" in
+        *dark*) scheme=BreezeDark ;;
+        *) scheme=BreezeLight ;;
+    esac
+    plasma-apply-colorscheme "$scheme" >/dev/null || true
+}
+
+apply "$(gsettings get org.gnome.desktop.interface color-scheme)"
+gsettings monitor org.gnome.desktop.interface color-scheme | while read -r _ value; do
+    apply "$value"
+done

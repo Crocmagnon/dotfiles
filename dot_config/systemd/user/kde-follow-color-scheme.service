@@ -1,0 +1,10 @@
+# Les applis KDE suivent la bascule clair/sombre de Dux Shell ; voir ~/.local/bin/kde-follow-color-scheme.
+# Activé par niri.service.wants : jamais sous Plasma, qui gère lui-même son thème.
+[Unit]
+Description=Applis KDE au thème clair/sombre de Dux Shell
+PartOf=niri.service
+After=niri.service
+
+[Service]
+ExecStart=%h/.local/bin/kde-follow-color-scheme
+Restart=on-failure

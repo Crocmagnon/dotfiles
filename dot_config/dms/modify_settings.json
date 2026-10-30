@@ -3,14 +3,10 @@
        réécrit tout le fichier. Dux Shell ne relit pas le fichier : dms restart après un apply.
        Verrou par la YubiKey (Ctrl+Q puis le doigt, PAM dans arch-config), verrou avant la veille,
        et délais sur secteur calqués sur Plasma : verrou 5 min, écran 10 min, veille 15 min. */ -}}
+{{- $want := dict "enableU2f" true "u2fMode" "or" "lockScreenSecurityKeyShortcutEnabled" true "lockBeforeSuspend" true "loginctlLockIntegration" true "acLockTimeout" 300 "acMonitorTimeout" 600 "acSuspendTimeout" 900 -}}
 {{- $s := dict -}}
 {{- if .chezmoi.stdin }}{{ $s = fromJson .chezmoi.stdin }}{{ end -}}
-{{- $s = set $s "enableU2f" true -}}
-{{- $s = set $s "u2fMode" "or" -}}
-{{- $s = set $s "lockScreenSecurityKeyShortcutEnabled" true -}}
-{{- $s = set $s "lockBeforeSuspend" true -}}
-{{- $s = set $s "loginctlLockIntegration" true -}}
-{{- $s = set $s "acLockTimeout" 300 -}}
-{{- $s = set $s "acMonitorTimeout" 600 -}}
-{{- $s = set $s "acSuspendTimeout" 900 -}}
-{{ toPrettyJson $s }}
+{{- /* Déjà bon : rendre le fichier tel quel, sans retrier ses clés (faux écart à chaque réécriture). */ -}}
+{{- $ok := true -}}
+{{- range $k, $v := $want }}{{ if ne (toJson (get $s $k)) (toJson $v) }}{{ $ok = false }}{{ end }}{{ end -}}
+{{- if $ok }}{{ .chezmoi.stdin }}{{ else }}{{ toPrettyJson (merge $want $s) }}{{ end -}}
