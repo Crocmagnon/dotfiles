@@ -112,6 +112,7 @@ docs/
 .config/fish/functions/decman-update.fish
 .config/niri
 .config/dms
+.config/xdg-desktop-portal/niri-portals.conf
 .local/state/dms
 .config/systemd/user/niri.service.wants
 .config/systemd/user/kde-follow-color-scheme.service
