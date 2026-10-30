@@ -654,7 +654,9 @@ binds {
     Mod+Alt+E { set-window-height "-10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
+    // Mod+V : historique du presse-papiers (Dux Shell), comme sous Plasma ; flottant sur Mod+Ctrl+V.
+    Mod+V { spawn "dms" "ipc" "call" "clipboard" "toggle"; }
+    Mod+Ctrl+V  { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
