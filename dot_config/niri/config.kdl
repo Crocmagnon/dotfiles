@@ -386,28 +386,30 @@ binds {
 
     // Ergo-L (zmk-config-aekeynox) : Mod tenu à droite (I), la main gauche reprend les positions
     // du calque nav sans l'activer. O S E N = ↑ ← ↓ →, W F = Page↑ Page↓, C P = Début Fin.
-    // Shift (U, à droite aussi) déplace au lieu de naviguer.
+    // Ctrl (T, à droite aussi) déplace au lieu de naviguer, comme Mod+Ctrl+flèches et Page↑/↓.
     Mod+O { focus-window-up; }
     Mod+S { focus-column-left; }
     Mod+E { focus-window-down; }
     Mod+N { focus-column-right; }
-    Mod+Shift+O { move-window-up; }
-    Mod+Shift+S { move-column-left; }
-    Mod+Shift+E { move-window-down; }
-    Mod+Shift+N { move-column-right; }
+    Mod+Ctrl+O { move-window-up; }
+    Mod+Ctrl+S { move-column-left; }
+    Mod+Ctrl+E { move-window-down; }
+    Mod+Ctrl+N { move-column-right; }
     Mod+W { focus-workspace-up; }
     Mod+F { focus-workspace-down; }
-    Mod+Shift+W { move-column-to-workspace-up; }
-    Mod+Shift+F { move-column-to-workspace-down; }
+    Mod+Ctrl+W { move-column-to-workspace-up; }
+    Mod+Ctrl+F { move-column-to-workspace-down; }
     Mod+C { focus-monitor-left; }
     Mod+P { focus-monitor-right; }
-    Mod+Shift+C { move-column-to-monitor-left; }
-    Mod+Shift+P { move-column-to-monitor-right; }
+    Mod+Ctrl+C { move-column-to-monitor-left; }
+    Mod+Ctrl+P { move-column-to-monitor-right; }
     // Ce que les lignes ci-dessus ont délogé des défauts.
     Mod+Tab repeat=false { toggle-overview; }
     Mod+X { maximize-column; }
     Mod+Shift+X { fullscreen-window; }
     Mod+Z { center-column; }
+    Mod+Ctrl+Z { center-visible-columns; }
+    Mod+Ctrl+X { expand-column-to-available-width; }
     Mod+B { toggle-column-tabbed-display; }
     // « . » Ergo-L arrive comme Shift + la touche « ; » d'AZERTY.
     Mod+Shift+Semicolon { expel-window-from-column; }
@@ -620,12 +622,12 @@ binds {
 
     // Expand the focused column to space not taken up by other fully visible columns.
     // Makes the column "fill the rest of the space".
-    Mod+Ctrl+F { expand-column-to-available-width; }
+    // Mod+Ctrl+F : pris par Ergo-L ; voir Mod+Ctrl+X.
 
     // Mod+C : déplacé (Ergo-L, plus haut).
 
     // Center all fully visible columns on screen.
-    Mod+Ctrl+C { center-visible-columns; }
+    // Mod+Ctrl+C : pris par Ergo-L ; voir Mod+Ctrl+Z.
 
     // Finer width adjustments.
     // This command can also:
@@ -674,10 +676,10 @@ binds {
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
-    // Mod+Shift+E : pris par Ergo-L ; quitter reste sur Ctrl+Alt+Delete.
+    Mod+Shift+E { quit; }
     Ctrl+Alt+Delete { quit; }
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
-    // Mod+Shift+P : pris par Ergo-L.
+    Mod+Shift+P { power-off-monitors; }
 }
