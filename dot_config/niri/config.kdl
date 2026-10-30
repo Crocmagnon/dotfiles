@@ -368,6 +368,37 @@ binds {
     // Mod-Shift-/, which is usually the same as Mod-?,
     // shows a list of important hotkeys.
     Mod+Shift+Slash { show-hotkey-overlay; }
+    // Le clavier (ZMK, Ergo-L émulé sur un hôte AZERTY) envoie « / » comme Shift + la touche « : »,
+    // et niri lit la touche avant Shift : d'où colon.
+    Mod+Shift+Colon { show-hotkey-overlay; }
+
+    // Ergo-L (zmk-config-aekeynox) : Mod tenu à droite (I), la main gauche reprend les positions
+    // du calque nav sans l'activer. O S E N = ↑ ← ↓ →, W F = Page↑ Page↓, C P = Début Fin.
+    // Shift (U, à droite aussi) déplace au lieu de naviguer.
+    Mod+O { focus-window-up; }
+    Mod+S { focus-column-left; }
+    Mod+E { focus-window-down; }
+    Mod+N { focus-column-right; }
+    Mod+Shift+O { move-window-up; }
+    Mod+Shift+S { move-column-left; }
+    Mod+Shift+E { move-window-down; }
+    Mod+Shift+N { move-column-right; }
+    Mod+W { focus-workspace-up; }
+    Mod+F { focus-workspace-down; }
+    Mod+Shift+W { move-column-to-workspace-up; }
+    Mod+Shift+F { move-column-to-workspace-down; }
+    Mod+C { focus-monitor-left; }
+    Mod+P { focus-monitor-right; }
+    Mod+Shift+C { move-column-to-monitor-left; }
+    Mod+Shift+P { move-column-to-monitor-right; }
+    // Ce que les lignes ci-dessus ont délogé des défauts.
+    Mod+Tab repeat=false { toggle-overview; }
+    Mod+X { maximize-column; }
+    Mod+Shift+X { fullscreen-window; }
+    Mod+Z { center-column; }
+    Mod+B { toggle-column-tabbed-display; }
+    // « . » Ergo-L arrive comme Shift + la touche « ; » d'AZERTY.
+    Mod+Shift+Semicolon { expel-window-from-column; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }  // kitty : alacritty n'est pas installé
@@ -404,7 +435,7 @@ binds {
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
     // or do a four-finger swipe up on a touchpad.
-    Mod+O repeat=false { toggle-overview; }
+    // Mod+O : déplacé (Ergo-L, plus haut).
 
     Mod+Q repeat=false { close-window; }
 
@@ -566,8 +597,7 @@ binds {
     Mod+Ctrl+Shift+R { switch-preset-window-height; }
     Mod+Ctrl+R { reset-window-height; }
 
-    Mod+F { maximize-column; }
-    Mod+Shift+F { fullscreen-window; }
+    // Mod+F, Mod+Shift+F : déplacés (Ergo-L, plus haut).
 
     // While maximize-column leaves gaps and borders around the window,
     // maximize-window-to-edges doesn't: the window expands to the edges of the screen.
@@ -579,7 +609,7 @@ binds {
     // Makes the column "fill the rest of the space".
     Mod+Ctrl+F { expand-column-to-available-width; }
 
-    Mod+C { center-column; }
+    // Mod+C : déplacé (Ergo-L, plus haut).
 
     // Center all fully visible columns on screen.
     Mod+Ctrl+C { center-visible-columns; }
@@ -606,7 +636,7 @@ binds {
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,
     // rather than stacked on top of each other.
-    Mod+W { toggle-column-tabbed-display; }
+    // Mod+W : déplacé (Ergo-L, plus haut).
 
     // Actions to switch layouts.
     // Note: if you uncomment these, make sure you do NOT have
@@ -631,10 +661,10 @@ binds {
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
-    Mod+Shift+E { quit; }
+    // Mod+Shift+E : pris par Ergo-L ; quitter reste sur Ctrl+Alt+Delete.
     Ctrl+Alt+Delete { quit; }
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
-    Mod+Shift+P { power-off-monitors; }
+    // Mod+Shift+P : pris par Ergo-L.
 }
