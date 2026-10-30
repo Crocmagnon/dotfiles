@@ -38,6 +38,9 @@ if status is-interactive
     gpg-connect-agent updatestartuptty /bye >/dev/null
     set -g fish_greeting ""
     zoxide init fish | source
+    # atuin prend Ctrl+R et ↑ : fzf.fish garde ses autres raccourcis, sans celui de l'historique.
+    functions -q fzf_configure_bindings; and fzf_configure_bindings --history=
+    atuin init fish | source
     starship init fish | source
     if test -n "$(chezmoi status 2>/dev/null)"
         echo "dotfiles drift — run 'dotstatus'"
