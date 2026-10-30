@@ -1,0 +1,6 @@
+# Indexeur de GNOME (localsearch, tiré par Nautilus, lui-même tiré par le portail GNOME de niri) :
+# désactivé sous Plasma comme sous niri. Son unité est aussi masquée (systemd/user).
+[Desktop Entry]
+Type=Application
+Name=localsearch
+Hidden=true

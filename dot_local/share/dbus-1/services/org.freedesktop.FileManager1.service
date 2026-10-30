@@ -1,0 +1,6 @@
+# « Afficher dans le dossier » (org.freedesktop.FileManager1) : Dolphin, pas Nautilus, que le
+# portail GNOME de niri tire aussi. Copie du fichier de Dolphin ; le dossier utilisateur prime.
+[D-BUS Service]
+Name=org.freedesktop.FileManager1
+Exec=/usr/bin/dolphin --daemon
+SystemdService=plasma-dolphin.service

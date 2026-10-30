@@ -1,0 +1,8 @@
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") -}}
+# Applis KDE hors Plasma (niri) : thème KDE et menu « Ouvrir avec » de Dolphin. Pour tous les
+# services utilisateur, pas seulement ce que lance niri : Dolphin activé par D-Bus (« afficher dans le
+# dossier ») et le portail KDE (clair/sombre de Firefox) prenaient sinon la palette claire de Qt.
+# Sous Plasma, ce sont ses propres valeurs : il pose XDG_MENU_PREFIX et charge ce thème Qt.
+QT_QPA_PLATFORMTHEME=kde
+XDG_MENU_PREFIX=plasma-
+{{ end -}}

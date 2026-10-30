@@ -1,0 +1,6 @@
+# Proposerait de renommer les dossiers personnels si la langue changeait : on garde les noms anglais.
+# Son unité est aussi masquée (systemd/user).
+[Desktop Entry]
+Type=Application
+Name=user-dirs-update-gtk
+Hidden=true

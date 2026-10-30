@@ -275,7 +275,6 @@ layout {
 // See the binds section below for more spawn examples.
 
 // Dux Shell (paquet dux-shell, arch-config) : barre, lanceur, notifications, agent polkit, verrou.
-// Lancé par niri et non par une unité systemd, pour hériter du bloc environment ci-dessous.
 spawn-at-startup "dms" "run"
 
 // Portefeuille KDE (Secret Service) : Plasma lance ksecretd par plasma-kwallet-pam.service, et
@@ -283,12 +282,7 @@ spawn-at-startup "dms" "run"
 // ni n'enregistre la passphrase SSH/GPG.
 spawn-at-startup "ksecretd"
 
-// Applis KDE hors Plasma : thème KDE, et menu « Ouvrir avec » de Dolphin rempli. Seulement dans
-// cette session : environment.d servirait aussi à Plasma.
-environment {
-    QT_QPA_PLATFORMTHEME "kde"
-    XDG_MENU_PREFIX "plasma-"
-}
+// Variables des applis KDE (thème, « Ouvrir avec ») : dans environment.d, pour tous les services.
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"

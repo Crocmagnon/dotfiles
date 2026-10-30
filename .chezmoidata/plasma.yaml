@@ -36,3 +36,7 @@ plasma:
   # Ni son ni notification au passage secteur/batterie ; lowbattery et criticalbattery gardent les leurs.
   - {file: powerdevil.notifyrc, groups: [Event/pluggedin], key: Action, value: ""}
   - {file: powerdevil.notifyrc, groups: [Event/unplugged], key: Action, value: ""}
+  # Dossiers ouverts par Dolphin : sans défaut, xdg-mime répondait kitty, et Nautilus (tiré par le
+  # portail GNOME de niri, arch-config) pourrait le devenir. mimeapps.list est aussi écrit par les
+  # applis : seulement cette clé.
+  - {file: mimeapps.list, groups: [Default Applications], key: inode/directory, value: org.kde.dolphin.desktop, hosts: [desktop-gab, framework-gab]}
