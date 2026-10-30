@@ -661,9 +661,11 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    Print { screenshot; }
-    Ctrl+Print { screenshot-screen; }
-    Alt+Print { screenshot-window; }
+    // Captures par Dux Shell : niri capture, puis satty ouvre l'image pour l'annoter (Spectacle a
+    // besoin de KWin). Annuler satty garde l'image dans ~/Pictures/Screenshots.
+    Print { spawn "dms" "ipc" "call" "niri" "screenshot"; }
+    Ctrl+Print { spawn "dms" "ipc" "call" "niri" "screenshotScreen"; }
+    Alt+Print { spawn "dms" "ipc" "call" "niri" "screenshotWindow"; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
