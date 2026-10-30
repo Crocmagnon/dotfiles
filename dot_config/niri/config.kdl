@@ -404,6 +404,7 @@ binds {
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }  // kitty : alacritty n'est pas installé
     Mod+D hotkey-overlay-title="Run an Application: Dux Shell" { spawn "dms" "ipc" "call" "spotlight" "toggle"; }  // lanceur de Dux Shell
     Super+Alt+L hotkey-overlay-title="Lock the Screen: Dux Shell" { spawn "dms" "ipc" "call" "lock" "lock"; }  // verrou de Dux Shell (YubiKey)
+    Mod+L hotkey-overlay-title=null { spawn "dms" "ipc" "call" "lock" "lock"; }  // l'habitude de Plasma
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -446,7 +447,7 @@ binds {
     Mod+H     { focus-column-left; }
     Mod+J     { focus-window-down; }
     Mod+K     { focus-window-up; }
-    Mod+L     { focus-column-right; }
+    // Mod+L : verrou, comme sous Plasma (plus haut) ; Mod+N fait déjà colonne →.
 
     Mod+Ctrl+Left  { move-column-left; }
     Mod+Ctrl+Down  { move-window-down; }
