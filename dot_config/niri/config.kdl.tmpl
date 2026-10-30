@@ -106,10 +106,11 @@ input {
     position x=1280 y=0
 }
 
-// OLED de desktop-gab, désigné par son modèle (le port peut changer) : niri prendrait son mode
-// « preferred », 60 Hz. Ignoré là où l'écran n'est pas branché.
+// OLED derrière le KVM, désigné par son modèle (le port peut changer) : niri prendrait son mode
+// « preferred », 60 Hz. 240 Hz sur desktop-gab ; 120 Hz sur le laptop, dont le dock USB4 brouille
+// l'image au-delà (drm/xe#9600, voir arch-config).
 output "Microstep MPG321UX OLED 0x01010101" {
-    mode "3840x2160@239.990"
+    mode "3840x2160@{{ if hasPrefix "framework-gab" .chezmoi.hostname }}119.999{{ else }}239.990{{ end }}"
     scale 1.25
 }
 
