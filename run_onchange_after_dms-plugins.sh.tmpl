@@ -1,0 +1,14 @@
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") -}}
+#!/bin/sh
+# Plugins de Dux Shell (niri, arch-config) : seulement leur présence, pas leur version (pas de
+# plugins.lock.json à maintenir) ; dms plugins update les met à jour. Relancé quand la liste change.
+# {{ lookPath "dms" }}
+set -eu
+command -v dms >/dev/null || exit 0
+installed=$(dms plugins list 2>/dev/null)
+for id in calculator; do  # calcul dans le lanceur, comme KRunner
+    printf '%s\n' "$installed" | grep -qw "$id" || dms plugins install "$id"
+    # Installé désactivé : l'activer. Dux Shell doit tourner, sinon : dms ipc call plugins enable <id>.
+    dms ipc call plugins enable "$id" >/dev/null 2>&1 || true
+done
+{{ end -}}
