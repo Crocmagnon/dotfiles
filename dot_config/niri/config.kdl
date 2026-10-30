@@ -106,6 +106,13 @@ input {
     position x=1280 y=0
 }
 
+// OLED de desktop-gab, désigné par son modèle (le port peut changer) : niri prendrait son mode
+// « preferred », 60 Hz. Ignoré là où l'écran n'est pas branché.
+output "Microstep MPG321UX OLED 0x01010101" {
+    mode "3840x2160@239.990"
+    scale 1.25
+}
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://niri-wm.github.io/niri/Configuration:-Layout
