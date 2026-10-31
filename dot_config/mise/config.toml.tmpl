@@ -33,7 +33,8 @@ golangci-lint = "latest"
 golangci-lint-langserver = "latest"
 helix = "latest"
 zoxide = "latest"
-atuin = "latest"
+# Build musl : la build gnu exige glibc 2.39, Debian 12 n'a que la 2.36
+"github:atuinsh/atuin" = { version = "latest", matching_regex = "x86_64-unknown-linux-musl\\.tar\\.gz$" }
 "aqua:AGWA/git-crypt" = "latest"
 {{- if get . "work" }}
 # Travail
