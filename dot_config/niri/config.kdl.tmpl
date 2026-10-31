@@ -380,9 +380,7 @@ binds {
     // Most actions that you can bind here can also be invoked programmatically with
     // `niri msg action do-something`.
 
-    // Mod-Shift-/, which is usually the same as Mod-?,
-    // shows a list of important hotkeys.
-    Mod+Shift+Slash { show-hotkey-overlay; }
+    // Aide (liste des raccourcis importants) : Mod+/ sur le Quacken.
     // Le clavier (ZMK, Ergo-L émulé sur un hôte AZERTY) envoie « / » comme Shift + la touche « : »,
     // et niri lit la touche avant Shift : d'où colon.
     Mod+Shift+Colon { show-hotkey-overlay; }
@@ -390,6 +388,7 @@ binds {
     // Ergo-L (zmk-config-aekeynox) : Mod tenu à droite (I), la main gauche reprend les positions
     // du calque nav sans l'activer. O S E N = ↑ ← ↓ →, W F = Page↑ Page↓, C P = Début Fin.
     // Ctrl (T, à droite aussi) déplace au lieu de naviguer, comme Mod+Ctrl+flèches et Page↑/↓.
+    // Mod+U / Mod+I par défaut (bureaux) retirés : W F les couvrent, Shift y déplace le bureau entier.
     Mod+O { focus-window-up; }
     Mod+S { focus-column-left; }
     Mod+E { focus-window-down; }
@@ -402,6 +401,8 @@ binds {
     Mod+F { focus-workspace-down; }
     Mod+Ctrl+W { move-column-to-workspace-up; }
     Mod+Ctrl+F { move-column-to-workspace-down; }
+    Mod+Shift+W { move-workspace-up; }
+    Mod+Shift+F { move-workspace-down; }
     Mod+C { focus-monitor-left; }
     Mod+P { focus-monitor-right; }
     Mod+Ctrl+C { move-column-to-monitor-left; }
@@ -507,12 +508,8 @@ binds {
 
     Mod+Page_Down      { focus-workspace-down; }
     Mod+Page_Up        { focus-workspace-up; }
-    Mod+U              { focus-workspace-down; }
-    Mod+I              { focus-workspace-up; }
     Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
     Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
-    Mod+Ctrl+U         { move-column-to-workspace-down; }
-    Mod+Ctrl+I         { move-column-to-workspace-up; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+Page_Down { move-window-to-workspace-down; }
@@ -520,8 +517,6 @@ binds {
 
     Mod+Shift+Page_Down { move-workspace-down; }
     Mod+Shift+Page_Up   { move-workspace-up; }
-    Mod+Shift+U         { move-workspace-down; }
-    Mod+Shift+I         { move-workspace-up; }
 
     // You can bind mouse wheel scroll ticks using the following syntax.
     // These binds will change direction based on the natural-scroll setting.
@@ -593,13 +588,10 @@ binds {
     // The following binds move the focused window in and out of a column.
     // If the window is alone, they will consume it into the nearby column to the side.
     // If the window is already in a column, they will expel it out.
-    Mod+BracketLeft  { consume-or-expel-window-left; }
-    Mod+BracketRight { consume-or-expel-window-right; }
 
     // Consume one window from the right to the bottom of the focused column.
     Mod+Comma  { consume-window-into-column; }
     // Expel the bottom window from the focused column to the right.
-    Mod+Period { expel-window-from-column; }
 
     // Cycle through widths set in preset-column-widths.
     Mod+R { switch-preset-column-width; }
@@ -637,8 +629,6 @@ binds {
     // * adjust width as a percentage of screen width: "-10%" or "+10%"
     // Pixel sizes use logical, or scaled, pixels. I.e. on an output with scale 2.0,
     // set-column-width "100" will make the column occupy 200 physical screen pixels.
-    Mod+Minus { set-column-width "-10%"; }
-    Mod+Equal { set-column-width "+10%"; }
 
     // Finer height adjustments when in column with other windows.
     // Mod+Shift+Minus est le 6 de la couche nav (bureau 6), et « = » n'est que sur la couche
