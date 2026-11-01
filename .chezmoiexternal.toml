@@ -1,0 +1,15 @@
+{{- /* Karousel (tiling défilant, KWin) et l'effet qui anime ses déplacements, bureaux Arch perso :
+     dernière release GitHub, revérifiée chaque semaine (refreshPeriod ; github.refreshPeriod dans
+     .chezmoi.toml.tmpl garde la réponse de l'API une semaine, sinon chezmoi échoue hors ligne).
+     Pour épingler une version cassée : remplacer l'URL par celle de la release voulue. Les deux ne
+     sont rechargés qu'à la session suivante. Réglages et raccourcis : .chezmoidata/plasma.yaml. */ -}}
+{{- if and (not (get . "work")) (not (get . "headless")) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") }}
+{{- range $dir, $repo := dict "scripts/karousel" "peterfajdiga/karousel" "effects/kwin4_effect_geometry_change" "peterfajdiga/kwin4_effect_geometry_change" }}
+[{{ printf ".local/share/kwin/%s" $dir | quote }}]
+    type = "archive"
+    url = {{ (index (gitHubLatestRelease $repo).Assets 0).BrowserDownloadURL | quote }}
+    stripComponents = 1
+    exact = true
+    refreshPeriod = "168h"
+{{- end }}
+{{- end }}

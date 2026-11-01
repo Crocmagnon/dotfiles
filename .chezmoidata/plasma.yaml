@@ -16,8 +16,11 @@ plasma:
   - {file: kwinrc, groups: [TabBox], key: LayoutName, value: big_icons}
   # Raccourcis : Meta seul ouvrait le lanceur par accident (Alt+F1 le fait toujours).
   - {file: kglobalshortcutsrc, groups: [plasmashell], key: activate application launcher, value: "Alt+F1,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: Walk Through Windows, value: "Meta+Tab,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: Walk Through Windows (Reverse), value: "Meta+Shift+Tab,,"}
+  # Meta+Tab : une fenêtre par appli ; sur les bureaux Arch perso, la vue d'ensemble le prend (Karousel, plus bas).
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Walk Through Windows, value: "Meta+Tab,,", not_arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Walk Through Windows, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Walk Through Windows (Reverse), value: "Meta+Shift+Tab,,", not_arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Walk Through Windows (Reverse), value: "none,,", arch_desktop: true}
   - {file: kglobalshortcutsrc, groups: [kwin], key: Walk Through Windows of Current Application Alternative, value: "Alt+Tab,,"}
   - {file: kglobalshortcutsrc, groups: [kwin], key: Walk Through Windows of Current Application Alternative (Reverse), value: "Alt+Shift+Tab,,"}
   # Baloo indexait le montage FUSE pCloud (1,6 To), et bloquait la mise en veille.
@@ -39,3 +42,90 @@ plasma:
   # Dossiers ouverts par Dolphin : sans défaut, xdg-mime répondait kitty. mimeapps.list est aussi
   # écrit par les applis : seulement cette clé.
   - {file: mimeapps.list, groups: [Default Applications], key: inode/directory, value: org.kde.dolphin.desktop, hosts: [desktop-gab, framework-gab]}
+  # Karousel (tiling défilant, installé par .chezmoiexternal) et Plasma autour, sur les bureaux
+  # Arch perso. Convention de niri pour l'Ergo-L : OSEN = haut gauche bas droite, Ctrl = déplacer,
+  # Alt = taille. KWin stocke un symbole « shifté » sans Shift : Mod+Shift+& → Meta+1, Mod+Shift+;
+  # → Meta+. Valeurs « actif,, » : kglobalaccel complète défaut et libellé. Tabulation entre deux
+  # touches d'une même action. Effet à la session suivante (kglobalaccel, et Karousel ne relit
+  # sa config qu'au chargement du script).
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-up, value: "Meta+O\tMeta+Up,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-left, value: "Meta+S\tMeta+Left,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-down, value: "Meta+E\tMeta+Down,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-right, value: "Meta+N\tMeta+Right,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-window-move-up, value: "Meta+Ctrl+O,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-window-move-down, value: "Meta+Ctrl+E,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-move-left, value: "Meta+Ctrl+S,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-move-right, value: "Meta+Ctrl+N,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-window-move-left, value: "Meta+.,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-window-move-right, value: "Meta+\\,,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-move-to-previous-desktop, value: "Meta+Ctrl+W\tMeta+Ctrl+PgUp,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-move-to-next-desktop, value: "Meta+Ctrl+F\tMeta+Ctrl+PgDown,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-width-decrease, value: "Meta+Alt+S,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-width-increase, value: "Meta+Alt+N,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-window-height-increase-up, value: "Meta+Alt+O,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-window-height-increase-down, value: "Meta+Alt+E,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-width-maximize, value: "Meta+X,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-grid-scroll-focused, value: "Meta+Z,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-toggle-stacked, value: "Meta+B,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-window-toggle-floating, value: "Meta+Ctrl+V,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-move-to-desktop-1, value: "Meta+Ctrl+1\tMeta+Ctrl+Shift+F1,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-move-to-desktop-2, value: "Meta+Ctrl+2\tMeta+Ctrl+Shift+F2,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-move-to-desktop-3, value: "Meta+Ctrl+3\tMeta+Ctrl+Shift+F3,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-move-to-desktop-4, value: "Meta+Ctrl+4\tMeta+Ctrl+Shift+F4,,", arch_desktop: true}
+  # Défauts de Karousel en ZQSD ou sur Meta+chiffre (bureaux) : désactivés.
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-columns-squeeze-left, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-columns-squeeze-right, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-grid-scroll-left-column, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-grid-scroll-right-column, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-1, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-2, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-3, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-4, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-5, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-6, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-7, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-8, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-9, value: "none,,", arch_desktop: true}
+  # KWin : bureaux, plein écran, maximiser (bascule), fermer ; place libérée pour Karousel.
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Overview, value: "Meta+Tab,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Switch to Previous Desktop, value: "Meta+W\tMeta+PgUp,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Switch to Next Desktop, value: "Meta+F\tMeta+PgDown,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Window Fullscreen, value: "Meta+Shift+X,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Window Maximize, value: "Meta+M,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Window Close, value: "Alt+F4\tMeta+Q,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Switch to Desktop 1, value: "Ctrl+F1\tMeta+1\tMeta+F1,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Switch to Desktop 2, value: "Ctrl+F2\tMeta+2\tMeta+F2,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Switch to Desktop 3, value: "Ctrl+F3\tMeta+3\tMeta+F3,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Switch to Desktop 4, value: "Ctrl+F4\tMeta+4\tMeta+F4,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Edit Tiles, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Show Desktop, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Window Minimize, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Window Quick Tile Top, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Window Quick Tile Left, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Window Quick Tile Bottom, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Window Quick Tile Right, value: "none,,", arch_desktop: true}
+  # plasmashell, powerdevil et applis : conflits avec les raccourcis ci-dessus.
+  - {file: kglobalshortcutsrc, groups: [plasmashell], key: activate task manager entry 1, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [plasmashell], key: activate task manager entry 2, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [plasmashell], key: activate task manager entry 3, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [plasmashell], key: activate task manager entry 4, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [plasmashell], key: activate next task manager entry, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [plasmashell], key: activate previous task manager entry, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [plasmashell], key: manage activities, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [org_kde_powerdevil], key: powerProfile, value: "Battery,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [services, org.kde.krunner.desktop], key: _launch, value: "Alt+Space\tAlt+F2\tSearch\tMeta+D", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [services, kitty-simple.desktop], key: _launch, value: "Meta+T", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [services, org.kde.dolphin.desktop], key: _launch, value: "none", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [services, org.kde.spectacle.desktop], key: RecordRegion, value: "none", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [services, org.kde.screenreader.desktop], key: toggleScreenReader, value: "none", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [services, org.kde.plasma.emojier.desktop], key: _launch, value: "Meta+Ctrl+.\tMeta+Ctrl+Alt+Shift+Space", arch_desktop: true}
+  # Bureaux empilés verticalement ; Karousel et l'animation de ses déplacements ; largeurs de Mod+R ;
+  # règles de tuilage = défauts de Karousel (config/main.xml), plus le sélecteur d'emojis en flottant.
+  - {file: kwinrc, groups: [Desktops], key: Number, value: "4", arch_desktop: true}
+  - {file: kwinrc, groups: [Desktops], key: Rows, value: "4", arch_desktop: true}
+  - {file: kwinrc, groups: [Plugins], key: karouselEnabled, value: "true", type: bool, arch_desktop: true}
+  - {file: kwinrc, groups: [Plugins], key: kwin4_effect_geometry_changeEnabled, value: "true", type: bool, arch_desktop: true}
+  - {file: kwinrc, groups: [Script-karousel], key: presetWidths, value: "33%, 50%, 67%, 100%", arch_desktop: true}
+  - {file: kwinrc, groups: [Script-karousel], key: windowRules, value: '[{"class": "(org\\.kde\\.)?plasmashell", "tile": false}, {"class": "(org\\.kde\\.)?polkit-kde-authentication-agent-1", "tile": false}, {"class": "(org\\.kde\\.)?kded6", "tile": false}, {"class": "(org\\.kde\\.)?kcalc", "tile": false}, {"class": "(org\\.kde\\.)?kfind", "tile": true}, {"class": "(org\\.kde\\.)?kruler", "tile": false}, {"class": "(org\\.kde\\.)?krunner", "tile": false}, {"class": "(org\\.kde\\.)?yakuake", "tile": false}, {"class": "wl-copy|wl-paste", "caption": "wl-clipboard", "tile": false}, {"class": "steam", "caption": "Steam Big Picture Mode", "tile": false}, {"class": "zoom", "caption": "Zoom Cloud Meetings|zoom|zoom <2>", "tile": false}, {"class": "jetbrains-.*", "caption": "splash", "tile": false}, {"class": "jetbrains-.*", "caption": "Unstash Changes|Paths Affected by stash@.*", "tile": true}, {"class": "(org\\.kde\\.)?plasma[.-]emojier", "tile": false}]', arch_desktop: true}
+  # Spectacle : se ferme après Ctrl+C sur une sélection (menu Options).
+  - {file: spectaclerc, groups: [GuiConfig], key: quitAfterSaveCopyExport, value: "true", type: bool, arch_desktop: true}

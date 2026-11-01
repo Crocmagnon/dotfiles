@@ -15,10 +15,17 @@ else
 fi
 {{- /* Laptop sous Arch : arch-config y a mis le swapfile d'hibernation (hostnamectl chassis). */}}
 {{ $archLaptop := and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") (stat "/run/systemd/system") (eq (output "hostnamectl" "chassis" | trim) "laptop") -}}
+{{- /* Bureau Arch perso (arch_desktop / not_arch_desktop) : Karousel et ses raccourcis. Une valeur à
+     plusieurs touches les sépare par une tabulation : quote l'écrit \t, rendu en vraie tabulation
+     par $tab (posé seulement là, pour ne rien changer au rendu ailleurs). */ -}}
+{{ $archDesktop := and (not (get . "work")) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") -}}
+{{ if $archDesktop -}}
+tab=$(printf '\t')
+{{ end -}}
 {{ range .plasma -}}
 {{ $hosts := get . "hosts" -}}
-{{ if and (or (not $hosts) (has $.chezmoi.hostname $hosts)) (or (not (get . "arch_laptop")) $archLaptop) -}}
-$kw --file {{ .file | quote }}{{ range .groups }} --group {{ . | quote }}{{ end }} --key {{ .key | quote }}{{ with get . "type" }} --type {{ . }}{{ end }} {{ .value | replace "~" $.chezmoi.homeDir | quote }}
+{{ if and (or (not $hosts) (has $.chezmoi.hostname $hosts)) (or (not (get . "arch_laptop")) $archLaptop) (or (not (get . "arch_desktop")) $archDesktop) (not (and (get . "not_arch_desktop") $archDesktop)) -}}
+$kw --file {{ .file | quote }}{{ range .groups }} --group {{ . | quote }}{{ end }} --key {{ .key | quote }}{{ with get . "type" }} --type {{ . }}{{ end }} {{ .value | replace "~" $.chezmoi.homeDir | quote | replace "\\t" "${tab}" }}
 {{ end -}}
 {{ end -}}
 {{ end -}}

@@ -1,0 +1,7 @@
+# Mod+T (raccourci dans .chezmoidata/plasma.yaml) : un kitty sans la session herdr de sa config.
+[Desktop Entry]
+Type=Application
+Name=kitty (sans herdr)
+Exec=kitty --session none
+Icon=kitty
+NoDisplay=true
