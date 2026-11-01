@@ -31,11 +31,12 @@ if status is-interactive
     # Pas dans les shells non interactifs : nroff (groff) lance "$SHELL -c" dans le sandbox
     # seccomp de man-db, où mise activate panique (socket Unix refusé) à chaque `man`.
     mise activate fish | source
-    # atuin prend Ctrl+R et ↑ : fzf.fish garde ses autres raccourcis, sans celui de l'historique.
+    # atuin prend Ctrl+R (pas ↑, qui garde l'historique de fish) : fzf.fish garde ses autres
+    # raccourcis, sans celui de l'historique.
     # Au plus tôt (juste après mise, qui fournit atuin) : pty_proxy relance fish dans le proxy,
     # tout ce qui précède s'exécute deux fois.
     functions -q fzf_configure_bindings; and fzf_configure_bindings --history=
-    atuin init fish | source
+    atuin init fish --disable-up-arrow | source
     # gpg-agent sert d'agent SSH : une requête SSH ne transporte ni écran ni terminal, pinentry
     # prend ceux enregistrés par l'agent. Sans ceci, ce sont ceux de son démarrage (souvent avant
     # que la session graphique existe) et la demande de passphrase n'a nulle part où s'afficher.
