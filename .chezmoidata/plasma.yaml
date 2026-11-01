@@ -30,9 +30,10 @@ plasma:
   - {file: powerdevilrc, groups: [AC, SuspendAndShutdown], key: SleepMode, value: "3", arch_laptop: true}
   - {file: powerdevilrc, groups: [Battery, SuspendAndShutdown], key: SleepMode, value: "3", arch_laptop: true}
   - {file: powerdevilrc, groups: [LowBattery, SuspendAndShutdown], key: SleepMode, value: "3", arch_laptop: true}
-  # Défilement naturel sur le pavé tactile. Groupe propre au périphérique (identifiants USB et nom) :
+  # Défilement naturel et tap pour cliquer sur le pavé tactile. Groupe propre au périphérique (identifiants USB et nom) :
   # le relever dans kcminputrc après l'avoir coché une fois dans l'interface.
-  - {file: kcminputrc, groups: [Libinput, "2362", "628", "PIXA3854:00 093A:0274 Touchpad"], key: NaturalScroll, value: "true", type: bool, hosts: [framework-gab-amd]}
+  - {file: kcminputrc, groups: [Libinput, "2362", "4931", "PIXA3854:00 093A:1343 Touchpad"], key: NaturalScroll, value: "true", type: bool, hosts: [framework-gab]}
+  - {file: kcminputrc, groups: [Libinput, "2362", "4931", "PIXA3854:00 093A:1343 Touchpad"], key: TapToClick, value: "true", type: bool, hosts: [framework-gab]}
   # Pas de son au branchement de périphériques (USB, écrans derrière le KVM) : popup seule.
   - {file: plasma_workspace.notifyrc, groups: [Event/deviceAdded], key: Action, value: Popup}
   - {file: plasma_workspace.notifyrc, groups: [Event/deviceRemoved], key: Action, value: Popup}
@@ -128,6 +129,10 @@ plasma:
   # Indicateur à l'écran du bureau atteint (script KWin livré avec Plasma).
   - {file: kwinrc, groups: [Plugins], key: desktopchangeosdEnabled, value: "true", type: bool, arch_desktop: true}
   - {file: kwinrc, groups: [Script-karousel], key: presetWidths, value: "33%, 50%, 67%, 100%", arch_desktop: true}
+  # Glissement horizontal à trois doigts : défile les colonnes (le vertical change de bureau, Plasma),
+  # dans le sens du défilement naturel.
+  - {file: kwinrc, groups: [Script-karousel], key: gestureScroll, value: "true", type: bool, arch_desktop: true}
+  - {file: kwinrc, groups: [Script-karousel], key: gestureScrollInvert, value: "true", type: bool, arch_desktop: true}
   - {file: kwinrc, groups: [Script-karousel], key: windowRules, value: '[{"class": "(org\\.kde\\.)?plasmashell", "tile": false}, {"class": "(org\\.kde\\.)?polkit-kde-authentication-agent-1", "tile": false}, {"class": "(org\\.kde\\.)?kded6", "tile": false}, {"class": "(org\\.kde\\.)?kcalc", "tile": false}, {"class": "(org\\.kde\\.)?kfind", "tile": true}, {"class": "(org\\.kde\\.)?kruler", "tile": false}, {"class": "(org\\.kde\\.)?krunner", "tile": false}, {"class": "(org\\.kde\\.)?yakuake", "tile": false}, {"class": "wl-copy|wl-paste", "caption": "wl-clipboard", "tile": false}, {"class": "steam", "caption": "Steam Big Picture Mode", "tile": false}, {"class": "zoom", "caption": "Zoom Cloud Meetings|zoom|zoom <2>", "tile": false}, {"class": "jetbrains-.*", "caption": "splash", "tile": false}, {"class": "jetbrains-.*", "caption": "Unstash Changes|Paths Affected by stash@.*", "tile": true}, {"class": "(org\\.kde\\.)?plasma[.-]emojier", "tile": false}]', arch_desktop: true}
   # Spectacle : se ferme après Ctrl+C sur une sélection (menu Options).
   - {file: spectaclerc, groups: [GuiConfig], key: quitAfterSaveCopyExport, value: "true", type: bool, arch_desktop: true}
