@@ -87,6 +87,9 @@ docs/
 .local/share/fonts
 .config/environment.d
 .config/autostart
+.local/bin/plasma-settings
+.config/systemd/user/plasma-settings.service
+.config/systemd/user/plasma-kwin_wayland.service.wants
 {{- end }}
 
 {{- /* Laptop du bureau uniquement : la YubiKey. */}}

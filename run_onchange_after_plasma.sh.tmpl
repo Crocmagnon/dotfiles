@@ -1,31 +1,9 @@
 {{- if not (get . "headless") -}}
 #!/bin/sh
-# Réglages Plasma de .chezmoidata/plasma.yaml. chezmoi ne relance ce script que si son rendu
-# change. Plasma 6 : --notify recharge à chaud les applications qui surveillent leur config.
-# Plasma 5 (kwriteconfig5) ne connaît pas --notify : les réglages prennent effet à la prochaine
-# session. Dans les deux cas, les raccourcis (kglobalaccel) ne sont relus qu'à la connexion.
-# Chemins de kwriteconfig, pour que le script repasse dès qu'il est installé :
-# {{ lookPath "kwriteconfig6" }} {{ lookPath "kwriteconfig5" }}
-if command -v kwriteconfig6 >/dev/null; then
-    kw="kwriteconfig6 --notify"
-elif command -v kwriteconfig5 >/dev/null; then
-    kw=kwriteconfig5
-else
-    exit 0
-fi
-{{- /* Laptop sous Arch : arch-config y a mis le swapfile d'hibernation (hostnamectl chassis). */}}
-{{ $archLaptop := and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") (stat "/run/systemd/system") (eq (output "hostnamectl" "chassis" | trim) "laptop") -}}
-{{- /* Bureau Arch perso (arch_desktop / not_arch_desktop) : Karousel et ses raccourcis. Une valeur à
-     plusieurs touches les sépare par une tabulation : quote l'écrit \t, rendu en vraie tabulation
-     par $tab (posé seulement là, pour ne rien changer au rendu ailleurs). */ -}}
-{{ $archDesktop := and (not (get . "work")) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") -}}
-{{ if $archDesktop -}}
-tab=$(printf '\t')
-{{ end -}}
-{{ range .plasma -}}
-{{ $hosts := get . "hosts" -}}
-{{ if and (or (not $hosts) (has $.chezmoi.hostname $hosts)) (or (not (get . "arch_laptop")) $archLaptop) (or (not (get . "arch_desktop")) $archDesktop) (not (and (get . "not_arch_desktop") $archDesktop)) -}}
-$kw --file {{ .file | quote }}{{ range .groups }} --group {{ . | quote }}{{ end }} --key {{ .key | quote }}{{ with get . "type" }} --type {{ . }}{{ end }} {{ .value | replace "~" $.chezmoi.homeDir | quote | replace "\\t" "${tab}" }}
-{{ end -}}
-{{ end -}}
+# Rejoue les réglages Plasma quand ils changent (empreinte de ~/.local/bin/plasma-settings) :
+# {{ includeTemplate "dot_local/bin/executable_plasma-settings.tmpl" . | sha256sum }}
+# Les raccourcis ne prennent effet qu'à la prochaine connexion (plasma-settings.service).
+# Fait connaître plasma-settings.service au gestionnaire utilisateur dès maintenant.
+systemctl --user daemon-reload 2>/dev/null || true
+exec "$HOME/.local/bin/plasma-settings"
 {{ end -}}

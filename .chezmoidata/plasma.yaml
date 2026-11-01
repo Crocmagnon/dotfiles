@@ -125,6 +125,8 @@ plasma:
   - {file: kwinrc, groups: [Desktops], key: Rows, value: "4", arch_desktop: true}
   - {file: kwinrc, groups: [Plugins], key: karouselEnabled, value: "true", type: bool, arch_desktop: true}
   - {file: kwinrc, groups: [Plugins], key: kwin4_effect_geometry_changeEnabled, value: "true", type: bool, arch_desktop: true}
+  # Indicateur à l'écran du bureau atteint (script KWin livré avec Plasma).
+  - {file: kwinrc, groups: [Plugins], key: desktopchangeosdEnabled, value: "true", type: bool, arch_desktop: true}
   - {file: kwinrc, groups: [Script-karousel], key: presetWidths, value: "33%, 50%, 67%, 100%", arch_desktop: true}
   - {file: kwinrc, groups: [Script-karousel], key: windowRules, value: '[{"class": "(org\\.kde\\.)?plasmashell", "tile": false}, {"class": "(org\\.kde\\.)?polkit-kde-authentication-agent-1", "tile": false}, {"class": "(org\\.kde\\.)?kded6", "tile": false}, {"class": "(org\\.kde\\.)?kcalc", "tile": false}, {"class": "(org\\.kde\\.)?kfind", "tile": true}, {"class": "(org\\.kde\\.)?kruler", "tile": false}, {"class": "(org\\.kde\\.)?krunner", "tile": false}, {"class": "(org\\.kde\\.)?yakuake", "tile": false}, {"class": "wl-copy|wl-paste", "caption": "wl-clipboard", "tile": false}, {"class": "steam", "caption": "Steam Big Picture Mode", "tile": false}, {"class": "zoom", "caption": "Zoom Cloud Meetings|zoom|zoom <2>", "tile": false}, {"class": "jetbrains-.*", "caption": "splash", "tile": false}, {"class": "jetbrains-.*", "caption": "Unstash Changes|Paths Affected by stash@.*", "tile": true}, {"class": "(org\\.kde\\.)?plasma[.-]emojier", "tile": false}]', arch_desktop: true}
   # Spectacle : se ferme après Ctrl+C sur une sélection (menu Options).

@@ -1,0 +1,9 @@
+# Réglages Plasma de dotfiles (~/.local/bin/plasma-settings) à chaque connexion, avant KWin :
+# kglobalaccel lit alors les raccourcis voulus, quoi qu'il ait sauvegardé à la déconnexion.
+[Unit]
+Description=Réglages Plasma de dotfiles
+Before=plasma-kwin_wayland.service
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/plasma-settings
