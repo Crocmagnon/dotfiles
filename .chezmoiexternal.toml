@@ -1,4 +1,4 @@
-{{- /* Karousel (tiling défilant, KWin) et l'effet qui anime ses déplacements, bureaux Arch perso :
+{{- /* Karousel (tiling défilant, KWin) et l'effet qui anime ses déplacements. Bureaux Arch perso :
      dernière release GitHub, revérifiée chaque semaine (refreshPeriod ; github.refreshPeriod dans
      .chezmoi.toml.tmpl garde la réponse de l'API une semaine, sinon chezmoi échoue hors ligne).
      Pour épingler une version cassée : remplacer l'URL par celle de la release voulue. Les deux ne
@@ -12,4 +12,17 @@
     exact = true
     refreshPeriod = "168h"
 {{- end }}
+{{- else if and (get . "work") (not (get . "headless")) (eq .chezmoi.os "linux") }}
+{{- /* Laptop du bureau, Plasma 5 : les dernières versions pour Plasma 5, figées (pas d'appel à l'API).
+     Karousel y importe org.kde.notification : paquet qml-module-org-kde-notifications (apt). */}}
+[".local/share/kwin/scripts/karousel"]
+    type = "archive"
+    url = "https://github.com/peterfajdiga/karousel/releases/download/v0.7.2/karousel_0_7_2.tar.gz"
+    stripComponents = 1
+    exact = true
+[".local/share/kwin/effects/kwin4_effect_geometry_change"]
+    type = "archive"
+    url = "https://github.com/peterfajdiga/kwin4_effect_geometry_change/releases/download/v1.1/kwin4_effect_geometry_change.tar.gz"
+    stripComponents = 1
+    exact = true
 {{- end }}

@@ -85,6 +85,7 @@ docs/
 {{- /* Bureau uniquement (pas les serveurs). */}}
 {{- if get . "headless" }}
 .local/share/fonts
+.local/share/applications/kitty-simple.desktop
 .config/environment.d
 .config/autostart
 .local/bin/plasma-settings
@@ -107,11 +108,6 @@ docs/
 {{- /* Desktops perso Arch uniquement : relance de KRunner quand il démarre avant l'affichage. */}}
 {{- if not (and (not (get . "work")) (not (get . "headless")) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
 .config/systemd/user/plasma-krunner.service.d
-{{- end }}
-
-{{- /* Desktops perso Arch uniquement : le kitty sans herdr de Mod+T (Karousel, plasma.yaml). */}}
-{{- if not (and (not (get . "work")) (not (get . "headless")) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
-.local/share/applications/kitty-simple.desktop
 {{- end }}
 
 {{- /* Arch uniquement : le lien qui active plasma-krunner.service (sinon il reste un dossier vide), et decman-update. */}}

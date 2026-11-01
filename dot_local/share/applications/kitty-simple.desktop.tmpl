@@ -2,6 +2,6 @@
 [Desktop Entry]
 Type=Application
 Name=kitty (sans herdr)
-Exec=kitty --session none
+Exec={{ lookPath "kitty" | default "kitty" }} --session none
 Icon=kitty
 NoDisplay=true
