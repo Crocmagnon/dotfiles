@@ -1,0 +1,22 @@
+{{- /* Restes de niri et Dux Shell (retirés le 01/11/2026), Arch uniquement : ce que chezmoi avait
+     posé, et ce que Dux Shell et Nautilus ont créé. À retirer une fois appliqué sur toutes les
+     machines Arch. */}}
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") }}
+.config/niri
+.config/dms
+.local/state/dms
+.cache/dms
+.cache/quickshell
+.config/nautilus
+.local/share/nautilus
+.config/xdg-desktop-portal/niri-portals.conf
+.config/environment.d/60-kde-qt.conf
+.local/bin/kde-follow-color-scheme
+.config/systemd/user/kde-follow-color-scheme.service
+.config/systemd/user/niri.service.wants
+.config/systemd/user/localsearch-3.service
+.config/systemd/user/user-dirs-update-gtk.service
+.config/autostart/localsearch-3.desktop
+.config/autostart/user-dirs-update-gtk.desktop
+.local/share/dbus-1/services/org.freedesktop.FileManager1.service
+{{- end }}

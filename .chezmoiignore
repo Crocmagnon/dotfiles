@@ -106,20 +106,8 @@ docs/
 .config/systemd/user/plasma-krunner.service.d
 {{- end }}
 
-{{- /* Arch uniquement : le lien qui active plasma-krunner.service (sinon il reste un dossier vide), decman-update, et la config niri et Dux Shell (voir arch-config). */}}
+{{- /* Arch uniquement : le lien qui active plasma-krunner.service (sinon il reste un dossier vide), et decman-update. */}}
 {{- if not (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
 .config/systemd/user/plasma-workspace.target.wants
 .config/fish/functions/decman-update.fish
-.config/niri
-.config/dms
-.config/xdg-desktop-portal/niri-portals.conf
-.local/share/dbus-1/services/org.freedesktop.FileManager1.service
-.config/autostart/localsearch-3.desktop
-.config/autostart/user-dirs-update-gtk.desktop
-.config/systemd/user/localsearch-3.service
-.config/systemd/user/user-dirs-update-gtk.service
-.local/state/dms
-.config/systemd/user/niri.service.wants
-.config/systemd/user/kde-follow-color-scheme.service
-.local/bin/kde-follow-color-scheme
 {{- end }}
