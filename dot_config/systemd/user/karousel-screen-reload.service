@@ -1,0 +1,9 @@
+# Recharge Karousel 0.7.2 après un changement d'écran (voir ~/.local/bin/karousel-screen-reload).
+[Unit]
+Description=Recharger Karousel après un changement d'écran
+PartOf=plasma-workspace.target
+After=plasma-workspace.target
+
+[Service]
+ExecStart=%h/.local/bin/karousel-screen-reload
+Restart=on-failure

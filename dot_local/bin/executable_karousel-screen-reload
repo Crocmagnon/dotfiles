@@ -1,0 +1,17 @@
+#!/bin/bash
+# Karousel 0.7.2 (Plasma 5) ne suit pas un changement d'écran (KVM, dock, veille) : il échoue ensuite à
+# chaque réarrangement et ses raccourcis ne font plus rien. Le recharger après chaque événement drm,
+# comme la case des Réglages (charger le QML par D-Bus le prive de l'objet workspace de KWin).
+# ponytail: recharge à chaque rafale d'événements, quelle qu'en soit la cause ; à retirer avec la 0.7.2.
+toggle() {
+    kwriteconfig5 --file kwinrc --group Plugins --key karouselEnabled "$1"
+    qdbus org.kde.KWin /KWin reconfigure
+}
+udevadm monitor --udev --subsystem-match=drm | while read -r line; do
+    case "$line" in UDEV*) ;; *) continue ;; esac
+    # Un branchement envoie plusieurs événements : attendre la fin de la rafale.
+    while read -t 2 -r _; do :; done
+    toggle false
+    sleep 1
+    toggle true
+done
