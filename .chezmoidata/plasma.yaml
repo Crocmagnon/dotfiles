@@ -146,6 +146,17 @@ plasma:
   - {file: kglobalshortcutsrc, groups: [org.kde.dolphin.desktop], key: _launch, value: "none,Meta+E,Dolphin", work_desktop: true}
   - {file: kglobalshortcutsrc, groups: [org.kde.plasma.emojier.desktop], key: _launch, value: "Meta+Ctrl+.,Meta+.,Emoji Selector", work_desktop: true}
   - {file: kglobalshortcutsrc, groups: [kaccess], key: Toggle Screen Reader On and Off, value: "none,Meta+Alt+S,Toggle Screen Reader On and Off", work_desktop: true}
+  # Karousel 0.7.2 (bureau) : Mod+Alt+S/N avance d'un pas en pixels (600 par défaut, d'où des sauts) ou
+  # jusqu'à remplir l'écran ; 100 px pour un réglage fin. Deux colonnes à moitié : Mod+Ctrl+X (égaliser).
+  - {file: kwinrc, groups: [Script-karousel], key: manualResizeStep, value: "100", work_desktop: true}
+  # Plasma 5 (bureau) : raccourcis par défaut en conflit avec Karousel, qui perdait Mod+Ctrl+S/N/F/1/2
+  # (tablette Wacom) et Mod+S (arrêter l'activité). Libellés tels que Plasma 5 les écrit.
+  - {file: kglobalshortcutsrc, groups: [wacomtablet], key: Toggle stylus mode, value: "none,Meta+Ctrl+S,Basculer entre l'état relatif / absolu de l'outil stylet", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [wacomtablet], key: Next Profile, value: "none,Meta+Ctrl+N,Profil suivant", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [wacomtablet], key: Map to fullscreen, value: "none,Meta+Ctrl+F,Faire correspondre avec le plein écran", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [wacomtablet], key: Map to screen 1, value: "none,Meta+Ctrl+1,Faire correspondre avec l'écran 1", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [wacomtablet], key: Map to screen 2, value: "none,Meta+Ctrl+2,Faire correspondre avec l'écran 2", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [plasmashell], key: stop current activity, value: "none,Meta+S,Stop Current Activity", work_desktop: true}
   # Meta seul : Plasma 5 ouvre le lanceur par KWin (ModifierOnlyShortcuts), indépendamment du raccourci
   # du lanceur (Alt+F1, plus haut) ; une valeur vide le désactive.
   - {file: kwinrc, groups: [ModifierOnlyShortcuts], key: Meta, value: "", work_desktop: true}
