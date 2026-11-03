@@ -36,7 +36,13 @@ if status is-interactive
     # Au plus tôt (juste après mise, qui fournit atuin) : pty_proxy relance fish dans le proxy,
     # tout ce qui précède s'exécute deux fois.
     functions -q fzf_configure_bindings; and fzf_configure_bindings --history=
-    atuin init fish --disable-up-arrow | source
+    # Dans herdr, pas de pty-proxy : les agents lancés dans son pty imbriqué n'y sont pas
+    # détectés (https://github.com/herdrdev/herdr/issues/803).
+    if set -q HERDR_ENV
+        ATUIN_PTY_PROXY__ENABLED=false atuin init fish --disable-up-arrow | source
+    else
+        atuin init fish --disable-up-arrow | source
+    end
     # gpg-agent sert d'agent SSH : une requête SSH ne transporte ni écran ni terminal, pinentry
     # prend ceux enregistrés par l'agent. Sans ceci, ce sont ceux de son démarrage (souvent avant
     # que la session graphique existe) et la demande de passphrase n'a nulle part où s'afficher.
