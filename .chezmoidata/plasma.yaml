@@ -124,8 +124,8 @@ plasma:
   - {file: kwinrc, groups: [Desktops], key: Rows, value: "4"}
   - {file: kwinrc, groups: [Plugins], key: karouselEnabled, value: "true", type: bool}
   - {file: kwinrc, groups: [Plugins], key: kwin4_effect_geometry_changeEnabled, value: "true", type: bool}
-  # Indicateur à l'écran du bureau atteint (script KWin livré avec Plasma).
-  - {file: kwinrc, groups: [Plugins], key: desktopchangeosdEnabled, value: "true", type: bool}
+  # Pas d'indicateur à l'écran du bureau atteint (script KWin livré avec Plasma).
+  - {file: kwinrc, groups: [Plugins], key: desktopchangeosdEnabled, value: "false", type: bool}
   - {file: kwinrc, groups: [Script-karousel], key: presetWidths, value: "33%, 50%, 67%, 100%"}
   # Glissement horizontal à trois doigts : défile les colonnes (le vertical change de bureau, Plasma),
   # dans le sens du défilement naturel.
