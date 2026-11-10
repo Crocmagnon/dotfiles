@@ -174,8 +174,8 @@ plasma:
   - {file: kwinrc, groups: [ModifierOnlyShortcuts], key: Meta, value: "", work_desktop: true}
   # Règles de fenêtre KWin. count et rules listent toutes les règles : une règle créée dans les Réglages
   # en serait retirée, à versionner ici.
-  - {file: kwinrulesrc, groups: [General], key: count, value: "1"}
-  - {file: kwinrulesrc, groups: [General], key: rules, value: krohnkite-webex}
+  - {file: kwinrulesrc, groups: [General], key: count, value: "2"}
+  - {file: kwinrulesrc, groups: [General], key: rules, value: "krohnkite-webex,no-class-dialog"}
   # Webex impose une taille minimale (834×659) plus grande qu'une place de la pile de Krohnkite, et
   # débordait sur ses voisines ; forcée à 1×1.
   - {file: kwinrulesrc, groups: [krohnkite-webex], key: Description, value: "Webex : taille minimale libre pour Krohnkite"}
@@ -190,6 +190,16 @@ plasma:
   - {file: keepassxc/keepassxc.ini, groups: [GUI], key: ShowTrayIcon, value: "true", type: bool}
   - {file: keepassxc/keepassxc.ini, groups: [GUI], key: MinimizeOnClose, value: "true", type: bool}
   - {file: keepassxc/keepassxc.ini, groups: [GUI], key: MinimizeOnStartup, value: "true", type: bool}
+  # Fenêtres sans classe : les aperçus d'image de Webex (X11, titrées du nom du fichier, sans WM_CLASS ni
+  # WM_TRANSIENT_FOR), que Krohnkite pavait. Forcées en dialogue, qu'il laisse flotter. La classe vide en
+  # correspondance exacte n'attrape que les fenêtres qui n'en ont aucune.
+  - {file: kwinrulesrc, groups: [no-class-dialog], key: Description, value: "Fenêtres sans classe (aperçus d'image de Webex) : dialogue, flottant dans Krohnkite"}
+  - {file: kwinrulesrc, groups: [no-class-dialog], key: wmclass, value: ""}
+  - {file: kwinrulesrc, groups: [no-class-dialog], key: wmclassmatch, value: "1"}
+  - {file: kwinrulesrc, groups: [no-class-dialog], key: wmclasscomplete, value: "false", type: bool}
+  - {file: kwinrulesrc, groups: [no-class-dialog], key: types, value: "1"}
+  - {file: kwinrulesrc, groups: [no-class-dialog], key: type, value: "5"}
+  - {file: kwinrulesrc, groups: [no-class-dialog], key: typerule, value: "2"}
   # Mod+V : le presse-papiers de la zone de notification (raccourci posé par plasma-settings), pas le menu de
   # Klipper sous le curseur, une fenêtre que KWin ne sait pas placer.
   - {file: kglobalshortcutsrc, groups: [plasmashell], key: show-on-mouse-pos, value: "none,,"}
