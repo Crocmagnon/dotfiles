@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Install OpenSC PKCS#11 module
+Comment=Masque l'autostart d'opensc : il réenregistre OpenSC dans ~/.pki/nssdb, Webex et Chrome sélectionnent alors l'applet PIV de la YubiKey, qui oublie le PIN OpenPGP.
+Hidden=true
