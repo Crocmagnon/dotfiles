@@ -168,6 +168,18 @@ plasma:
   # Meta seul : Plasma 5 ouvre le lanceur par KWin (ModifierOnlyShortcuts), indépendamment du raccourci
   # du lanceur (Alt+F1, plus haut) ; une valeur vide le désactive.
   - {file: kwinrc, groups: [ModifierOnlyShortcuts], key: Meta, value: "", work_desktop: true}
+  # Règle de fenêtre KWin : Webex impose une taille minimale (834×659) plus grande qu'une place de la
+  # pile de Krohnkite, et débordait sur ses voisines ; forcée à 1×1. count et rules listent toutes les
+  # règles : une règle créée dans les Réglages en serait retirée, à versionner ici.
+  - {file: kwinrulesrc, groups: [General], key: count, value: "1"}
+  - {file: kwinrulesrc, groups: [General], key: rules, value: krohnkite-webex}
+  - {file: kwinrulesrc, groups: [krohnkite-webex], key: Description, value: "Webex : taille minimale libre pour Krohnkite"}
+  - {file: kwinrulesrc, groups: [krohnkite-webex], key: wmclass, value: webex}
+  - {file: kwinrulesrc, groups: [krohnkite-webex], key: wmclassmatch, value: "1"}
+  - {file: kwinrulesrc, groups: [krohnkite-webex], key: wmclasscomplete, value: "false", type: bool}
+  - {file: kwinrulesrc, groups: [krohnkite-webex], key: types, value: "1"}
+  - {file: kwinrulesrc, groups: [krohnkite-webex], key: minsize, value: "1,1"}
+  - {file: kwinrulesrc, groups: [krohnkite-webex], key: minsizerule, value: "2"}
   # Spectacle : se ferme après Ctrl+C sur une sélection (menu Options).
   - {file: spectaclerc, groups: [GuiConfig], key: quitAfterSaveCopyExport, value: "true", type: bool}
   # Bouton « clé » (YubiKey) sur le verrou de Plasma 6.8 : service PAM kde-u2f, posé par arch-config.
