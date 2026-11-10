@@ -174,8 +174,8 @@ plasma:
   - {file: kwinrc, groups: [ModifierOnlyShortcuts], key: Meta, value: "", work_desktop: true}
   # Règles de fenêtre KWin. count et rules listent toutes les règles : une règle créée dans les Réglages
   # en serait retirée, à versionner ici.
-  - {file: kwinrulesrc, groups: [General], key: count, value: "2"}
-  - {file: kwinrulesrc, groups: [General], key: rules, value: "krohnkite-webex,klipper-popup"}
+  - {file: kwinrulesrc, groups: [General], key: count, value: "1"}
+  - {file: kwinrulesrc, groups: [General], key: rules, value: krohnkite-webex}
   # Webex impose une taille minimale (834×659) plus grande qu'une place de la pile de Krohnkite, et
   # débordait sur ses voisines ; forcée à 1×1.
   - {file: kwinrulesrc, groups: [krohnkite-webex], key: Description, value: "Webex : taille minimale libre pour Krohnkite"}
@@ -190,18 +190,9 @@ plasma:
   - {file: keepassxc/keepassxc.ini, groups: [GUI], key: ShowTrayIcon, value: "true", type: bool}
   - {file: keepassxc/keepassxc.ini, groups: [GUI], key: MinimizeOnClose, value: "true", type: bool}
   - {file: keepassxc/keepassxc.ini, groups: [GUI], key: MinimizeOnStartup, value: "true", type: bool}
-  # Presse-papiers de Mod+V (« éléments à la position de la souris ») : sous Wayland, une fenêtre normale de
-  # plasmashell titrée « Plasma », qui s'ouvrait sous le curseur. Placée en bas à droite, contre la zone de
-  # notification : 895×1109, relevé sur l'écran 2560×1440 du bureau (barre de 44 px en bas).
-  - {file: kwinrulesrc, groups: [klipper-popup], key: Description, value: "Presse-papiers (Mod+V) : en bas à droite, près de la zone de notification"}
-  - {file: kwinrulesrc, groups: [klipper-popup], key: wmclass, value: org.kde.plasmashell}
-  - {file: kwinrulesrc, groups: [klipper-popup], key: wmclassmatch, value: "1"}
-  - {file: kwinrulesrc, groups: [klipper-popup], key: wmclasscomplete, value: "false", type: bool}
-  - {file: kwinrulesrc, groups: [klipper-popup], key: title, value: Plasma}
-  - {file: kwinrulesrc, groups: [klipper-popup], key: titlematch, value: "1"}
-  - {file: kwinrulesrc, groups: [klipper-popup], key: types, value: "1"}
-  - {file: kwinrulesrc, groups: [klipper-popup], key: position, value: "1665,287", work_desktop: true}
-  - {file: kwinrulesrc, groups: [klipper-popup], key: positionrule, value: "2", work_desktop: true}
+  # Mod+V : le presse-papiers de la zone de notification (raccourci posé par plasma-settings), pas le menu de
+  # Klipper sous le curseur, une fenêtre que KWin ne sait pas placer.
+  - {file: kglobalshortcutsrc, groups: [plasmashell], key: show-on-mouse-pos, value: "none,,"}
   # Spectacle : se ferme après Ctrl+C sur une sélection (menu Options).
   - {file: spectaclerc, groups: [GuiConfig], key: quitAfterSaveCopyExport, value: "true", type: bool}
   # Bouton « clé » (YubiKey) sur le verrou de Plasma 6.8 : service PAM kde-u2f, posé par arch-config.

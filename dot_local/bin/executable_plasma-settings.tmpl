@@ -32,3 +32,15 @@ sed -i '/^karousel-/d' "${XDG_CONFIG_HOME:-$HOME/.config}/kglobalshortcutsrc" 2>
 $kw --file {{ .file | quote }}{{ range .groups }} --group {{ . | quote }}{{ end }} --key {{ .key | quote }}{{ with get . "type" }} --type {{ . }}{{ end }} {{ .value | replace "~" $.chezmoi.homeDir | quote | replace "\\t" "${tab}" }}
 {{ end -}}
 {{ end -}}
+# Mod+V ouvre le presse-papiers de la zone de notification, placé par Plasma contre la barre, plutôt que
+# le menu de Klipper sous le curseur (show-on-mouse-pos, libéré dans plasma.yaml). Le raccourci d'une
+# applet vit dans sa config, sous un numéro propre à chaque machine : le chercher.
+conf="${XDG_CONFIG_HOME:-$HOME/.config}/plasma-org.kde.plasma.desktop-appletsrc"
+clip=$(awk -F'[][]' '/^\[Containments\]\[[0-9]+\]\[Applets\]\[[0-9]+\]$/ {g = $0; c = $4; a = $8; next}
+    /^\[/ {g = ""} g != "" && $0 == "plugin=org.kde.plasma.clipboard" {print c " " a; exit}' "$conf" 2>/dev/null)
+if [ -n "$clip" ]; then
+    set -- $clip
+    $kw --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group "$1" --group Applets \
+        --group "$2" --group Shortcuts --key global "Meta+V"
+    $kw --file kglobalshortcutsrc --group plasmashell --key "activate widget $2" "Meta+V,,"
+fi
