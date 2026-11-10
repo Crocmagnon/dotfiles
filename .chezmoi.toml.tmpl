@@ -32,7 +32,7 @@ headless = {{ $headless }}
 {{- if and (not $work) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") }}
 
 # Réponses de l'API GitHub gardées une semaine : .chezmoiexternal.toml demande la dernière release de
-# Karousel à chaque commande, et chezmoi échouerait hors ligne au-delà d'une minute (défaut).
+# kwin4_effect_geometry_change à chaque commande, et chezmoi échouerait hors ligne au-delà d'une minute (défaut).
 [github]
 refreshPeriod = "168h"
 {{- end }}

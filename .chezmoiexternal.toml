@@ -1,25 +1,38 @@
-{{- /* Karousel (tiling défilant, KWin) et l'effet qui anime ses déplacements. Bureaux Arch perso :
-     dernière release GitHub, revérifiée chaque semaine (refreshPeriod ; github.refreshPeriod dans
-     .chezmoi.toml.tmpl garde la réponse de l'API une semaine, sinon chezmoi échoue hors ligne).
-     Pour épingler une version cassée : remplacer l'URL par celle de la release voulue. Les deux ne
-     sont rechargés qu'à la session suivante. Réglages et raccourcis : .chezmoidata/plasma.yaml. */ -}}
+{{- /* Krohnkite (tiling automatique façon dwm, KWin) et l'effet qui anime les déplacements de fenêtres.
+     Bureaux Arch perso : dernière release, revérifiée chaque semaine (refreshPeriod) ; Krohnkite depuis
+     Codeberg (son URL « latest »), l'effet depuis GitHub (github.refreshPeriod dans .chezmoi.toml.tmpl
+     garde la réponse de l'API une semaine, sinon chezmoi échoue hors ligne). Pour épingler une version
+     cassée : remplacer l'URL par celle de la release voulue. Rechargés à la session suivante seulement.
+     Réglages et raccourcis : .chezmoidata/plasma.yaml. Un .kwinscript est un zip sans dossier racine. */ -}}
 {{- if and (not (get . "work")) (not (get . "headless")) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") }}
-{{- range $dir, $repo := dict "scripts/karousel" "peterfajdiga/karousel" "effects/kwin4_effect_geometry_change" "peterfajdiga/kwin4_effect_geometry_change" }}
-[{{ printf ".local/share/kwin/%s" $dir | quote }}]
+[".local/share/kwin/scripts/krohnkite"]
     type = "archive"
-    url = {{ (index (gitHubLatestRelease $repo).Assets 0).BrowserDownloadURL | quote }}
+    format = "zip"
+    url = "https://codeberg.org/anametologin/Krohnkite/releases/download/latest/krohnkite.kwinscript"
+    exact = true
+    refreshPeriod = "168h"
+[".local/share/kwin/effects/kwin4_effect_geometry_change"]
+    type = "archive"
+    url = {{ (index (gitHubLatestRelease "peterfajdiga/kwin4_effect_geometry_change").Assets 0).BrowserDownloadURL | quote }}
     stripComponents = 1
     exact = true
     refreshPeriod = "168h"
-{{- end }}
 {{- else if and (get . "work") (not (get . "headless")) (eq .chezmoi.os "linux") }}
 {{- /* Laptop du bureau, Plasma 5 : les dernières versions pour Plasma 5, figées (pas d'appel à l'API).
-     Karousel y importe org.kde.notification : paquet qml-module-org-kde-notifications (apt). */}}
-[".local/share/kwin/scripts/karousel"]
+     Krohnkite 0.8.1 : le projet d'origine (esjeon), plus maintenu ; le fork maintenu est Plasma 6 seul.
+     Son script.js est corrigé pour Wayland par .patches/krohnkite-0.8.1-wayland.py. */}}
+{{- $krohnkite := "https://github.com/esjeon/krohnkite/releases/download/v0.8.1/krohnkite-0.8.1.kwinscript" }}
+[".local/share/kwin/scripts/krohnkite"]
     type = "archive"
-    url = "https://github.com/peterfajdiga/karousel/releases/download/v0.7.2/karousel_0_7_2.tar.gz"
-    stripComponents = 1
+    format = "zip"
+    url = {{ $krohnkite | quote }}
     exact = true
+    exclude = ["contents/code/script.js"]
+[".local/share/kwin/scripts/krohnkite/contents/code/script.js"]
+    type = "file"
+    url = {{ $krohnkite | quote }}
+    filter.command = "python3"
+    filter.args = [{{ joinPath .chezmoi.sourceDir ".patches/krohnkite-0.8.1-wayland.py" | quote }}]
 [".local/share/kwin/effects/kwin4_effect_geometry_change"]
     type = "archive"
     url = "https://github.com/peterfajdiga/kwin4_effect_geometry_change/releases/download/v1.1/kwin4_effect_geometry_change.tar.gz"

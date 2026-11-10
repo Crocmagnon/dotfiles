@@ -16,7 +16,7 @@ plasma:
   - {file: kwinrc, groups: [TabBox], key: LayoutName, value: big_icons}
   # Raccourcis : Meta seul ouvrait le lanceur par accident (Alt+F1 le fait toujours).
   - {file: kglobalshortcutsrc, groups: [plasmashell], key: activate application launcher, value: "Alt+F1,,"}
-  # Meta+Tab : la vue d'ensemble le prend (Karousel, plus bas) ; Alt+Tab reste aux fenêtres de l'appli.
+  # Meta+Tab : la vue d'ensemble le prend (plus bas) ; Alt+Tab reste aux fenêtres de l'appli.
   - {file: kglobalshortcutsrc, groups: [kwin], key: Walk Through Windows, value: "none,,"}
   - {file: kglobalshortcutsrc, groups: [kwin], key: Walk Through Windows (Reverse), value: "none,,"}
   - {file: kglobalshortcutsrc, groups: [kwin], key: Walk Through Windows of Current Application Alternative, value: "Alt+Tab,,"}
@@ -41,51 +41,61 @@ plasma:
   # Dossiers ouverts par Dolphin : sans défaut, xdg-mime répondait kitty. mimeapps.list est aussi
   # écrit par les applis : seulement cette clé.
   - {file: mimeapps.list, groups: [Default Applications], key: inode/directory, value: org.kde.dolphin.desktop, hosts: [desktop-gab, framework-gab]}
-  # Karousel (tiling défilant, installé par .chezmoiexternal : v0.18+ sur Arch, v0.7.2 sous Plasma 5 au
-  # bureau ; une action absente d'une version y est sans effet) et Plasma autour, sur toutes les machines Plasma. Convention de niri pour l'Ergo-L : OSEN = haut gauche bas droite, Ctrl = déplacer,
-  # Alt = taille. KWin stocke un symbole « shifté » sans Shift : Mod+Shift+& → Meta+1, Mod+Shift+;
-  # → Meta+. Valeurs « actif,, » : kglobalaccel complète défaut et libellé. Tabulation entre deux
-  # touches d'une même action. Effet à la session suivante (kglobalaccel, et Karousel ne relit
-  # sa config qu'au chargement du script).
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-up, value: "Meta+O\tMeta+Up,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-left, value: "Meta+S\tMeta+Left,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-down, value: "Meta+E\tMeta+Down,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-right, value: "Meta+N\tMeta+Right,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-window-move-up, value: "Meta+Ctrl+O,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-window-move-down, value: "Meta+Ctrl+E,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-move-left, value: "Meta+Ctrl+S,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-move-right, value: "Meta+Ctrl+N,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-window-move-left, value: "Meta+.,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-window-move-right, value: "Meta+\\,,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-move-to-previous-desktop, value: "Meta+Ctrl+W\tMeta+Ctrl+PgUp,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-move-to-next-desktop, value: "Meta+Ctrl+F\tMeta+Ctrl+PgDown,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-width-decrease, value: "Meta+Alt+S,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-width-increase, value: "Meta+Alt+N,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-window-height-increase-up, value: "Meta+Alt+O,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-window-height-increase-down, value: "Meta+Alt+E,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-width-maximize, value: "Meta+X,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-grid-scroll-focused, value: "Meta+Z,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-toggle-stacked, value: "Meta+B,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-window-toggle-floating, value: "Meta+Ctrl+V,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-move-to-desktop-1, value: "Meta+Ctrl+1\tMeta+Ctrl+Shift+F1,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-move-to-desktop-2, value: "Meta+Ctrl+2\tMeta+Ctrl+Shift+F2,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-move-to-desktop-3, value: "Meta+Ctrl+3\tMeta+Ctrl+Shift+F3,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-column-move-to-desktop-4, value: "Meta+Ctrl+4\tMeta+Ctrl+Shift+F4,,"}
-  # Défauts de Karousel en ZQSD ou sur Meta+chiffre (bureaux) : désactivés.
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-columns-squeeze-left, value: "none,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-columns-squeeze-right, value: "none,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-grid-scroll-left-column, value: "none,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-grid-scroll-right-column, value: "none,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-1, value: "none,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-2, value: "none,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-3, value: "none,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-4, value: "none,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-5, value: "none,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-6, value: "none,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-7, value: "none,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-8, value: "none,,"}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: karousel-focus-9, value: "none,,"}
-  # KWin : bureaux, plein écran, maximiser (bascule), fermer ; place libérée pour Karousel.
+  # Krohnkite (tiling automatique façon dwm, installé par .chezmoiexternal : 0.9+ sur Arch, 0.8.1 sous
+  # Plasma 5 au bureau) et Plasma autour, sur toutes les machines Plasma. Convention de niri pour l'Ergo-L :
+  # OSEN = haut gauche bas droite, Ctrl = déplacer, Alt = taille. KWin stocke un symbole « shifté » sans
+  # Shift : Mod+Shift+& → Meta+1, Mod+Shift+; → Meta+. Valeurs « actif,, » : kglobalaccel complète défaut
+  # et libellé. Tabulation entre deux touches d'une même action. Effet à la session suivante (kglobalaccel,
+  # et Krohnkite ne relit sa config qu'au chargement du script). Les noms d'actions diffèrent entre 0.8.1
+  # (« Krohnkite: <libellé> ») et 0.9 (KrohnkiteXxx) : un jeu par version, mêmes touches. Les défauts de
+  # Krohnkite pris par d'autres raccourcis (Meta+T kitty, Meta+M maximiser, Meta+F bureau, Meta+D
+  # KRunner, Meta+L verrou, Meta+./, focus suivant/précédent en 0.9) sont tous réaffectés ici.
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteFocusUp, value: "Meta+O\tMeta+Up,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteFocusLeft, value: "Meta+S\tMeta+Left,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteFocusDown, value: "Meta+E\tMeta+Down,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteFocusRight, value: "Meta+N\tMeta+Right,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteShiftUp, value: "Meta+Ctrl+O,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteShiftLeft, value: "Meta+Ctrl+S,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteShiftDown, value: "Meta+Ctrl+E,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteShiftRight, value: "Meta+Ctrl+N,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteShrinkHeight, value: "Meta+Alt+O,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteShrinkWidth, value: "Meta+Alt+S,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteGrowHeight, value: "Meta+Alt+E,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkitegrowWidth, value: "Meta+Alt+N,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteIncrease, value: "Meta+.,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteDecrease, value: "Meta+\\,,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteMonocleLayout, value: "Meta+X,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteNextLayout, value: "Meta+B,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteToggleFloat, value: "Meta+Ctrl+V,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteTileLayout, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteFocusNext, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteFocusPrev, value: "none,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Up/Prev", value: "Meta+O\tMeta+Up,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Left", value: "Meta+S\tMeta+Left,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Down/Next", value: "Meta+E\tMeta+Down,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Right", value: "Meta+N\tMeta+Right,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Move Up/Prev", value: "Meta+Ctrl+O,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Move Left", value: "Meta+Ctrl+S,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Move Down/Next", value: "Meta+Ctrl+E,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Move Right", value: "Meta+Ctrl+N,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Shrink Height", value: "Meta+Alt+O,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Shrink Width", value: "Meta+Alt+S,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Grow Height", value: "Meta+Alt+E,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Grow Width", value: "Meta+Alt+N,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Increase", value: "Meta+.,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Decrease", value: "Meta+\\,,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Monocle Layout", value: "Meta+X,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Next Layout", value: "Meta+B,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Float", value: "Meta+Ctrl+V,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Tile Layout", value: "none,,", work_desktop: true}
+  # Krohnkite n'envoie pas de fenêtre sur un autre bureau : actions de KWin, il la retuile en arrivant.
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Window One Desktop Up, value: "Meta+Ctrl+W\tMeta+Ctrl+PgUp\tMeta+Ctrl+Shift+Up,,"}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Window One Desktop Down, value: "Meta+Ctrl+F\tMeta+Ctrl+PgDown\tMeta+Ctrl+Shift+Down,,"}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Window to Desktop 1, value: "Meta+Ctrl+1\tMeta+Ctrl+Shift+F1,,"}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Window to Desktop 2, value: "Meta+Ctrl+2\tMeta+Ctrl+Shift+F2,,"}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Window to Desktop 3, value: "Meta+Ctrl+3\tMeta+Ctrl+Shift+F3,,"}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: Window to Desktop 4, value: "Meta+Ctrl+4\tMeta+Ctrl+Shift+F4,,"}
+  # KWin : bureaux, plein écran, maximiser (bascule), fermer ; place libérée pour Krohnkite.
   - {file: kglobalshortcutsrc, groups: [kwin], key: Overview, value: "Meta+Tab,,"}
   - {file: kglobalshortcutsrc, groups: [kwin], key: Switch to Previous Desktop, value: "Meta+W\tMeta+PgUp,,"}
   - {file: kglobalshortcutsrc, groups: [kwin], key: Switch to Next Desktop, value: "Meta+F\tMeta+PgDown,,"}
@@ -118,25 +128,26 @@ plasma:
   - {file: kglobalshortcutsrc, groups: [services, org.kde.spectacle.desktop], key: RecordRegion, value: "none"}
   - {file: kglobalshortcutsrc, groups: [services, org.kde.screenreader.desktop], key: toggleScreenReader, value: "none"}
   - {file: kglobalshortcutsrc, groups: [services, org.kde.plasma.emojier.desktop], key: _launch, value: "Meta+Ctrl+.\tMeta+Ctrl+Alt+Shift+Space"}
-  # Bureaux empilés verticalement ; Karousel et l'animation de ses déplacements ; largeurs de Mod+R ;
-  # règles de tuilage = défauts de Karousel (config/main.xml), plus le sélecteur d'emojis en flottant.
+  # Bureaux empilés verticalement ; Krohnkite et l'animation des déplacements de fenêtres.
   - {file: kwinrc, groups: [Desktops], key: Number, value: "4"}
   - {file: kwinrc, groups: [Desktops], key: Rows, value: "4"}
-  - {file: kwinrc, groups: [Plugins], key: karouselEnabled, value: "true", type: bool}
+  - {file: kwinrc, groups: [Plugins], key: krohnkiteEnabled, value: "true", type: bool}
   - {file: kwinrc, groups: [Plugins], key: kwin4_effect_geometry_changeEnabled, value: "true", type: bool}
+  # Minimiser : Magic Lamp plutôt que Squash, que Krohnkite ne supporte pas (wiki, Tips). Plasma 5 nomme
+  # l'effet kwin4_effect_squash, Plasma 6 squash : la clé de l'autre version est sans effet.
+  - {file: kwinrc, groups: [Plugins], key: kwin4_effect_squashEnabled, value: "false", type: bool}
+  - {file: kwinrc, groups: [Plugins], key: squashEnabled, value: "false", type: bool}
+  - {file: kwinrc, groups: [Plugins], key: magiclampEnabled, value: "true", type: bool}
   # Pas d'indicateur à l'écran du bureau atteint (script KWin livré avec Plasma).
   - {file: kwinrc, groups: [Plugins], key: desktopchangeosdEnabled, value: "false", type: bool}
-  - {file: kwinrc, groups: [Script-karousel], key: presetWidths, value: "33%, 50%, 67%, 100%"}
-  # Glissement horizontal à trois doigts : défile les colonnes (le vertical change de bureau, Plasma),
-  # dans le sens du défilement naturel.
-  - {file: kwinrc, groups: [Script-karousel], key: gestureScroll, value: "true", type: bool}
-  - {file: kwinrc, groups: [Script-karousel], key: gestureScrollInvert, value: "true", type: bool}
-  # Bureau (Karousel v0.7.2, Plasma 5) : ses propres défauts de règles (le nom de fenêtre y est comparé
-  # tel quel, pas en expression régulière : org.kde.plasma.emojier, relevé avec queryWindowInfo), et pas d'action « colonne vers
-  # le bureau voisin » : KWin y déplace la fenêtre, que Karousel retuile en arrivant.
-  - {file: kwinrc, groups: [Script-karousel], key: windowRules, value: '[{"class": "ksmserver-logout-greeter", "tile": false}, {"class": "kcalc", "tile": false}, {"class": "org.kde.kcalc", "tile": false}, {"class": "kfind", "tile": true}, {"class": "org.kde.kfind", "tile": true}, {"class": "kruler", "tile": false}, {"class": "org.kde.kruler", "tile": false}, {"class": "krunner", "tile": false}, {"class": "org.kde.krunner", "tile": false}, {"class": "yakuake", "tile": false}, {"class": "org.kde.yakuake", "tile": false}, {"class": "zoom", "caption": "Zoom Cloud Meetings|zoom|zoom <2>", "tile": false}, {"class": "jetbrains-idea", "caption": "splash", "tile": false}, {"class": "jetbrains-studio", "caption": "splash", "tile": false}, {"class": "jetbrains-idea", "caption": "Unstash Changes|Paths Affected by stash@.*", "tile": true}, {"class": "jetbrains-studio", "caption": "Unstash Changes|Paths Affected by stash@.*", "tile": true}, {"class": "org.kde.plasma.emojier", "tile": false}, {"class": "zenity", "tile": false}, {"class": "org.kde.plasmashell", "tile": false}]', work_desktop: true}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: Window One Desktop Up, value: "Meta+Ctrl+W\tMeta+Ctrl+PgUp\tMeta+Ctrl+Shift+Up,,", work_desktop: true}
-  - {file: kglobalshortcutsrc, groups: [kwin], key: Window One Desktop Down, value: "Meta+Ctrl+F\tMeta+Ctrl+PgDown\tMeta+Ctrl+Shift+Down,,", work_desktop: true}
+  # Flottantes : le sélecteur d'emojis, kcalc et zenity. Krohnkite fait déjà flotter les fenêtres non
+  # normales (dialogues, splash) et ignore plasmashell, krunner, yakuake, spectacle. 0.8.1 : liste de
+  # classes ; 0.9 : une règle par ligne (classes[:titre][:paramètres]), ici une seule ligne de classes.
+  - {file: kwinrc, groups: [Script-krohnkite], key: floatingClass, value: "org.kde.plasma.emojier,kcalc,org.kde.kcalc,zenity", work_desktop: true}
+  - {file: kwinrc, groups: [Script-krohnkite], key: floatConfig, value: "org.kde.plasma.emojier,plasma-emojier,kcalc,org.kde.kcalc,zenity", arch_desktop: true}
+  # 0.8.1 : Meta+gauche/droite déplacent par défaut la frontière master/pile (mode dwm) ; ici le focus,
+  # comme en 0.9.
+  - {file: kwinrc, groups: [Script-krohnkite], key: directionalKeyDwm, value: "false", type: bool, work_desktop: true}
   # Plasma 5 (bureau) : les raccourcis des applis sont dans un groupe par appli, sans le préfixe
   # [services] de Plasma 6 (les lignes [services] ci-dessus y sont sans effet), et le lecteur d'écran
   # dans kaccess. Valeurs complètes « actif,défaut,libellé », comme Plasma 5 les écrit.
@@ -146,10 +157,7 @@ plasma:
   - {file: kglobalshortcutsrc, groups: [org.kde.dolphin.desktop], key: _launch, value: "none,Meta+E,Dolphin", work_desktop: true}
   - {file: kglobalshortcutsrc, groups: [org.kde.plasma.emojier.desktop], key: _launch, value: "Meta+Ctrl+.,Meta+.,Emoji Selector", work_desktop: true}
   - {file: kglobalshortcutsrc, groups: [kaccess], key: Toggle Screen Reader On and Off, value: "none,Meta+Alt+S,Toggle Screen Reader On and Off", work_desktop: true}
-  # Karousel 0.7.2 (bureau) : Mod+Alt+S/N avance d'un pas en pixels (600 par défaut, d'où des sauts) ou
-  # jusqu'à remplir l'écran ; 100 px pour un réglage fin. Deux colonnes à moitié : Mod+Ctrl+X (égaliser).
-  - {file: kwinrc, groups: [Script-karousel], key: manualResizeStep, value: "100", work_desktop: true}
-  # Plasma 5 (bureau) : raccourcis par défaut en conflit avec Karousel, qui perdait Mod+Ctrl+S/N/F/1/2
+  # Plasma 5 (bureau) : raccourcis par défaut en conflit, qui prenaient Mod+Ctrl+S/N/F/1/2
   # (tablette Wacom) et Mod+S (arrêter l'activité). Libellés tels que Plasma 5 les écrit.
   - {file: kglobalshortcutsrc, groups: [wacomtablet], key: Toggle stylus mode, value: "none,Meta+Ctrl+S,Basculer entre l'état relatif / absolu de l'outil stylet", work_desktop: true}
   - {file: kglobalshortcutsrc, groups: [wacomtablet], key: Next Profile, value: "none,Meta+Ctrl+N,Profil suivant", work_desktop: true}
@@ -160,8 +168,6 @@ plasma:
   # Meta seul : Plasma 5 ouvre le lanceur par KWin (ModifierOnlyShortcuts), indépendamment du raccourci
   # du lanceur (Alt+F1, plus haut) ; une valeur vide le désactive.
   - {file: kwinrc, groups: [ModifierOnlyShortcuts], key: Meta, value: "", work_desktop: true}
-  # Arch (Karousel v0.18+) :
-  - {file: kwinrc, groups: [Script-karousel], key: windowRules, value: '[{"class": "(org\\.kde\\.)?plasmashell", "tile": false}, {"class": "(org\\.kde\\.)?polkit-kde-authentication-agent-1", "tile": false}, {"class": "(org\\.kde\\.)?kded6", "tile": false}, {"class": "(org\\.kde\\.)?kcalc", "tile": false}, {"class": "(org\\.kde\\.)?kfind", "tile": true}, {"class": "(org\\.kde\\.)?kruler", "tile": false}, {"class": "(org\\.kde\\.)?krunner", "tile": false}, {"class": "(org\\.kde\\.)?yakuake", "tile": false}, {"class": "wl-copy|wl-paste", "caption": "wl-clipboard", "tile": false}, {"class": "steam", "caption": "Steam Big Picture Mode", "tile": false}, {"class": "zoom", "caption": "Zoom Cloud Meetings|zoom|zoom <2>", "tile": false}, {"class": "jetbrains-.*", "caption": "splash", "tile": false}, {"class": "jetbrains-.*", "caption": "Unstash Changes|Paths Affected by stash@.*", "tile": true}, {"class": "(org\\.kde\\.)?plasma[.-]emojier", "tile": false}]', arch_desktop: true}
   # Spectacle : se ferme après Ctrl+C sur une sélection (menu Options).
   - {file: spectaclerc, groups: [GuiConfig], key: quitAfterSaveCopyExport, value: "true", type: bool}
   # Bouton « clé » (YubiKey) sur le verrou de Plasma 6.8 : service PAM kde-u2f, posé par arch-config.

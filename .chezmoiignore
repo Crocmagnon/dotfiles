@@ -93,12 +93,9 @@ docs/
 .config/systemd/user/plasma-kwin_wayland.service.wants
 {{- end }}
 
-{{- /* Laptop du bureau uniquement : la YubiKey ; Karousel 0.7.2 rechargé après un changement d'écran. */}}
+{{- /* Laptop du bureau uniquement : la YubiKey. */}}
 {{- if not (and (get . "work") (not (get . "headless"))) }}
 .gnupg/scdaemon.conf
-.local/bin/karousel-screen-reload
-.config/systemd/user/karousel-screen-reload.service
-.config/systemd/user/plasma-workspace.target.wants/karousel-screen-reload.service
 {{- end }}
 
 {{- /* Desktops perso Arch uniquement : tri automatique de l'inbox pCloud d'Impressions 3D. */}}
