@@ -140,11 +140,12 @@ plasma:
   - {file: kwinrc, groups: [Plugins], key: magiclampEnabled, value: "true", type: bool}
   # Pas d'indicateur à l'écran du bureau atteint (script KWin livré avec Plasma).
   - {file: kwinrc, groups: [Plugins], key: desktopchangeosdEnabled, value: "false", type: bool}
-  # Flottantes : le sélecteur d'emojis, kcalc et zenity. Krohnkite fait déjà flotter les fenêtres non
+  # Flottantes : le sélecteur d'emojis, kcalc, zenity et KeePassXC (sa fenêtre ne descend pas sous ~530 px
+  # de haut, et ne s'ouvre que pour une demande : elle vit dans la zone de notification, plus bas). Krohnkite fait déjà flotter les fenêtres non
   # normales (dialogues, splash) et ignore plasmashell, krunner, yakuake, spectacle. 0.8.1 : liste de
   # classes ; 0.9 : une règle par ligne (classes[:titre][:paramètres]), ici une seule ligne de classes.
-  - {file: kwinrc, groups: [Script-krohnkite], key: floatingClass, value: "org.kde.plasma.emojier,kcalc,org.kde.kcalc,zenity", work_desktop: true}
-  - {file: kwinrc, groups: [Script-krohnkite], key: floatConfig, value: "org.kde.plasma.emojier,plasma-emojier,kcalc,org.kde.kcalc,zenity", arch_desktop: true}
+  - {file: kwinrc, groups: [Script-krohnkite], key: floatingClass, value: "org.kde.plasma.emojier,kcalc,org.kde.kcalc,zenity,org.keepassxc.KeePassXC", work_desktop: true}
+  - {file: kwinrc, groups: [Script-krohnkite], key: floatConfig, value: "org.kde.plasma.emojier,plasma-emojier,kcalc,org.kde.kcalc,zenity,org.keepassxc.KeePassXC", arch_desktop: true}
   # 0.8.1 : Meta+gauche/droite déplacent par défaut la frontière master/pile (mode dwm) ; ici le focus,
   # comme en 0.9.
   - {file: kwinrc, groups: [Script-krohnkite], key: directionalKeyDwm, value: "false", type: bool, work_desktop: true}
@@ -180,6 +181,11 @@ plasma:
   - {file: kwinrulesrc, groups: [krohnkite-webex], key: types, value: "1"}
   - {file: kwinrulesrc, groups: [krohnkite-webex], key: minsize, value: "1,1"}
   - {file: kwinrulesrc, groups: [krohnkite-webex], key: minsizerule, value: "2"}
+  # KeePassXC dans la zone de notification : il doit tourner pour l'extension navigateur, sans fenêtre
+  # dans le pavage ; il la rouvre de lui-même pour une demande d'accès ou un déverrouillage.
+  - {file: keepassxc/keepassxc.ini, groups: [GUI], key: ShowTrayIcon, value: "true", type: bool}
+  - {file: keepassxc/keepassxc.ini, groups: [GUI], key: MinimizeOnClose, value: "true", type: bool}
+  - {file: keepassxc/keepassxc.ini, groups: [GUI], key: MinimizeOnStartup, value: "true", type: bool}
   # Spectacle : se ferme après Ctrl+C sur une sélection (menu Options).
   - {file: spectaclerc, groups: [GuiConfig], key: quitAfterSaveCopyExport, value: "true", type: bool}
   # Bouton « clé » (YubiKey) sur le verrou de Plasma 6.8 : service PAM kde-u2f, posé par arch-config.
