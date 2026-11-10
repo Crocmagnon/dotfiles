@@ -1,0 +1,12 @@
+{{- if and (not (get . "work")) (not (get . "headless")) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") -}}
+#!/bin/sh
+# Active le proxy local vers l'API Anthropic. Relancé quand la config ou l'unité change :
+# Caddyfile {{ include "dot_config/caddy/claude-proxy.Caddyfile" | sha256sum }}
+# service {{ include "dot_config/systemd/user/claude-proxy.service" | sha256sum }}
+# caddy vient de decman (arch-config) : {{ lookPath "caddy" }}
+set -eu
+command -v caddy >/dev/null || exit 0
+systemctl --user daemon-reload
+systemctl --user enable claude-proxy.service
+systemctl --user restart claude-proxy.service
+{{ end -}}

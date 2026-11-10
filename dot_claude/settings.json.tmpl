@@ -4,6 +4,8 @@
 {{- if $work }}
     "ANTHROPIC_BASE_URL": "{{ include ".secrets/encrypted_anthropic_base_url" | trim }}",
     "ANTHROPIC_CUSTOM_HEADERS": "x-bf-lh-userid: {{ include ".secrets/encrypted_corp_email" | trim }}",
+{{- else if and (not (get . "headless")) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") }}
+    "ANTHROPIC_BASE_URL": "http://localhost:13862",
 {{- end }}
     "FORCE_HYPERLINK": "1"
   },

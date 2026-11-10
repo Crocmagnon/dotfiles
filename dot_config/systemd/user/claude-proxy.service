@@ -1,0 +1,10 @@
+# Proxy local vers l'API Anthropic pour Claude Code ; voir ~/.config/caddy/claude-proxy.Caddyfile.
+[Unit]
+Description=Proxy local vers l'API Anthropic pour Claude Code
+
+[Service]
+ExecStart=/usr/bin/caddy run --config %h/.config/caddy/claude-proxy.Caddyfile --adapter caddyfile
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

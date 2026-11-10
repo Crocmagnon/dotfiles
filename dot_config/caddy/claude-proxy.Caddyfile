@@ -1,0 +1,14 @@
+# Proxy local vers l'API Anthropic : Claude Code pointe dessus (ANTHROPIC_BASE_URL) pour ne pas
+# télécharger les réglages distants imposés par l'entreprise. Contournement fourni par les admins.
+{
+	admin off
+	auto_https off
+}
+
+http://:13862 {
+	# Seulement en local : sinon Caddy écoute sur toutes les interfaces.
+	bind 127.0.0.1 [::1]
+	reverse_proxy https://api.anthropic.com {
+		header_up Host {upstream_hostport}
+	}
+}

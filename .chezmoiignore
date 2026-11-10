@@ -106,6 +106,12 @@ docs/
 .config/systemd/user/ranger-impressions-3d.service
 {{- end }}
 
+{{- /* Desktops perso Arch uniquement : proxy local vers l'API Anthropic pour Claude Code. */}}
+{{- if not (and (not (get . "work")) (not (get . "headless")) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
+.config/caddy
+.config/systemd/user/claude-proxy.service
+{{- end }}
+
 {{- /* Desktops perso Arch uniquement : relance de KRunner quand il démarre avant l'affichage. */}}
 {{- if not (and (not (get . "work")) (not (get . "headless")) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
 .config/systemd/user/plasma-krunner.service.d
