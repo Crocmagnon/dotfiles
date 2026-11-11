@@ -146,6 +146,10 @@ plasma:
   # classes ; 0.9 : une règle par ligne (classes[:titre][:paramètres]), ici une seule ligne de classes.
   - {file: kwinrc, groups: [Script-krohnkite], key: floatingClass, value: "org.kde.plasma.emojier,kcalc,org.kde.kcalc,zenity,org.keepassxc.KeePassXC", work_desktop: true}
   - {file: kwinrc, groups: [Script-krohnkite], key: floatConfig, value: "org.kde.plasma.emojier,plasma-emojier,kcalc,org.kde.kcalc,zenity,org.keepassxc.KeePassXC", arch_desktop: true}
+  # 0.9 choisit la fenêtre visée par le focus directionnel avec les géométries KWin. À l'échelle
+  # fractionnaire et sans espacement, les tuiles voisines se chevauchent de moins d'un pixel : depuis le
+  # bas de la pile, Mod+O allait au master au lieu de la fenêtre du dessus (11/11/2026). 2 px y suffisent.
+  - {file: kwinrc, groups: [Script-krohnkite], key: screenGapBetween, value: "2", arch_desktop: true}
   # 0.8.1 : Meta+gauche/droite déplacent par défaut la frontière master/pile (mode dwm) ; ici le focus,
   # comme en 0.9.
   - {file: kwinrc, groups: [Script-krohnkite], key: directionalKeyDwm, value: "false", type: bool, work_desktop: true}
