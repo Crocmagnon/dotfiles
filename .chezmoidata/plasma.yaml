@@ -66,6 +66,7 @@ plasma:
   - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteDecrease, value: "Meta+\\,,,", arch_desktop: true}
   - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteMonocleLayout, value: "Meta+X,,", arch_desktop: true}
   - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteNextLayout, value: "Meta+B,,", arch_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkitePreviousLayout, value: "Meta+Shift+B,,", arch_desktop: true}
   - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteToggleFloat, value: "Meta+Ctrl+V,,", arch_desktop: true}
   - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteTileLayout, value: "none,,", arch_desktop: true}
   - {file: kglobalshortcutsrc, groups: [kwin], key: KrohnkiteFocusNext, value: "none,,", arch_desktop: true}
@@ -86,6 +87,7 @@ plasma:
   - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Decrease", value: "Meta+\\,,,", work_desktop: true}
   - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Monocle Layout", value: "Meta+X,,", work_desktop: true}
   - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Next Layout", value: "Meta+B,,", work_desktop: true}
+  - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Previous Layout", value: "Meta+Shift+B,,", work_desktop: true}
   - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Float", value: "Meta+Ctrl+V,,", work_desktop: true}
   - {file: kglobalshortcutsrc, groups: [kwin], key: "Krohnkite: Tile Layout", value: "none,,", work_desktop: true}
   # Krohnkite n'envoie pas de fenêtre sur un autre bureau : actions de KWin, il la retuile en arrivant.
