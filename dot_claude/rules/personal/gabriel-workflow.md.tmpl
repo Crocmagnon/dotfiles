@@ -94,6 +94,8 @@ and on top of it —
 
 - Commands handed to the user to run interactively are written for fish, their interactive shell on
   every machine: `set d (…)`, not `d=$(…)`; `; and` / `; or` rather than `&&` / `||`.
+  Exception: a command suggested for Claude Code's `!` prefix runs under bash, not fish, so write
+  it in bash (`xdg-open "$(cat f)"`, not `xdg-open (cat f)`, which bash rejects).
 - The Bash tool runs the user's shell, zsh on the work machines, which does not word-split an
   unquoted variable: `set -- $pair` or `cmd $flags` passes one argument. Run loops that rely on
   word splitting under `bash -c '…'`, or use arrays.
