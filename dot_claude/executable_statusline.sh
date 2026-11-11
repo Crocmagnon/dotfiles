@@ -6,11 +6,12 @@ export LC_ALL=C
 
 input=$(cat)
 
-IFS=$'\t' read -r model dir used cost < <(jq -r '[
+IFS=$'\t' read -r model dir used cost effort < <(jq -r '[
   .model.display_name // "?",
   (.workspace.current_dir // .cwd // "."),
   (.context_window.used_percentage // -1),
-  (.cost.total_cost_usd // 0)
+  (.cost.total_cost_usd // 0),
+  (.effort.level // "")
 ] | @tsv' <<<"$input")
 
 R=$'\e[0m' DIM=$'\e[2m' REPO=$'\e[1;34m' BRANCH=$'\e[35m' PR=$'\e[36m'
@@ -39,7 +40,7 @@ pr_id() {
   awk -v s="$sha" '$1 == s { split($2, p, "/"); print p[3]; exit }' "$file" 2>/dev/null
 }
 
-out="${DIM}${model}${R}"
+out="${DIM}${model}${effort:+ · $effort}${R}"
 
 if root=$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null); then
   # In a linked worktree the common dir is the main clone's .git, so the two names differ.
