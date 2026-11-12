@@ -1,0 +1,11 @@
+{
+    "KPackageStructure": "KWin/Script",
+    "KPlugin": {
+        "Id": "bitwarden-float",
+        "Name": "Bitwarden flottant",
+        "Description": "Fait flotter dans Krohnkite la fenêtre détachée de Bitwarden",
+        "License": "MIT"
+    },
+    "X-Plasma-API": "javascript",
+    "X-Plasma-MainScript": "code/main.js"
+}

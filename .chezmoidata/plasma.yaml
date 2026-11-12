@@ -134,6 +134,8 @@ plasma:
   - {file: kwinrc, groups: [Desktops], key: Number, value: "4"}
   - {file: kwinrc, groups: [Desktops], key: Rows, value: "4"}
   - {file: kwinrc, groups: [Plugins], key: krohnkiteEnabled, value: "true", type: bool}
+  # Script maison (dot_local/share/kwin/scripts/bitwarden-float) : la fenêtre détachée de Bitwarden flotte.
+  - {file: kwinrc, groups: [Plugins], key: bitwarden-floatEnabled, value: "true", type: bool, arch_desktop: true}
   - {file: kwinrc, groups: [Plugins], key: kwin4_effect_geometry_changeEnabled, value: "true", type: bool}
   # Minimiser : Magic Lamp plutôt que Squash, que Krohnkite ne supporte pas (wiki, Tips). Plasma 5 nomme
   # l'effet kwin4_effect_squash, Plasma 6 squash : la clé de l'autre version est sans effet.
@@ -145,10 +147,9 @@ plasma:
   # Flottantes : le sélecteur d'emojis, kcalc, zenity et KeePassXC (sa fenêtre ne descend pas sous ~530 px
   # de haut, et ne s'ouvre que pour une demande : elle vit dans la zone de notification, plus bas). Krohnkite fait déjà flotter les fenêtres non
   # normales (dialogues, splash) et ignore plasmashell, krunner, yakuake, spectacle. 0.8.1 : liste de
-  # classes ; 0.9 : une règle par ligne (classes[:titre][:paramètres]). La 2e flotte la fenêtre détachée
-  # de Bitwarden (« Extension: (Bitwarden Password Manager) - … ») : [x] cherche x dans le titre, sans « : ».
+  # classes ; 0.9 : une règle par ligne (classes[:titre][:paramètres]), ici une seule ligne de classes.
   - {file: kwinrc, groups: [Script-krohnkite], key: floatingClass, value: "org.kde.plasma.emojier,kcalc,org.kde.kcalc,zenity,org.keepassxc.KeePassXC", work_desktop: true}
-  - {file: kwinrc, groups: [Script-krohnkite], key: floatConfig, value: "org.kde.plasma.emojier,plasma-emojier,kcalc,org.kde.kcalc,zenity,org.keepassxc.KeePassXC\nfirefox:[(Bitwarden Password Manager)]:", arch_desktop: true}
+  - {file: kwinrc, groups: [Script-krohnkite], key: floatConfig, value: "org.kde.plasma.emojier,plasma-emojier,kcalc,org.kde.kcalc,zenity,org.keepassxc.KeePassXC", arch_desktop: true}
   # 0.9 choisit la fenêtre visée par le focus directionnel avec les géométries KWin. À l'échelle
   # fractionnaire et sans espacement, les tuiles voisines se chevauchent de moins d'un pixel : depuis le
   # bas de la pile, Mod+O allait au master au lieu de la fenêtre du dessus (11/11/2026). 2 px y suffisent.

@@ -118,6 +118,12 @@ docs/
 .config/systemd/user/plasma-krunner.service.d
 {{- end }}
 
+{{- /* Desktops perso Arch uniquement : script KWin qui fait flotter la fenêtre détachée de Bitwarden
+     (raccourci de Krohnkite 0.9). */}}
+{{- if not (and (not (get . "work")) (not (get . "headless")) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
+.local/share/kwin/scripts/bitwarden-float
+{{- end }}
+
 {{- /* Arch uniquement : le lien qui active plasma-krunner.service, et decman-update. */}}
 {{- if not (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
 .config/systemd/user/plasma-workspace.target.wants/plasma-krunner.service
