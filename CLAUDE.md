@@ -16,7 +16,7 @@ chezmoi source directory for Gabriel's dotfiles. One repo, four machines:
 ## Commands
 
 - `chezmoi diff` / `chezmoi status` (fish alias `dotstatus`): what `apply` would change here. Fish prints "dotfiles drift" at startup when status is non-empty.
-- `chezmoi apply [target]`: deploy. Don't run it: it writes to `$HOME` and runs the `run_onchange_*` scripts. Edit versioned files and run read-only commands freely, but anything outside the repo (`chezmoi apply`, `host.config`, keys, YubiKey) is the user's to run: give them the command.
+- `chezmoi apply [target]`: deploy (writes to `$HOME`, runs the `run_onchange_*` scripts). Run it yourself once a change is done, after `chezmoi diff` shows only the expected change; then make it take effect without asking (Krohnkite: reload it as described under Krohnkite below). Other things outside the repo (`host.config`, keys, YubiKey) stay the user's to run: give them the command.
 - `chezmoi cat ~/path/to/target`: render one file for this machine.
 - Render for another profile: `chezmoi --override-data '{"work":false,"headless":false}' cat ~/.config/mise/config.toml`. This only overrides `work`/`headless`; Arch/hostname branches still follow the current machine.
 - `chezmoi execute-template < file.tmpl`: render an arbitrary template snippet.
