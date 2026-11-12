@@ -18,10 +18,11 @@ fi
 {{ $archLaptop := and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") (stat "/run/systemd/system") (eq (output "hostnamectl" "chassis" | trim) "laptop") -}}
 {{- /* arch_desktop : bureaux Arch perso (Plasma 6, Krohnkite 0.9+, YubiKey) ; work_desktop : laptop du
      bureau (Plasma 5, Krohnkite 0.8.1). Une valeur à plusieurs touches les sépare par une tabulation : quote
-     l'écrit \t, que $tab rend en vraie tabulation. */ -}}
+     l'écrit \t, que $tab rend en vraie tabulation ; de même \n et $nl pour une valeur à plusieurs lignes. */ -}}
 {{ $archDesktop := and (not (get . "work")) (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") -}}
 {{ $workDesktop := get . "work" -}}
 tab=$(printf '\t')
+nl=$(printf '\nx'); nl=${nl%x}
 # temporaire : retire les raccourcis de Karousel, qui gardent les touches de Krohnkite ; à supprimer une
 # fois chaque machine passée par une connexion (kglobalaccel ne les réécrit plus ensuite).
 sed -i '/^karousel-/d' "${XDG_CONFIG_HOME:-$HOME/.config}/kglobalshortcutsrc" 2>/dev/null
@@ -29,7 +30,7 @@ sed -i '/^karousel-/d' "${XDG_CONFIG_HOME:-$HOME/.config}/kglobalshortcutsrc" 2>
 {{ range .plasma -}}
 {{ $hosts := get . "hosts" -}}
 {{ if and (or (not $hosts) (has $.chezmoi.hostname $hosts)) (or (not (get . "arch_laptop")) $archLaptop) (or (not (get . "arch_desktop")) $archDesktop) (or (not (get . "work_desktop")) $workDesktop) -}}
-$kw --file {{ .file | quote }}{{ range .groups }} --group {{ . | quote }}{{ end }} --key {{ .key | quote }}{{ with get . "type" }} --type {{ . }}{{ end }} {{ .value | replace "~" $.chezmoi.homeDir | quote | replace "\\t" "${tab}" }}
+$kw --file {{ .file | quote }}{{ range .groups }} --group {{ . | quote }}{{ end }} --key {{ .key | quote }}{{ with get . "type" }} --type {{ . }}{{ end }} {{ .value | replace "~" $.chezmoi.homeDir | quote | replace "\\t" "${tab}" | replace "\\n" "${nl}" }}
 {{ end -}}
 {{ end -}}
 # Mod+V ouvre le presse-papiers de la zone de notification, placé par Plasma contre la barre, plutôt que

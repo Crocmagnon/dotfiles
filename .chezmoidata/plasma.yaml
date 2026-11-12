@@ -145,9 +145,10 @@ plasma:
   # Flottantes : le sélecteur d'emojis, kcalc, zenity et KeePassXC (sa fenêtre ne descend pas sous ~530 px
   # de haut, et ne s'ouvre que pour une demande : elle vit dans la zone de notification, plus bas). Krohnkite fait déjà flotter les fenêtres non
   # normales (dialogues, splash) et ignore plasmashell, krunner, yakuake, spectacle. 0.8.1 : liste de
-  # classes ; 0.9 : une règle par ligne (classes[:titre][:paramètres]), ici une seule ligne de classes.
+  # classes ; 0.9 : une règle par ligne (classes[:titre][:paramètres]). La 2e flotte la fenêtre détachée
+  # de Bitwarden (« Extension: (Bitwarden Password Manager) - … ») : [x] cherche x dans le titre, sans « : ».
   - {file: kwinrc, groups: [Script-krohnkite], key: floatingClass, value: "org.kde.plasma.emojier,kcalc,org.kde.kcalc,zenity,org.keepassxc.KeePassXC", work_desktop: true}
-  - {file: kwinrc, groups: [Script-krohnkite], key: floatConfig, value: "org.kde.plasma.emojier,plasma-emojier,kcalc,org.kde.kcalc,zenity,org.keepassxc.KeePassXC", arch_desktop: true}
+  - {file: kwinrc, groups: [Script-krohnkite], key: floatConfig, value: "org.kde.plasma.emojier,plasma-emojier,kcalc,org.kde.kcalc,zenity,org.keepassxc.KeePassXC\nfirefox:[(Bitwarden Password Manager)]:", arch_desktop: true}
   # 0.9 choisit la fenêtre visée par le focus directionnel avec les géométries KWin. À l'échelle
   # fractionnaire et sans espacement, les tuiles voisines se chevauchent de moins d'un pixel : depuis le
   # bas de la pile, Mod+O allait au master au lieu de la fenêtre du dessus (11/11/2026). 2 px y suffisent.
