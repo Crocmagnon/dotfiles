@@ -79,6 +79,7 @@ docs/
 .config/agenix
 .config/go/env
 .config/ha-mcp
+.config/paperless-mcp
 .config/autostart/rotatrix.desktop
 {{- end }}
 
