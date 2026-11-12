@@ -152,6 +152,9 @@ plasma:
   # fractionnaire et sans espacement, les tuiles voisines se chevauchent de moins d'un pixel : depuis le
   # bas de la pile, Mod+O allait au master au lieu de la fenêtre du dessus (11/11/2026). 2 px y suffisent.
   - {file: kwinrc, groups: [Script-krohnkite], key: screenGapBetween, value: "2", arch_desktop: true}
+  # OSD des layouts (Mod+B) : 1 s par défaut, trop court. Le garder tant que Mod est tenu est impossible,
+  # un script KWin ne voit pas l'état des modificateurs.
+  - {file: kwinrc, groups: [Script-krohnkite], key: notificationDuration, value: "2500", arch_desktop: true}
   # 0.8.1 : Meta+gauche/droite déplacent par défaut la frontière master/pile (mode dwm) ; ici le focus,
   # comme en 0.9.
   - {file: kwinrc, groups: [Script-krohnkite], key: directionalKeyDwm, value: "false", type: bool, work_desktop: true}
