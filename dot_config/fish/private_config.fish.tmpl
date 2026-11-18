@@ -64,11 +64,15 @@ if status is-interactive
     else
         atuin init fish --disable-up-arrow | source
     end
+{{- if not (get . "headless") }}
     # gpg-agent sert d'agent SSH : une requête SSH ne transporte ni écran ni terminal, pinentry
     # prend ceux enregistrés par l'agent. Sans ceci, ce sont ceux de son démarrage (souvent avant
     # que la session graphique existe) et la demande de passphrase n'a nulle part où s'afficher.
+{{- end }}
     set -gx GPG_TTY (tty)
+{{- if not (get . "headless") }}
     gpg-connect-agent updatestartuptty /bye >/dev/null
+{{- end }}
     set -g fish_greeting ""
     zoxide init fish | source
     starship init fish | source

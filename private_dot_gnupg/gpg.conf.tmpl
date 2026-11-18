@@ -7,3 +7,8 @@ n'a qu'une clé secrète à ce nom. Le serveur de clés est celui de l'entrepris
 keyserver {{ include ".secrets/encrypted_gpg_keyserver" | trim }}
 {{ end -}}
 default-key Gabriel Augendre
+{{- if get . "headless" }}
+# Sans écran, pinentry-curses s'affichait sur le terminal d'un autre pane : gpg demande la
+# passphrase lui-même, dans le sien, et échoue aussitôt s'il n'en a pas.
+pinentry-mode loopback
+{{- end }}

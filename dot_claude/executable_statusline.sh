@@ -33,7 +33,9 @@ pr_id() {
   file="$cache/$(printf '%s' "$root" | cksum | cut -d' ' -f1)"
   mkdir -p "$cache"
   if [ ! -s "$file" ] || [ -n "$(find "$file" -mmin +5 2>/dev/null)" ]; then
-    (git -C "$dir" ls-remote origin 'refs/pull-requests/*/from' >"$file.tmp" 2>/dev/null &&
+    # Jamais de demande de passphrase ou d'identifiants : en arrière-plan, elle bloquerait ou
+    # s'afficherait ailleurs.
+    (GIT_SSH_COMMAND="ssh -o BatchMode=yes" GIT_TERMINAL_PROMPT=0 GIT_ASKPASS= git -C "$dir" ls-remote origin 'refs/pull-requests/*/from' >"$file.tmp" 2>/dev/null &&
       mv "$file.tmp" "$file") >/dev/null 2>&1 &
     disown 2>/dev/null
   fi
