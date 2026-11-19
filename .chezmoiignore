@@ -43,6 +43,7 @@ docs/
 
 {{- /* Travail uniquement : hôtes, identifiants et outils de l'entreprise. */}}
 {{- if not (get . "work") }}
+.config/environment.d/70-firefox-xwayland.conf
 .ovh.conf
 .terraformrc
 .netrc
