@@ -84,6 +84,25 @@ and on top of it —
 - If `mise run lint` (or `make lint` on unmigrated repos) and the tests have just run green for
   the exact working tree being committed, commit with `git commit --no-verify` — the pre-commit
   hooks re-run a verification that just passed. If anything changed since, let the hooks run.
+{{- if not (get . "work") }}
+
+## Go code layout
+
+Applies to every Go project:
+
+- `cmd/<name>/`: entry points. They read the configuration, build the adapters and hand them to
+  the domain.
+- `internal/domain/`: business code, in sub-packages if needed. It never imports an adapter: it
+  declares the ports it needs (interfaces) and receives the adapters.
+- `internal/adapters/`: everything that talks to the outside world (API clients, databases,
+  files, CLIs). Adapters never import each other.
+- Functions the domain calls (its ports, implemented by adapters) only take and return domain
+  types or plain values. Constructors and setup called only from `cmd/` may take adapter-specific
+  types (e.g. a `Credentials` struct).
+- Domain types are strongly typed so that invalid states do not compile where possible: named
+  types for identifiers and labels, and structs with unexported fields that only a validating
+  constructor can build.
+{{- end }}
 
 ## Personal repositories
 
