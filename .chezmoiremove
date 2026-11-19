@@ -2,3 +2,4 @@
 .local/bin/karousel-screen-reload
 .config/systemd/user/karousel-screen-reload.service
 .config/systemd/user/plasma-workspace.target.wants/karousel-screen-reload.service
+.config/fish/functions/dotstatus.fish
