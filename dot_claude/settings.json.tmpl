@@ -11,10 +11,6 @@
   },
   "permissions": {
     "deny": [
-{{- if not $work }}
-      "Bash(curl:*)",
-      "Bash(wget:*)",
-{{- end }}
       "Read(**/*.enc)",
       "Read(**/*.key)",
       "Read(**/*.pem)",
