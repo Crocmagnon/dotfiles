@@ -109,6 +109,14 @@ Applies to every Go project:
 - Repositories on GitHub use `main` as the default branch, never
   `master`: name the branch, the CI triggers and any `go run …@<branch>` install line after it.
 
+## Where clones live
+
+- Clone every repository under `~/Projects/<host>/<owner>/<repo>`, after its real forge: e.g.
+  `~/Projects/github.com/Crocmagnon/nixos-config`, `~/Projects/codeberg.org/readeck/readeck`.
+  Check where a project is actually hosted before cloning (Readeck is on Codeberg, not GitHub).
+- When a repository is renamed or moves forge, move the clone to its new path and update the
+  `origin` remote to match.
+
 ## Shell commands
 
 - Commands handed to the user to run interactively are written for fish, their interactive shell on
