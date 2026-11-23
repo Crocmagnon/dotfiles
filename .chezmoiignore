@@ -93,6 +93,7 @@ docs/
 .local/bin/plasma-settings
 .config/systemd/user/plasma-settings.service
 .config/systemd/user/plasma-kwin_wayland.service.wants
+.config/keepassxc
 {{- end }}
 
 {{- /* Laptop du bureau uniquement : la YubiKey. */}}

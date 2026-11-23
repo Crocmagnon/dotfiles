@@ -196,11 +196,6 @@ plasma:
   - {file: kwinrulesrc, groups: [krohnkite-webex], key: types, value: "1"}
   - {file: kwinrulesrc, groups: [krohnkite-webex], key: minsize, value: "1,1"}
   - {file: kwinrulesrc, groups: [krohnkite-webex], key: minsizerule, value: "2"}
-  # KeePassXC dans la zone de notification : il doit tourner pour l'extension navigateur, sans fenêtre
-  # dans le pavage ; il la rouvre de lui-même pour une demande d'accès ou un déverrouillage.
-  - {file: keepassxc/keepassxc.ini, groups: [GUI], key: ShowTrayIcon, value: "true", type: bool}
-  - {file: keepassxc/keepassxc.ini, groups: [GUI], key: MinimizeOnClose, value: "true", type: bool}
-  - {file: keepassxc/keepassxc.ini, groups: [GUI], key: MinimizeOnStartup, value: "true", type: bool}
   # Fenêtres sans classe : les aperçus d'image de Webex (X11, titrées du nom du fichier, sans WM_CLASS ni
   # WM_TRANSIENT_FOR), que Krohnkite pavait. Forcées en dialogue, qu'il laisse flotter. La classe vide en
   # correspondance exacte n'attrape que les fenêtres qui n'en ont aucune.
