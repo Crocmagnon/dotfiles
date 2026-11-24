@@ -150,6 +150,9 @@ plasma:
   # classes ; 0.9 : une règle par ligne (classes[:titre][:paramètres]), ici une seule ligne de classes.
   - {file: kwinrc, groups: [Script-krohnkite], key: floatingClass, value: "org.kde.plasma.emojier,kcalc,org.kde.kcalc,zenity,org.keepassxc.KeePassXC", work_desktop: true}
   - {file: kwinrc, groups: [Script-krohnkite], key: floatConfig, value: "org.kde.plasma.emojier,plasma-emojier,kcalc,org.kde.kcalc,zenity,org.keepassxc.KeePassXC", arch_desktop: true}
+  # Monocle : par défaut il maximise les fenêtres (état Maximized), que ToggleFloat ne bascule pas ; la
+  # fenêtre et la modale passkey de Bitwarden restaient pavées (bitwarden-float, 25/11/2026).
+  - {file: kwinrc, groups: [Script-krohnkite], key: monocleMaximize, value: "false", type: bool, arch_desktop: true}
   # 0.9 choisit la fenêtre visée par le focus directionnel avec les géométries KWin. À l'échelle
   # fractionnaire et sans espacement, les tuiles voisines se chevauchent de moins d'un pixel : depuis le
   # bas de la pile, Mod+O allait au master au lieu de la fenêtre du dessus (11/11/2026). 2 px y suffisent.
